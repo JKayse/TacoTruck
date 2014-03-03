@@ -1,42 +1,70 @@
 @import url(http://fonts.googleapis.com/css?family=Carter+One);
 @import url(http://fonts.googleapis.com/css?family=Germania+One);
 
+html {
+    height: 100%;
+}
 body{
     margin-top: 0px;
+    background-image: url("../img/backgroundimage2.png");
+    height: 100%;
 }
 header {
-    width: 1000px;
-    height: 100px;
+    width: 1005px;
+    height: 16%;
     margin-left: auto;
     margin-right: auto;
-    background-color: green;
-}
+    background-color: rgb(255, 233, 176);
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(182, 182, 182);
 
+}
 #main{
-    width: 1000px;
+    width: 1005px;
     margin-left: auto;
     margin-right: auto;
+    background-color: rgb(254, 255, 228);
+    height: 84%;
+
 }
 
 h1 { 
     font-family: 'Germania One', cursive;
     float: left;
-    margin-left: 20px;
+    margin-left: 40px;
     font-size: 50px;
     margin-top: 2%;
     margin-bottom: 0px;
+    color: rgb(95, 54, 39);
 }
 
 header img {
     float: left;
+    margin-left: 15px;
+    margin-top: 2px;
 
 }
 
-#signIn {
+.rightHeader {
     float: right;   
+}
+
+#signIn{
+    display: block;
     margin-top: 4%;
 }
 
+#signedIn{
+    display: none;
+    margin-top: 2%;
+    margin-bottom: 0px;
+}
+
+#signedIn h2{
+    margin-bottom: 0px;
+    margin-right: 20px;
+}
 
 hr {
     clear: both;
@@ -46,10 +74,25 @@ hr {
 #orders {
     width:32%;
     float:left;
+    border-style: solid;
+    border-width: 3px;
+    border-color: rgb(95, 54, 39);
+    margin: 20px;
+    height: 92%;
+    background-color: rgba(95, 54, 39, 0.45);
+
+}
+
+#orders h2,h3 {
+    margin-left: 15px;
+}
+
+#addedOrders {
+    height: 60%;
 }
 
 #orderMenu {
-    width:60%;
+    width:55%;
     float: left;
     margin: 0px 40px;
 }
