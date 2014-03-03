@@ -53,3 +53,22 @@ hr {
     float: left;
     margin: 0px 40px;
 }
+
+.ui-accordion-header {
+    border-style: solid;
+    border-width: 2px;
+    border-color: green;
+    border-radius: 2px;
+    text-align: center;
+}
+
+.ui-accordion-content {
+    border-style: solid;
+    border-width: 2px;
+    border-color: black;
+    border-radius: 2px;
+}
+
+#accordion h3 {
+    margin: 5px 0px 0px 0px;
+}
