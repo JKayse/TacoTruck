@@ -36,23 +36,23 @@
                    
                     <h3>Tortilla</h3>
                     <div id = "tortilla">
-                        <div class = "tortillaOption">
-                            <img src="img/flour.png" alt="Flour Tortilla" title="Flour Tortilla">
+                        <div class = "tortillaOption selectedImage">
+                            <img src="img/flour.png" alt="Flour Tortilla" title="Flour Tortilla" price="0.25">
                             <h4>Flour</h4>
                         </div>
 
                         <div class = "tortillaOption">
-                            <img src="img/wheat.png" alt="Wheat Tortilla" title="Wheat Tortilla">
+                            <img src="img/wheat.png" alt="Wheat Tortilla" title="Wheat Tortilla" price="0.35" >
                             <h4>Wheat</h4>
                         </div>
 
                         <div class = "tortillaOption">
-                            <img src="img/cayenne.png" alt="Cayenne Tortilla" title="Cayenne Tortilla">
+                            <img src="img/cayenne.png" alt="Cayenne Tortilla" title="Cayenne Tortilla" price="0.35">
                             <h4>Cayenne</h4>
                         </div>
 
                         <div class = "tortillaOption">
-                            <img src="img/spinach.png" alt="Spinach Tortilla" title="Spinach Tortilla">
+                            <img src="img/spinach.png" alt="Spinach Tortilla" title="Spinach Tortilla" price="0.30">
                             <h4>Spinach</h4>
                         </div>
 
@@ -60,132 +60,148 @@
 
                     <h3>Filling</h3>
                     <div id = "filling">
-                        <div class = "fillingOption">
-                            <img src="img/chicken.png" alt="Chicken Taco" title="Chicken Taco">
+                        <div class = "fillingOption selectedImage">
+                            <img src="img/chicken.png" alt="Chicken Taco" title="Chicken Taco" price="0.75">
                             <h4>Chicken</h4>
                         </div>
 
                         <div class = "fillingOption">
-                            <img src="img/steak.png" alt="Steak Taco" title="Steak Taco">
+                            <img src="img/steak.png" alt="Steak Taco" title="Steak Taco" price="1.00">
                             <h4>Steak</h4>
                         </div>
 
                         <div class = "fillingOption">
-                            <img src="img/carnitas.png" alt="Carnitas Taco" title="Carnitas Taco">
+                            <img src="img/carnitas.png" alt="Carnitas Taco" title="Carnitas Taco" price="1.00">
                             <h4>Carnitas</h4>
                         </div>
 
                         <div class = "fillingOption">
-                            <img src="img/veggies.png" alt="Veggie Taco" title="Veggie Taco">
+                            <img src="img/veggies.png" alt="Veggie Taco" title="Veggie Taco" price="0.50">
                             <h4>Veggie</h4>
                         </div>
                     </div>
 
                     <h3>Cheese</h3>
                     <div id = "cheese">
-                        <input type="radio" name="cheese" value="Queso">Queso Fresco
+                        <!-- Possibly make the value the id add one to the images above-->
+                        <input type="radio" name="cheese" value="Queso" price="0.50">Queso Fresco
                         <br>
-                        <input type="radio" name="cheese" value="Chedder">Chedder or Jack Mix
+                        <input type="radio" name="cheese" value="Chedder" price="0.35">Chedder or Jack Mix
                         <br>
-                        <input type="radio" name="cheese" value="Monterrey">Monterrey Jack
+                        <input type="radio" name="cheese" value="Monterrey" price="0.35">Monterrey Jack
                         <br>  
-                        <input type="radio" name="cheese" value="No Cheese">No Cheese
+                        <input type="radio" name="cheese" value="No Cheese" price="0.00">No Cheese
                         <br>                         
                     </div>
 
                     <h3>Rice</h3>
                     <div id = "rice">
-                        <input type="radio" name="rice" value="Spanish">Spanish Rice
+                        <input type="radio" name="rice" value="Spanish" price="0.25">Spanish Rice
                         <br>
-                        <input type="radio" name="rice" value="Cilantro">Cilantro Rice
+                        <input type="radio" name="rice" value="Cilantro" price="0.25">Cilantro Rice
                         <br>  
-                        <input type="radio" name="rice" value="No Rice">No Rice
+                        <input type="radio" name="rice" value="No Rice" price="0.00">No Rice
                         <br>    
                     </div>
 
                     <h3>Beans</h3>
                     <div id = "beans">
-                        <input type="radio" name="beans" value="Refried">Refried Beans
+                        <input type="radio" name="beans" value="Refried" price="0.35">Refried Beans
                         <br>
-                        <input type="radio" name="beans" value="Pinto">Whole Pinto Beans
+                        <input type="radio" name="beans" value="Pinto" price="0.25">Whole Pinto Beans
                         <br>
-                        <input type="radio" name="beans" value="Black">Black Beans
+                        <input type="radio" name="beans" value="Black" price="0.10">Black Beans
                         <br>    
-                        <input type="radio" name="beans" value="No Beans">No Beans
+                        <input type="radio" name="beans" value="No Beans" price="0.00">No Beans
                         <br>   
                     </div>
 
                     <h3>Sauce</h3>
                     <div id = "sauce">
-                        <input type="radio" name="sauce" value="Hot Tomatillo">Hot Tomatillo
+                        <input type="radio" name="sauce" value="Hot Tomatillo" price="0.00" heatRating="3">Hot Tomatillo</input>
+                        <span class="heatImage"></span>
                         
-                        <input type="radio" name="sauce" value="Death">Death
+                        <input type="radio" name="sauce" value="Death" price="0.00" heatRating="4">Death</input>
+                        <span class="heatImage"></span>
                         
-                        <input type="radio" name="sauce" value="Fresh Lime Juice">Fresh Lime Juice
-                        
-                        <input type="radio" name="sauce" value="Bad Ass BBQ">Bad Ass BBQ
+                        <input type="radio" name="sauce" value="Fresh Lime Juice" price="0.00" heatRating="1">Fresh Lime Juice</input>
+                        <span class="heatImage"></span>
                         <br>
-                        <input type="radio" name="sauce" value="Mild Tomatillo">Mild Tomatillo
+                        <input type="radio" name="sauce" value="Bad Ass BBQ" price="0.00" heatRating="2">Bad Ass BBQ</input>
+                        <span class="heatImage"></span>
                         
-                        <input type="radio" name="sauce" value="Ranch">Ranch
-                           
-                        <input type="radio" name="sauce" value="Habenero">Habenero
+                        <input type="radio" name="sauce" value="Mild Tomatillo" price="0.00" heatRating="2">Mild Tomatillo</input>
+                        <span class="heatImage"></span>
                         
-                        <input type="radio" name="sauce" value="Salsa">Salsa
+                        <input type="radio" name="sauce" value="Ranch" price="0.00" heatRating="1">Ranch</input>
+                        <span class="heatImage"></span>
                         <br> 
-                        <input type="radio" name="sauce" value="Ancho">Ancho
-                          
-                        <input type="radio" name="sauce" value="Tomatillo">Tomatillo
-                      
-                        <input type="radio" name="sauce" value="Herb Vinigrette">Herb Vinigrette
+                        <input type="radio" name="sauce" value="Habenero" price="0.00" heatRating="3">Habenero</input>
+                        <span class="heatImage"></span>
                         
-                        <input type="radio" name="sauce" value="No Sauce">No Sauce
+                        <input type="radio" name="sauce" value="Salsa" price="0.00" heatRating="2">Salsa</input>
+                        <span class="heatImage"></span>
+                        
+                        <input type="radio" name="sauce" value="Ancho" price="0.00" heatRating="1">Ancho</input>
+                        <span class="heatImage"></span>
+                        <br>
+                        <input type="radio" name="sauce" value="Tomatillo" price="0.00" heatRating="1">Tomatillo</input>
+                        <span class="heatImage"></span>
+                      
+                        <input type="radio" name="sauce" value="Herb Vinigrette" price="0.00" heatRating="1">Herb Vinigrette</input>
+                        <span class="heatImage"></span>
+                        
+                        <input type="radio" name="sauce" value="No Sauce" price="0.00" heatRating="0">No Sauce</input>
+                        <span class="heatImage"></span>
+                        <br>
                             
                     </div>
 
                     <h3>Vegetables</h3>
                     <div id = "vegetables">
-                        <input type="checkbox" name="veggie" value="Poblana Salsa">Poblana Salsa
+                        <input type="checkbox" name="veggie" value="Poblana Salsa" price="0.00">Poblana Salsa
                         
-                        <input type="checkbox" name="veggie" value="Roasted Garlic">Roasted Garlic
+                        <input type="checkbox" name="veggie" value="Roasted Garlic" price="0.00">Roasted Garlic
                         
-                        <input type="checkbox" name="veggie" value="Peppers/Onions">Peppers/Onions
+                        <input type="checkbox" name="veggie" value="Peppers/Onions" price="0.00">Peppers/Onions
                         
-                        <input type="checkbox" name="veggie" value="Red Onion">Red Onion
+                        <input type="checkbox" name="veggie" value="Red Onion" price="0.00">Red Onion
                         <br>
-                        <input type="checkbox" name="veggie" value="Jalapenos">Jalapenos
+                        <input type="checkbox" name="veggie" value="Jalapenos" price="0.00">Jalapenos
 
-                        <input type="checkbox" name="veggie" value="Pico de Gallo">Pico de Gallo
+                        <input type="checkbox" name="veggie" value="Pico de Gallo" price="0.00">Pico de Gallo
                            
-                        <input type="checkbox" name="veggie" value="White Onion">White Onion
+                        <input type="checkbox" name="veggie" value="White Onion" price="0.00">White Onion
                         
-                        <input type="checkbox" name="veggie" value="Tomatoes">Tomatoes
+                        <input type="checkbox" name="veggie" value="Tomatoes" price="0.00">Tomatoes
                         <br> 
-                        <input type="checkbox" name="veggie" value="Cilantro">Cilantro
+                        <input type="checkbox" name="veggie" value="Cilantro" price="0.00">Cilantro
                           
-                        <input type="checkbox" name="veggie" value="Tortilla Strips">Tortilla Strips
+                        <input type="checkbox" name="veggie" value="Tortilla Strips" price="0.00">Tortilla Strips
                       
-                        <input type="checkbox" name="veggie" value="Lettuce">Lettuce
+                        <input type="checkbox" name="veggie" value="Lettuce" price="0.00">Lettuce
                     </div>
 
                     <h3>Extras</h3>
                     <div id = "extras">
-                        <input type="checkbox" name="extras" value="Poblana Salsa">X- Extra Meat/Veggies
+                        <input type="checkbox" name="extras" value="Poblana Salsa" price="1.00">X- Extra Meat/Veggies
                         
-                        <input type="checkbox" name="extras" value="Roasted Garlic">Sour Cream
+                        <input type="checkbox" name="extras" value="Roasted Garlic" price="0.75">Sour Cream
                         
-                        <input type="checkbox" name="extras" value="Peppers/Onions">Guacamole
+                        <input type="checkbox" name="extras" value="Peppers/Onions" price="0.75">Guacamole
                         
-                        <input type="checkbox" name="extras" value="Red Onion">Queso
+                        <input type="checkbox" name="extras" value="Red Onion" price="0.50">Queso
                         <br>
-                        <input type="checkbox" name="extras" value="Jalapenos">Sliced Avacado
+                        <input type="checkbox" name="extras" value="Jalapenos" price="0.75">Sliced Avacado
 
-                        <input type="checkbox" name="extras" value="Pico de Gallo">Bacon                      
+                        <input type="checkbox" name="extras" value="Pico de Gallo" price="0.50">Bacon                      
                     </div>
                     
                 </div>
                 <div id="menuButtons">
                     <button type="button">Save Taco</button>
+                    <h4 id= "tacoPrice" value = "0.00">Current Price for each taco: $0.00</h4>
+                    
                 </div>
                 
             </div>
