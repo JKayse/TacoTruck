@@ -158,3 +158,12 @@ hr {
 .quantity {
     width: 40px;
 }
+
+#orderMenu .cheeseOption, .riceOption, .beansOption, .veggieOption, .sauceOption, .extrasOption{
+    display: inline-block;
+    width: 32%;
+}
+
+#orderMenu .sauceOption img{
+    float:right;
+}
