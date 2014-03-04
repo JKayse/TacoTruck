@@ -114,6 +114,7 @@ hr {
 
 #addedOrders {
     height: 62%;
+    overflow-y:auto;
 }
 
 #orderMenu {

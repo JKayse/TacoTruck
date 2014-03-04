@@ -12,6 +12,7 @@ $(document).ready(function() {
     $( "#sauce input" ).each(addheatImage);
     $("#menuButtons button").click(addOrder);
     $("#orderMenu div").click(addCurrentCost);
+    $(document).on('change', ".quantity", updateEveryTacoPrice);
 
 
 });
@@ -39,12 +40,47 @@ function addheatImage(event){
 function addOrder(event){
     var tacoName = $("#filling .selectedImage h4").text();
     var tacoPrice = parseFloat($("#tacoPrice").attr("tacoPrice")).toFixed(2);
-    $("#addedOrders").append("<button type='button'>X</button><button type='button'>"+ tacoName + " Taco</button><input type='number' class ='quantity' name='quantity' value='1' min='1'><span class='tacoPrice'>$"+tacoPrice+"</span><br>");
+    $("#addedOrders").append("<span class = 'order' totValue ='" + tacoPrice + "'><button type='button'>X</button><button type='button'>"+ tacoName + " Taco</button><input type='number' class ='quantity' name='quantity' value='1' min='1' step='1'><span class='tacoPrice' tacoValue ='" + tacoPrice + "'>$"+tacoPrice+"</span></span><br>");
+    updateTotalPrice();
+}
+
+function updateEveryTacoPrice(){
+    var tacos = $("#addedOrders .order");
+    for(var i = 0; i < tacos.size(); i++){
+        var tacoValue = parseFloat(tacos.eq(i).children(".tacoPrice").attr("tacoValue"));
+        var quantity =  parseFloat(tacos.eq(i).children(".quantity").val());
+        var totalPrice = quantity * tacoValue;
+        totalPrice = totalPrice*100;
+        totalPrice = Math.round(totalPrice);
+        totalPrice = totalPrice/100;
+        totalPrice =totalPrice.toFixed(2);
+        tacos.eq(i).children(".tacoPrice").html("$" + totalPrice);
+        tacos.eq(i).attr("totValue", totalPrice);
+        updateTotalPrice();
+    }
+
+}
+
+function updateTotalPrice(){
+    var totalPrice = 0;
+    var tacoPrice = 0;
+    var tacos = $("#addedOrders .order");
+    for(var i = 0; i < tacos.size(); i++){
+        tacoPrice = parseFloat(tacos.eq(i).attr("totValue"));
+        totalPrice = totalPrice + tacoPrice;
+    }
+
+    totalPrice = totalPrice*100;
+    totalPrice = Math.round(totalPrice);
+    totalPrice = totalPrice/100;
+    totalPrice =totalPrice.toFixed(2);
+    $("#totalPrice").html("Total Price: $" + totalPrice);
+    $("#totalPrice").attr("price", totalPrice);
 }
 
 
-function addCurrentCost()
-{
+
+function addCurrentCost(){
     var fillingPrice = $("#filling .selectedImage img").attr("price");
     fillingPrice = parseFloat(fillingPrice);
 
@@ -57,7 +93,6 @@ function addCurrentCost()
         cheesePrice = cheese.attr("price");
         cheesePrice = parseFloat(cheesePrice);
     }
-
 
     var rice = $("#rice input[type='radio']:checked");
     var ricePrice = 0;
