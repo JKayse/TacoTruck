@@ -53,6 +53,28 @@ h2, h3, h4,  button{
     text-align: center;
 }
 
+#orderMenu h5{
+    margin: 0px;
+    margin-left: 2px;
+}
+
+.tacoDetails h5{
+    margin:0px 0px 0px 2px;
+}
+
+#currentTaco {
+    border-style: solid;
+}
+
+#orderMenu #menuButtons h4{
+    text-align: left;
+}
+
+#orderMenu #menuButtons button{
+    float:right;
+
+}
+
 .tortillaOption , .fillingOption{
     width: 80px;
     margin: 2px 25px;
@@ -104,24 +126,31 @@ hr {
 
 }
 
-#orders h2,h3 {
+#orders h2 {
+    margin: 10px;
     margin-left: 15px;
 }
 
 #orders h3 {
+    margin-left: 5px;
     margin-bottom: 0px;
 }
 
 #addedOrders {
-    height: 62%;
+    height: 66%;
     overflow-y:auto;
 }
 
 #orderMenu {
     width:55%;
     float: left;
-    margin: 0px 40px;
+    margin: 15px 40px 0px 40px;
 }
+
+#orderMenu h2{
+    margin: 0px;
+}
+
 
 .ui-accordion-header {
     border-style: solid;
@@ -166,4 +195,24 @@ hr {
 
 #orderMenu .sauceOption img{
     float:right;
+}
+
+.tacoDetails{
+    display: none;
+    background-color: rgb(42, 145, 165);
+    border-style: solid;
+    border-width: 2px;
+    border-color: rgba(255, 255, 255, 0.48);
+    position: absolute;
+    margin-left: 230px;
+    width: 20%;
+    margin-top: -25px;
+}
+
+.order:hover .tacoDetails{
+    display: block;
+}
+
+.itemList {
+    width: 115px;
 }

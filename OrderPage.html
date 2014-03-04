@@ -31,7 +31,6 @@
             </div>
             <div id = "orderMenu">
                 <h2>Menu</h2>
-                <hr>
                 <div id = "accordion">
                    
                     <h3>Tortilla</h3>
@@ -85,15 +84,15 @@
                     <div id = "cheese">
                         <!-- Possibly make the value the id add one to the images above-->
                         <div class = "cheeseOption">
-                            <input type="radio" name="cheese" value="Queso" price="0.50">Queso Fresco
+                            <input type="radio" name="cheese" value="Queso Fresco" price="0.50">Queso Fresco
                         </div>
 
                         <div class = "cheeseOption">
-                            <input type="radio" name="cheese" value="Chedder" price="0.35">Chedder or Jack Mix
+                            <input type="radio" name="cheese" value="Chedder or Jack Mix" price="0.35">Chedder or Jack Mix
                         </div>
 
                         <div class = "cheeseOption">
-                            <input type="radio" name="cheese" value="Monterrey" price="0.35">Monterrey Jack
+                            <input type="radio" name="cheese" value="Monterrey Jack" price="0.35">Monterrey Jack
                         </div>
 
                         <div class = "cheeseOption">
@@ -104,11 +103,11 @@
                     <h3>Rice</h3>
                     <div id = "rice">
                         <div class = "riceOption">
-                            <input type="radio" name="rice" value="Spanish" price="0.25">Spanish Rice
+                            <input type="radio" name="rice" value="Spanish Rice" price="0.25">Spanish Rice
                         </div>
 
                         <div class = "riceOption">
-                            <input type="radio" name="rice" value="Cilantro" price="0.25">Cilantro Rice
+                            <input type="radio" name="rice" value="Cilantro Rice" price="0.25">Cilantro Rice
                         </div>
 
                         <div class = "riceOption"> 
@@ -119,15 +118,15 @@
                     <h3>Beans</h3>
                     <div id = "beans">
                         <div class = "beansOption">
-                            <input type="radio" name="beans" value="Refried" price="0.35">Refried Beans
+                            <input type="radio" name="beans" value="Refried Beans" price="0.35">Refried Beans
                         </div>
 
                         <div class = "beansOption">
-                            <input type="radio" name="beans" value="Pinto" price="0.25">Whole Pinto Beans
+                            <input type="radio" name="beans" value="Whole Pinto Beans" price="0.25">Whole Pinto Beans
                         </div>
 
                         <div class = "beansOption">
-                            <input type="radio" name="beans" value="Black" price="0.10">Black Beans
+                            <input type="radio" name="beans" value="Black Beans" price="0.10">Black Beans
                         </div>
 
                         <div class = "beansOption">   
@@ -276,7 +275,21 @@
                 <div id="menuButtons">
                     <button type="button">Save Taco</button>
                     <button type="button">Reset Taco</button>
-                    <h4 id= "tacoPrice" value = "0.00" tacoPrice="1.00">Current Price for each taco: $1.00</h4>                    
+                    <h4 id= "tacoPrice" tacoPrice="1.00">Current Price: $1.00/ea</h4>
+                    <h4>Current Taco: </h4>
+                    <div id = "currentTaco">
+                        <h5 id="tacoTortilla" tortilla="Flour">Tortilla: Flour</h5>
+                        <h5 id="tacoFilling" filling="Chicken">Filling: Chicken</h5>   
+                        <h5 id="tacoCheese" cheese></h5>
+                        <h5 id="tacoRice" rice></h5>  
+                        <h5 id="tacoBeans" beans></h5>
+                        <h5 id="tacoSauce" sauce></h5>  
+                        <h5 id="tacoVegetables" vegetables></h5>  
+                        <h5 id="tacoExtras" extras></h5>
+                                            
+                    </div>
+                    
+                                        
                 </div>
                 
             </div>
