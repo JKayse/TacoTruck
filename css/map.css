@@ -3,10 +3,18 @@
  }
 
 body { 
+	
+
 	height: 100%; 
 	margin: 0;
 	padding: 0 
 }
- #map-canvas { 
- 	height: 100% 
+
+ #map-canvas {
+ 	margin-top: 1%;
+ 	width:1005px;
+ 	margin-left: auto;
+ 	margin-right: auto;
+ 	height: 80% 
+
  }
