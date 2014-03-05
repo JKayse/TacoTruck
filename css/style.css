@@ -281,3 +281,17 @@ hr {
 #deselectVegetables, #deselectExtras {
     display: none;
 }
+
+#paySuccess {
+    display: none;
+}
+
+#paySuccess h2,h3{
+    text-align: center;
+}
+
+#payButtons button {
+    width:31%;
+    margin-left: 5px;
+    margin-bottom: 15px
+}

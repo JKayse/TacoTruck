@@ -23,7 +23,11 @@ $(document).ready(function() {
     $(document).on('click', "#payOrder", payPopup);
     $(document).on('click', "header img", goToHomePage);
     $(document).on('click', "header h1", goToHomePage);
+    $(document).on('click', "#homepage", goToHomePage);
+    $(document).on('click', "#newOrder", orderAgain);
+    $(document).on('click', "#locations", goToMap);
     $(document).on('click', "#cancel", cancelPayment);
+    $(document).on('click', "#pay", finalizeOrder);
 
    
 
@@ -500,4 +504,17 @@ function deleteOrder(){
 
 function goToHomePage(){
     window.location = "index.html";
+}
+
+function orderAgain(){
+    window.location = "orderpage.html";
+}
+
+function goToMap(){
+    window.location = "map.html";
+}
+
+function finalizeOrder(){
+    $("#payInfo").css("display", "none");
+    $("#paySuccess").css("display", "block");
 }

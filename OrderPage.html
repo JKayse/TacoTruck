@@ -83,24 +83,36 @@
         </main>
             <div id="blackScreenofDeath">
                 <div id="payment">
-                    <h2>Pay for your Order:</h2>
-                    <hr>
-                    <form name="pay" action="#" method="get">
-                        <input id = "fname" type="text" name="firstName" placeholder="First Name">
-                        <input id = "lname" type="text" name="lastName" placeholder="Last Name">
-                        <br>
-                        <select name="provider" id = "provider">
-                            <option value="MasterCard">MasterCard</option>
-                            <option value="Visa">Visa</option>
-                            <option value="American Express">American Express</option>
-                        </select>
-                        <input id = "number" type="text" name="creditCardNumber" placeholder="Credit Card Number">
-                        <h3 id="paymentTotal"></h3>
-                        <div class="buttons">
-                            <input id = "pay" type="submit" value="Pay">
-                            <input id = "cancel" type="button" value="Cancel">
-                        <div>
-                    </form> 
+                    <div id="payInfo">
+                        <h2>Pay for your Order:</h2>
+                        <hr>
+                        <form name="pay" action="#" method="get">
+                            <input id = "fname" type="text" name="firstName" placeholder="First Name">
+                            <input id = "lname" type="text" name="lastName" placeholder="Last Name">
+                            <br>
+                            <select name="provider" id = "provider">
+                                <option value="MasterCard">MasterCard</option>
+                                <option value="Visa">Visa</option>
+                                <option value="American Express">American Express</option>
+                            </select>
+                            <input id = "number" type="text" name="creditCardNumber" placeholder="Credit Card Number">
+                            <h3 id="paymentTotal"></h3>
+                            <div class="buttons">
+                                <input id = "pay" type="submit" value="Pay">
+                                <input id = "cancel" type="button" value="Cancel">
+                            </div>
+                        </form> 
+                    </div>
+                    <div id="paySuccess">
+                        <h2>Thanks for Ordering!</h2>
+                        <h3>Your taco will be made shortly.</h3>
+                        <div id="payButtons">
+                            <button type="button" id="homepage">Home Page</button>
+                            <button type="button" id="newOrder">New Order</button>
+                            <button type="button" id="locations">View Locations</button>
+                        </div>
+
+                    </div>
                 </div>
             </div> 
     </body>
