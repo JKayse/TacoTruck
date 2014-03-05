@@ -16,9 +16,24 @@ $(document).ready(function() {
     $(document).on('change', ".quantity", updateEveryTacoPrice);
     $(document).on('click', ".order .delete", deleteOrder);
     $(document).on('click', ".order .itemList", populateTable);
+    $(document).on('click', "#orderMenu .itemList", populateTable);
+    $(document).on('mouseover', ".order", setHoverPosition);
+    
 
 
 });
+
+function setHoverPosition()
+{
+    var spans = $(".order");
+    for(var i = 0; i < spans.size(); i++)
+    {
+        var position = spans.eq(i).position();
+        $(".order .tacoDetails").eq(i).offset({top:position.top, left:380});
+    }
+    
+}
+
 
 function addTortillaSelector(event){
     $(".tortillaOption").removeClass("selectedImage");
@@ -273,6 +288,7 @@ function deleteOrder(){
     tacoOrder = $(this).parent();
     tacoOrder.next().remove();
     tacoOrder.remove();
+    updateTotalPrice();
 }
 
 function populateTable(){
