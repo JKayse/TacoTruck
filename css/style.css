@@ -218,21 +218,29 @@ hr {
 }
 
 #blackScreenofDeath{
+    display: none;
     width:100%;
     height:100%;
-    /*background-color: rgba(0, 0, 0, 0.73);*/
+    background-color: rgba(0, 0, 0, 0.50);
     position: fixed;
     top:0px;
     left:0px;
 }
 
 #payment {
+    display: none;
     position: fixed;
-    background-color: white;
+    background-color: rgb(253, 253, 236);
     width: 600px;
     top:170px;
     left:50%;
     margin-left: -300px;
     border-style:double;
     border-width: 5px;
+}
+
+#payment h2 {
+    display: none;
+    margin: 10px;
+    margin-left: 15px;
 }

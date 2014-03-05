@@ -292,7 +292,22 @@
         </main>
             <div id="blackScreenofDeath">
                 <div id="payment">
-                    <h2>Pay for your Order:</h2>                    
+                    <h2>Pay for your Order:</h2>
+                    <hr>
+                    <form name="pay" action="#" method="get">
+                        <input id = "fname" type="text" name="firstName" placeholder="First Name">
+                        <input id = "lname" type="text" name="lastName" placeholder="Last Name">
+                        <br>
+                        <select name="provider" id = "provider">
+                            <option value="MasterCard">MasterCard</option>
+                            <option value="Visa">Visa</option>
+                            <option value="American Express">American Express</option>
+                        </select>
+                        <input id = "number" type="text" name="creditCardNumber" placeholder="Credit Card Number">
+                        <h3 id="paymentTotal"></h3>
+
+                        <input type="submit" value="Submit">
+                    </form> 
                 </div>
             </div> 
     </body>
