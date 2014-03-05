@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 05, 2014 at 02:47 AM
+-- Generation Time: Mar 05, 2014 at 07:02 PM
 -- Server version: 5.5.35-0ubuntu0.13.10.2
 -- PHP Version: 5.5.3-1ubuntu2.2
 
@@ -19,9 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `Taco_Truck`
 --
-CREATE DATABASE IF NOT EXISTS Taco_Truck;
+CREATE DATABASE Taco_Truck;
 USE Taco_Truck;
-
 -- --------------------------------------------------------
 
 --
@@ -64,61 +63,61 @@ CREATE TABLE IF NOT EXISTS `Menu` (
   `TacoFixinId` int(11) NOT NULL AUTO_INCREMENT,
   `ItemType` varchar(255) NOT NULL,
   `Name` varchar(255) NOT NULL,
-  `Price` varchar(10) NOT NULL,
-  `HeatRating` varchar(11) DEFAULT '0',
+  `Price` double NOT NULL,
+  `HeatRating` int(11) DEFAULT NULL,
   PRIMARY KEY (`TacoFixinId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=194 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=46 ;
 
 --
 -- Dumping data for table `Menu`
 --
 
 INSERT INTO `Menu` (`TacoFixinId`, `ItemType`, `Name`, `Price`, `HeatRating`) VALUES
-(149, 'type', 'Steak', '1', ''),
-(150, 'type', 'Chicken', '0.75', ''),
-(151, 'type', 'Carnitas', '1', ''),
-(152, 'type', 'Veggie', '0.5', ''),
-(153, 'tortillas', 'Flour', '0.25', ''),
-(154, 'tortillas', 'Cayenne', '0.35', ''),
-(155, 'tortillas', 'Wheat', '0.35', ''),
-(156, 'tortillas', 'Spinach', '0.3', ''),
-(157, 'rice', 'Cilantro Rice', '0.25', ''),
-(158, 'rice', 'Spanish Rice', '0.25', ''),
-(159, 'cheese', 'Queso Fresco', '0.5', ''),
-(160, 'cheese', 'Cheddar/Jack Mix', '0.35', ''),
-(161, 'cheese', 'Monterrey Jack', '0.35', ''),
-(162, 'beans', 'Refried Beans', '0.35', ''),
-(163, 'beans', 'Whole Pinto Beans', '0.25', ''),
-(164, 'beans', 'Black Beans', '0.1', ''),
-(165, 'sauces', 'Hot Tomatillo', '0', '3'),
-(166, 'sauces', 'Death', '0', '4'),
-(167, 'sauces', 'Fresh Lime Juice', '0', '1'),
-(168, 'sauces', 'Bad Ass BBQ', '0', '2'),
-(169, 'sauces', 'Mild Tomatillo', '0', '2'),
-(170, 'sauces', 'Ranch', '0', '1'),
-(171, 'sauces', 'No Sauce', '0', '0'),
-(172, 'sauces', 'Habenero', '0', '3'),
-(173, 'sauces', 'Salsa', '0', '2'),
-(174, 'sauces', 'Ancho', '0', '1'),
-(175, 'sauces', 'Tomatillo', '0', '1'),
-(176, 'sauces', 'Herb Vinigrette', '0', '1'),
-(177, 'vegetables', 'Poblano Salsa', '0', ''),
-(178, 'vegetables', 'Roasted Garlic', '0', ''),
-(179, 'vegetables', 'Peppers/Onions', '0', ''),
-(180, 'vegetables', 'Red Onion', '0', ''),
-(181, 'vegetables', 'Jalapenos', '0', ''),
-(182, 'vegetables', 'Pico de Gallo', '0', ''),
-(183, 'vegetables', 'White Onion', '0', ''),
-(184, 'vegetables', 'Tomatoes', '0', ''),
-(185, 'vegetables', 'Cilantro', '0', ''),
-(186, 'vegetables', 'Tortilla Strips', '0', ''),
-(187, 'vegetables', 'Lettuce', '0', ''),
-(188, 'extras', 'X - Extra Meat/Veggies', '1', ''),
-(189, 'extras', 'Sour Cream', '0.75', ''),
-(190, 'extras', 'Guacamole', '0.75', ''),
-(191, 'extras', 'Queso', '0.5', ''),
-(192, 'extras', 'Sliced Avocado', '0.75', ''),
-(193, 'extras', 'Bacon', '0.5', '');
+(1, 'type', 'Steak', 1, 0),
+(2, 'type', 'Chicken', 0.75, 0),
+(3, 'type', 'Carnitas', 1, 0),
+(4, 'type', 'Veggie', 0.5, 0),
+(5, 'tortillas', 'Flour', 0.25, 0),
+(6, 'tortillas', 'Cayenne', 0.35, 0),
+(7, 'tortillas', 'Wheat', 0.35, 0),
+(8, 'tortillas', 'Spinach', 0.3, 0),
+(9, 'rice', 'Cilantro Rice', 0.25, 0),
+(10, 'rice', 'Spanish Rice', 0.25, 0),
+(11, 'cheese', 'Queso Fresco', 0.5, 0),
+(12, 'cheese', 'Cheddar/Jack Mix', 0.35, 0),
+(13, 'cheese', 'Monterrey Jack', 0.35, 0),
+(14, 'beans', 'Refried Beans', 0.35, 0),
+(15, 'beans', 'Whole Pinto Beans', 0.25, 0),
+(16, 'beans', 'Black Beans', 0.1, 0),
+(17, 'sauces', 'Hot Tomatillo', 0, 3),
+(18, 'sauces', 'Death', 0, 4),
+(19, 'sauces', 'Fresh Lime Juice', 0, 1),
+(20, 'sauces', 'Bad Ass BBQ', 0, 2),
+(21, 'sauces', 'Mild Tomatillo', 0, 2),
+(22, 'sauces', 'Ranch', 0, 1),
+(23, 'sauces', 'No Sauce', 0, 0),
+(24, 'sauces', 'Habenero', 0, 3),
+(25, 'sauces', 'Salsa', 0, 2),
+(26, 'sauces', 'Ancho', 0, 1),
+(27, 'sauces', 'Tomatillo', 0, 1),
+(28, 'sauces', 'Herb Vinigrette', 0, 1),
+(29, 'vegetables', 'Poblano Salsa', 0, 0),
+(30, 'vegetables', 'Roasted Garlic', 0, 0),
+(31, 'vegetables', 'Peppers/Onions', 0, 0),
+(32, 'vegetables', 'Red Onion', 0, 0),
+(33, 'vegetables', 'Jalapenos', 0, 0),
+(34, 'vegetables', 'Pico de Gallo', 0, 0),
+(35, 'vegetables', 'White Onion', 0, 0),
+(36, 'vegetables', 'Tomatoes', 0, 0),
+(37, 'vegetables', 'Cilantro', 0, 0),
+(38, 'vegetables', 'Tortilla Strips', 0, 0),
+(39, 'vegetables', 'Lettuce', 0, 0),
+(40, 'extras', 'X - Extra Meat/Veggies', 1, 0),
+(41, 'extras', 'Sour Cream', 0.75, 0),
+(42, 'extras', 'Guacamole', 0.75, 0),
+(43, 'extras', 'Queso', 0.5, 0),
+(44, 'extras', 'Sliced Avocado', 0.75, 0),
+(45, 'extras', 'Bacon', 0.5, 0);
 
 -- --------------------------------------------------------
 

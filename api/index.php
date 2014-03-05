@@ -12,9 +12,10 @@ $app->get(
 		$response->write('The API is working');
 	});
 
-$app->get('/Orders', 'getOrders');
+$app->get('/Orders', 'getPreviousOrders');
 $app->get('/Locations/','getLocations');
 //Getting the ingredients for tacos
+$app->get('/Menu/:ItemType', 'getMenuItem');
 $app->get('/Orders/Filling/', 'getFillings');
 $app->get('/Orders/Tortillas/', 'getTortillas');
 $app->get('/Orders/Rice/', 'getRice');
@@ -29,8 +30,8 @@ $app->get('/Orders/Extras/', 'getExtras');
 
 $app->run();
 
-function getOrders() {
-	$sql = "SELECT OrderId FROM Orders GROUP BY OrderId";
+function getPreviousOrders() {
+	$sql = "SELECT ";
 	try {
 		$db = getConnection();
 		$stmt = $db->query($sql);  
@@ -238,11 +239,28 @@ function getExtras() {
 	}
 }
 
+
+function getMenuItem($ItemType)
+{
+	$sql = "SELECT Name, Price FROM Menu WHERE ItemType=:ItemType";
+	try {
+		$db = getConnection();
+		$stmt = $db->prepare($sql);
+		$stmt->bindParam("ItemType",$ItemType);
+		$stmt->execute();
+		$Items = $stmt->fetchAll(PDO::FETCH_OBJ);
+		$db = null;
+		echo json_encode($Items);
+	} catch(PDOException $e) {
+		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
+	}
+}
+
 //Setting up connection to database
 function getConnection() {
 	$dbhost="localhost";
 	$dbuser="root";
-	$dbpass="";
+	$dbpass="halomasterchief";
 	$dbname="Taco_Truck";
 	$dbh = new PDO("mysql:host=$dbhost;dbname=$dbname", $dbuser, $dbpass);	
 	$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
