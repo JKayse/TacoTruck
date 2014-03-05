@@ -20,7 +20,7 @@ SET time_zone = "+00:00";
 -- Database: `Taco_Truck`
 --
 CREATE DATABASE IF NOT EXISTS Taco_Truck;
-USE DATABASE Taco_Truck;
+USE Taco_Truck;
 
 -- --------------------------------------------------------
 
