@@ -14,7 +14,15 @@ $app->get(
 
 $app->get('/Orders', 'getOrders');
 $app->get('/Locations/','getLocations');
+//Getting the ingredients for tacos
 $app->get('/Orders/Filling/', 'getFillings');
+$app->get('/Orders/Tortillas/', 'getTortillas');
+$app->get('/Orders/Rice/', 'getRice');
+$app->get('/Orders/Cheese/', 'getCheese');
+$app->get('/Orders/Beans/', 'getBeans');
+$app->get('/Orders/Sauces/', 'getSauces');
+$app->get('/Orders/Vegetables/', 'getVegetables');
+$app->get('/Orders/Extras/', 'getExtras');
 //$app->post('/Orders', 'addOrders');
 //$app->put('/wines/:id', 'updateWine');
 //$app->delete('/wines/:id','deleteWine');
@@ -124,6 +132,8 @@ function deleteWine($id) {
 	}
 }
 */
+
+//Getting the different Taco ingredients
 function getFillings() {
 	$sql = "SELECT Name, Price FROM Menu WHERE ItemType = 'type'";
 	try {
@@ -137,6 +147,98 @@ function getFillings() {
 	}
 }
 
+function getTortillas() {
+	$sql = "SELECT Name, Price FROM Menu WHERE ItemType = 'tortillas'";
+	try {
+		$db = getConnection();
+		$stmt = $db->query($sql);
+		$Filling = $stmt->fetchAll(PDO::FETCH_OBJ);
+		$db = null;
+		echo '{"Tortillas": ' . json_encode($Filling) . '}';
+	} catch(PDOException $e) {
+		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
+	}
+}
+
+function getRice() {
+	$sql = "SELECT Name, Price FROM Menu WHERE ItemType = 'rice'";
+	try {
+		$db = getConnection();
+		$stmt = $db->query($sql);
+		$Filling = $stmt->fetchAll(PDO::FETCH_OBJ);
+		$db = null;
+		echo '{"Rice": ' . json_encode($Filling) . '}';
+	} catch(PDOException $e) {
+		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
+	}
+}
+
+function getCheese() {
+	$sql = "SELECT Name, Price FROM Menu WHERE ItemType = 'cheese'";
+	try {
+		$db = getConnection();
+		$stmt = $db->query($sql);
+		$Filling = $stmt->fetchAll(PDO::FETCH_OBJ);
+		$db = null;
+		echo '{"Cheese": ' . json_encode($Filling) . '}';
+	} catch(PDOException $e) {
+		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
+	}
+}
+
+function getBeans() {
+	$sql = "SELECT Name, Price FROM Menu WHERE ItemType = 'beans'";
+	try {
+		$db = getConnection();
+		$stmt = $db->query($sql);
+		$Filling = $stmt->fetchAll(PDO::FETCH_OBJ);
+		$db = null;
+		echo '{"Beans": ' . json_encode($Filling) . '}';
+	} catch(PDOException $e) {
+		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
+	}
+}
+
+function getSauces() {
+	$sql = "SELECT Name, Price,HeatRating FROM Menu WHERE ItemType = 'sauces'";
+	try {
+		$db = getConnection();
+		$stmt = $db->query($sql);
+		$Filling = $stmt->fetchAll(PDO::FETCH_OBJ);
+		$db = null;
+		echo '{"Sauces": ' . json_encode($Filling) . '}';
+	} catch(PDOException $e) {
+		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
+	}
+}
+
+function getVegetables() {
+	$sql = "SELECT Name, Price FROM Menu WHERE ItemType = 'vegetables'";
+	try {
+		$db = getConnection();
+		$stmt = $db->query($sql);
+		$Filling = $stmt->fetchAll(PDO::FETCH_OBJ);
+		$db = null;
+		echo '{"Vegetables": ' . json_encode($Filling) . '}';
+	} catch(PDOException $e) {
+		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
+	}
+}
+
+function getExtras() {
+	$sql = "SELECT Name, Price FROM Menu WHERE ItemType = 'extras'";
+	try {
+		$db = getConnection();
+		$stmt = $db->query($sql);
+		$Filling = $stmt->fetchAll(PDO::FETCH_OBJ);
+		$db = null;
+		echo '{"Extras": ' . json_encode($Filling) . '}';
+	} catch(PDOException $e) {
+		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
+	}
+}
+
+//Setting up connection to database
 function getConnection() {
 	$dbhost="localhost";
 	$dbuser="root";
