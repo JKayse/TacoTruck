@@ -12,252 +12,57 @@
         <script type="text/javascript" src="js/order.js"></script>
     </head>
     <body>
-        <header>
-        </header>
+
+        <header></header>
+        
         <main id="main">
             <div id="orders">
+
                 <h2>Orders</h2>
                 <hr>
-                <div id = "addedOrders">
+                <div id = "addedOrders"></div>
 
-                </div>
                 <h3 id = "totalPrice">Total Price: $0.00</h3>
                 <hr>
+
                 <div id = "orderButtons">
                     <button type="button">Order Previous</button>
                     </br>
                     <button type="button">Pay</button>
                 </div>
+
             </div>
+
             <div id = "orderMenu">
                 <h2>Menu</h2>
                 <div id = "accordion">
                    
                     <h3>Tortilla</h3>
-                    <div id = "tortilla">
-                        <div class = "tortillaOption selectedImage">
-                            <img src="img/flour.png" alt="Flour Tortilla" title="Flour Tortilla" price="0.25">
-                            <h4>Flour</h4>
-                        </div>
-
-                        <div class = "tortillaOption">
-                            <img src="img/wheat.png" alt="Wheat Tortilla" title="Wheat Tortilla" price="0.35" >
-                            <h4>Wheat</h4>
-                        </div>
-
-                        <div class = "tortillaOption">
-                            <img src="img/cayenne.png" alt="Cayenne Tortilla" title="Cayenne Tortilla" price="0.35">
-                            <h4>Cayenne</h4>
-                        </div>
-
-                        <div class = "tortillaOption">
-                            <img src="img/spinach.png" alt="Spinach Tortilla" title="Spinach Tortilla" price="0.30">
-                            <h4>Spinach</h4>
-                        </div>
-
-                    </div>
+                    <div id = "tortilla"></div>
 
                     <h3>Filling</h3>
                     <div id = "filling"></div>
 
                     <h3>Cheese</h3>
-                    <div id = "cheese">
-                        <!-- Possibly make the value the id add one to the images above-->
-                        <div class = "cheeseOption">
-                            <input type="radio" name="cheese" value="Queso Fresco" price="0.50">Queso Fresco
-                        </div>
-
-                        <div class = "cheeseOption">
-                            <input type="radio" name="cheese" value="Chedder or Jack Mix" price="0.35">Chedder or Jack Mix
-                        </div>
-
-                        <div class = "cheeseOption">
-                            <input type="radio" name="cheese" value="Monterrey Jack" price="0.35">Monterrey Jack
-                        </div>
-
-                        <div class = "cheeseOption">
-                            <input type="radio" name="cheese" value="No Cheese" price="0.00">No Cheese
-                        </div>                        
-                    </div>
+                    <div id = "cheese"></div>
 
                     <h3>Rice</h3>
-                    <div id = "rice">
-                        <div class = "riceOption">
-                            <input type="radio" name="rice" value="Spanish Rice" price="0.25">Spanish Rice
-                        </div>
-
-                        <div class = "riceOption">
-                            <input type="radio" name="rice" value="Cilantro Rice" price="0.25">Cilantro Rice
-                        </div>
-
-                        <div class = "riceOption"> 
-                            <input type="radio" name="rice" value="No Rice" price="0.00">No Rice
-                        </div> 
-                    </div>
+                    <div id = "rice"></div>
 
                     <h3>Beans</h3>
-                    <div id = "beans">
-                        <div class = "beansOption">
-                            <input type="radio" name="beans" value="Refried Beans" price="0.35">Refried Beans
-                        </div>
-
-                        <div class = "beansOption">
-                            <input type="radio" name="beans" value="Whole Pinto Beans" price="0.25">Whole Pinto Beans
-                        </div>
-
-                        <div class = "beansOption">
-                            <input type="radio" name="beans" value="Black Beans" price="0.10">Black Beans
-                        </div>
-
-                        <div class = "beansOption">   
-                            <input type="radio" name="beans" value="No Beans" price="0.00">No Beans
-                        </div>
-                    </div>
+                    <div id = "beans"></div>
 
                     <h3>Sauce</h3>
-                    <div id = "sauce">
-                        <div class = "sauceOption">
-                            <input type="radio" name="sauce" value="Hot Tomatillo" price="0.00" heatRating="3">Hot Tomatillo</input>
-                            <span class="heatImage"></span>
-                        </div>
-                        
-                        <div class = "sauceOption">
-                            <input type="radio" name="sauce" value="Death" price="0.00" heatRating="4">Death</input>
-                            <span class="heatImage"></span>
-                        </div>
-                        
-                        <div class = "sauceOption">
-                            <input type="radio" name="sauce" value="Fresh Lime Juice" price="0.00" heatRating="1">Fresh Lime Juice</input>
-                            <span class="heatImage"></span>
-                        </div>
-                        
-                        <div class = "sauceOption">
-                            <input type="radio" name="sauce" value="Bad Ass BBQ" price="0.00" heatRating="2">Bad Ass BBQ</input>
-                            <span class="heatImage"></span>
-                        </div>
-
-                        <div class = "sauceOption">
-                            <input type="radio" name="sauce" value="Mild Tomatillo" price="0.00" heatRating="2">Mild Tomatillo</input>
-                            <span class="heatImage"></span>
-                        </div>
-                        
-                        <div class = "sauceOption">
-                            <input type="radio" name="sauce" value="Ranch" price="0.00" heatRating="1">Ranch</input>
-                            <span class="heatImage"></span>
-                        </div>
-                        
-                        <div class = "sauceOption">
-                            <input type="radio" name="sauce" value="Habenero" price="0.00" heatRating="3">Habenero</input>
-                            <span class="heatImage"></span>
-                        </div>
-                        
-                        <div class = "sauceOption">
-                            <input type="radio" name="sauce" value="Salsa" price="0.00" heatRating="2">Salsa</input>
-                            <span class="heatImage"></span>
-                        </div>
-                        
-                        <div class = "sauceOption">
-                            <input type="radio" name="sauce" value="Ancho" price="0.00" heatRating="1">Ancho</input>
-                            <span class="heatImage"></span>
-                        </div>
-
-                        <div class = "sauceOption">
-                            <input type="radio" name="sauce" value="Tomatillo" price="0.00" heatRating="1">Tomatillo</input>
-                            <span class="heatImage"></span>
-                        </div>
-
-                        <div class = "sauceOption">
-                            <input type="radio" name="sauce" value="Herb Vinigrette" price="0.00" heatRating="1">Herb Vinigrette</input>
-                            <span class="heatImage"></span>
-                        </div>
-
-                        <div class = "sauceOption">
-                            <input type="radio" name="sauce" value="No Sauce" price="0.00" heatRating="0">No Sauce</input>
-                            <span class="heatImage"></span>
-                        </div>
-                            
-                    </div>
+                    <div id = "sauce"></div>
 
                     <h3>Vegetables</h3>
-                    <div id = "vegetables">
-                        <div class = "veggieOption">
-                            <input type="checkbox" name="veggie" value="Poblana Salsa" price="0.00">Poblana Salsa
-                        </div>
-
-                        <div class = "veggieOption">
-                            <input type="checkbox" name="veggie" value="Roasted Garlic" price="0.00">Roasted Garlic
-                        </div>
-
-                        <div class = "veggieOption">
-                            <input type="checkbox" name="veggie" value="Peppers/Onions" price="0.00">Peppers/Onions
-                        </div>
-
-                        <div class = "veggieOption">
-                            <input type="checkbox" name="veggie" value="Red Onion" price="0.00">Red Onion
-                        </div>
-
-                        <div class = "veggieOption">
-                            <input type="checkbox" name="veggie" value="Jalapenos" price="0.00">Jalapenos
-                        </div>
-
-                        <div class = "veggieOption">
-                            <input type="checkbox" name="veggie" value="Pico de Gallo" price="0.00">Pico de Gallo
-                        </div>
-
-                        <div class = "veggieOption">  
-                            <input type="checkbox" name="veggie" value="White Onion" price="0.00">White Onion
-                        </div>
-
-                        <div class = "veggieOption">
-                            <input type="checkbox" name="veggie" value="Tomatoes" price="0.00">Tomatoes
-                        </div>
-
-                        <div class = "veggieOption">
-                            <input type="checkbox" name="veggie" value="Cilantro" price="0.00">Cilantro
-                        </div>
-
-                        <div class = "veggieOption">  
-                            <input type="checkbox" name="veggie" value="Tortilla Strips" price="0.00">Tortilla Strips
-                        </div>
-
-                        <div class = "veggieOption">
-                            <input type="checkbox" name="veggie" value="Lettuce" price="0.00">Lettuce
-                        </div>
-
-                        <br>
-                        <button type="button">Select All</button>
-                    </div>
+                    <div id = "vegetables"></div>
 
                     <h3>Extras</h3>
-                    <div id = "extras">
-                        <div class = "extrasOption">
-                            <input type="checkbox" name="extras" value="X- Extra Meat/Veggies" price="1.00">X- Extra Meat/Veggies
-                        </div>
+                    <div id = "extras"></div>
 
-                        <div class = "extrasOption">
-                            <input type="checkbox" name="extras" value="Sour Cream" price="0.75">Sour Cream
-                        </div>
-
-                        <div class = "extrasOption">
-                            <input type="checkbox" name="extras" value="Guacamole" price="0.75">Guacamole
-                        </div>
-
-                        <div class = "extrasOption">
-                            <input type="checkbox" name="extras" value="Queso" price="0.50">Queso
-                        </div>
-
-                        <div class = "extrasOption">
-                            <input type="checkbox" name="extras" value="Sliced Avacado" price="0.75">Sliced Avacado
-                        </div>
-
-                        <div class = "extrasOption">
-                            <input type="checkbox" name="extras" value="Bacon" price="0.50">Bacon       
-                        </div>   
-
-                        <br>
-                        <button type="button">Select All</button>            
-                    </div>
                 </div>
+
                 <div id="menuButtons">
                     <button type="button">Add Taco</button>
                     <button type="button">Reset Taco</button>

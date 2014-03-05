@@ -1,7 +1,7 @@
 
 
 $(function() {
-    $( "#accordion" ).accordion();
+    $( "#accordion" ).accordion({collapsible: true} );
   });
 
 
@@ -9,7 +9,6 @@ $(document).ready(function() {
     $("header").load("Header.html");
     $(".tortillaOption").click(addTortillaSelector);
     $(".fillingOption").click(addFillingSelector);
-    $( "#sauce input" ).each(addheatImage);
     $("#menuButtons button").eq(0).click(addOrder);
     $("#menuButtons button").eq(1).click(resetOrder);
     $("#orderMenu div").click(addCurrentCostandTaco);
@@ -20,18 +19,114 @@ $(document).ready(function() {
     $(document).on('mouseover', ".order", setHoverPosition);
    
 
+
+    $.ajax({url:"api/Orders/Tortillas/", success: function(json){
+        json = JSON.parse(json);
+        var tortilla = json.Tortillas;
+        for(var i = 0; i < tortilla.length ; i++){
+            var name = tortilla[i].Name;
+            var price = parseFloat(tortilla[i].Price).toFixed(2);
+            var item = "<div class='tortillaOption'><img src='img/"+ name +".png' alt='"+name+" Tortilla' title='"+name+" Tortilla' price='" +price+"'><h4>" + name +"</h4></div>";
+            $("#tortilla").append(item);
+        }
+        $(".tortillaOption").eq(0).addClass("selectedImage");
+    }});
+
     $.ajax({url:"api/Orders/Filling/", success: function(json){
         json = JSON.parse(json);
         var filling = json.Filling;
         for(var i = 0; i < filling.length ; i++){
             var name = filling[i].Name;
             var price = parseFloat(filling[i].Price).toFixed(2);
-            var item = "<div class='fillingOption'><img src='img/"+ name +".png' alt='"+name+" Taco' alt='"+name+" Taco' price='" +price+"'><h4>" + name +"</h4></div>";
-            console.log(item);
+            var item = "<div class='fillingOption'><img src='img/"+ name +".png' alt='"+name+" Taco' title='"+name+" Taco' price='" +price+"'><h4>" + name +"</h4></div>";
             $("#filling").append(item);
-            $(".fillingOption").eq(0).addClass("selectedImage");
         }
+        $(".fillingOption").eq(0).addClass("selectedImage");
     }});
+
+
+    $.ajax({url:"api/Orders/Cheese/", success: function(json){
+        json = JSON.parse(json);
+        var cheese = json.Cheese;
+        for(var i = 0; i < cheese.length ; i++){
+            var name = cheese[i].Name;
+            var price = parseFloat(cheese[i].Price).toFixed(2);
+            var item = "<div class='cheeseOption'><input type='radio' name='cheese' value ='" + name + "' price='" +price+"' title='"+name+"'>" + name + "</input></div>";
+            $("#cheese").append(item);
+        }
+        var noItem = "<div class='cheeseOption'><input type='radio' name='cheese' value ='No Cheese' price='0.00' title='No Cheese'>No Cheese</input></div>";
+        $("#cheese").append(noItem);
+    }});
+
+    $.ajax({url:"api/Orders/Rice/", success: function(json){
+        json = JSON.parse(json);
+        var rice = json.Rice;
+        for(var i = 0; i < rice.length ; i++){
+            var name = rice[i].Name;
+            var price = parseFloat(rice[i].Price).toFixed(2);
+            var item = "<div class='riceOption'><input type='radio' name='rice' value ='" + name + "' price='" +price+"' title='"+name+"'>" + name + "</input></div>";
+            $("#rice").append(item);
+        }
+        var noItem = "<div class='riceOption'><input type='radio' name='rice' value ='No Rice' price='0.00' title='No Rice'>No Rice</input></div>";
+        $("#rice").append(noItem);
+    }});
+
+    $.ajax({url:"api/Orders/Beans/", success: function(json){
+        json = JSON.parse(json);
+        var beans = json.Beans;
+        for(var i = 0; i < beans.length ; i++){
+            var name = beans[i].Name;
+            var price = parseFloat(beans[i].Price).toFixed(2);
+            var item = "<div class='beansOption'><input type='radio' name='beans' value ='" + name + "' price='" +price+"' title='"+name+"'>" + name + "</input></div>";
+            $("#beans").append(item);
+        }
+        var noItem = "<div class='beansOption'><input type='radio' name='beans' value ='No Beans' price='0.00' title='No Beans'>No Beans</input></div>";
+        $("#beans").append(noItem);
+    }});
+
+    $.ajax({url:"api/Orders/Sauces/", success: function(json){
+        json = JSON.parse(json);
+        var sauce = json.Sauces;
+        for(var i = 0; i < sauce.length ; i++){
+            var name = sauce[i].Name;
+            var price = parseFloat(sauce[i].Price).toFixed(2);
+            var heatrating = sauce[i].HeatRating;
+            if(name !== "No Sauce"){
+                var item = "<div class='sauceOption'><input type='radio' name='sauce' value ='" + name + "' price='" +price+"' title='"+name+"' heatrating='" + heatrating +"'>" + name + "</input><span class='heatImage'></span></div>";
+                $("#sauce").append(item);
+            }
+        }
+        var noItem = "<div class='sauceOption'><input type='radio' name='sauce' value ='No Sauce' price='0.00' title='No Sauce' heatrating ='0'>No Sauce</input><span class='heatImage'></span></div>";
+        $("#sauce").append(noItem);
+        $( "#sauce input" ).each(addheatImage);
+    }});
+
+    $.ajax({url:"api/Orders/Vegetables/", success: function(json){
+        json = JSON.parse(json);
+        var vegetables = json.Vegetables;
+        for(var i = 0; i < vegetables.length ; i++){
+            var name = vegetables[i].Name;
+            var price = parseFloat(vegetables[i].Price).toFixed(2);
+            var item = "<div class='veggieOption'><input type='checkbox' name='veggie' value ='" + name + "' price='" +price+"' title='"+name+"'>" + name + "</input></div>";
+            $("#vegetables").append(item);
+        }
+        var button = "<br><button type='button'>Select All</button>";
+        $("#vegetables").append(button);
+    }});
+
+    $.ajax({url:"api/Orders/Extras/", success: function(json){
+        json = JSON.parse(json);
+        var extras = json.Extras;
+        for(var i = 0; i < extras.length ; i++){
+            var name = extras[i].Name;
+            var price = parseFloat(extras[i].Price).toFixed(2);
+            var item = "<div class='extrasOption'><input type='checkbox' name='extras' value ='" + name + "' price='" +price+"' title='"+name+"'>" + name + "</input></div>";
+            $("#extras").append(item);
+        }
+        var button = "<br><button type='button'>Select All</button>";
+        $("#extras").append(button);
+    }});
+
     
 
 
