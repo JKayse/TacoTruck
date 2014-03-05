@@ -265,3 +265,19 @@ hr {
 .buttons{
     margin:15px 0px 15px 30px;
 }
+
+#vegetables, #extras {
+    position: relative;
+}
+
+
+#accordion button {
+    position: absolute;
+    bottom:3px;
+    left:3px;
+}
+
+
+#deselectVegetables, #deselectExtras {
+    display: none;
+}

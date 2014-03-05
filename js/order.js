@@ -7,16 +7,24 @@ $(function() {
 
 $(document).ready(function() {
     $("header").load("Header.html");
-    $(".tortillaOption").click(addTortillaSelector);
-    $(".fillingOption").click(addFillingSelector);
     $("#menuButtons button").eq(0).click(addOrder);
     $("#menuButtons button").eq(1).click(resetOrder);
     $("#orderMenu div").click(addCurrentCostandTaco);
     $(document).on('change', ".quantity", updateEveryTacoPrice);
     $(document).on('click', ".order .delete", deleteOrder);
-    $(document).on('click', ".order .itemList", populateTable);
-    $(document).on('click', "#orderMenu .itemList", populateTable);
     $(document).on('mouseover', ".order", setHoverPosition);
+    $(document).on('click', "#selectVegetables", addAllVeggies);
+    $(document).on('click', "#selectExtras", addAllExtras);
+    $(document).on('click', "#deselectVegetables", deleteAllVeggies);
+    $(document).on('click', "#deselectExtras", deleteAllExtras);
+    $(document).on('click', ".tortillaOption", addTortillaSelector);
+    $(document).on('click', ".fillingOption", addFillingSelector);
+    $(document).on('click', "#orderPrevious", orderPrevious);
+    $(document).on('click', "#payOrder", payPopup);
+    $(document).on('click', "header img", goToHomePage);
+    $(document).on('click', "header h1", goToHomePage);
+    $(document).on('click', "#cancel", cancelPayment);
+
    
 
 
@@ -110,8 +118,8 @@ $(document).ready(function() {
             var item = "<div class='veggieOption'><input type='checkbox' name='veggie' value ='" + name + "' price='" +price+"' title='"+name+"'>" + name + "</input></div>";
             $("#vegetables").append(item);
         }
-        var button = "<br><button type='button'>Select All</button>";
-        $("#vegetables").append(button);
+        var buttons = "<button id='selectVegetables' type='button'>Select All</button><button id='deselectVegetables' type='button'>Deselect All</button>";
+        $("#vegetables").append(buttons);
     }});
 
     $.ajax({url:"api/Orders/Extras/", success: function(json){
@@ -123,8 +131,8 @@ $(document).ready(function() {
             var item = "<div class='extrasOption'><input type='checkbox' name='extras' value ='" + name + "' price='" +price+"' title='"+name+"'>" + name + "</input></div>";
             $("#extras").append(item);
         }
-        var button = "<br><button type='button'>Select All</button>";
-        $("#extras").append(button);
+        var buttons = "<button id='selectExtras' type='button'>Select All</button><button id='deselectExtras' type='button'>Deselect All</button>";
+        $("#extras").append(buttons);
     }});
 
     
@@ -147,11 +155,13 @@ function setHoverPosition()
 function addTortillaSelector(event){
     $(".tortillaOption").removeClass("selectedImage");
     $(this).addClass("selectedImage");
+    addCurrentCostandTaco();
 }
 
 function addFillingSelector(event){
     $(".fillingOption").removeClass("selectedImage");
     $(this).addClass("selectedImage");
+    addCurrentCostandTaco();
 }
 
 
@@ -216,6 +226,7 @@ function addOrder(event){
     }
     
     updateTotalPrice();
+    resetOrder();
 }
 
 function updateEveryTacoPrice(){
@@ -285,6 +296,10 @@ function addCurrentCostandTaco(){
         }
 
     }
+    else{
+        $("#tacoCheese").html("");
+        $("#tacoCheese").attr("cheese", "");
+    }
 
     var rice = $("#rice input[type='radio']:checked");
     var ricePrice = 0;
@@ -300,6 +315,10 @@ function addCurrentCostandTaco(){
             $("#tacoRice").html("Rice: " + tacoRice);
             $("#tacoRice").attr("rice", tacoRice);
         }
+    }
+    else{
+        $("#tacoRice").html("");
+        $("#tacoRice").attr("rice", "");
     }
 
 
@@ -321,6 +340,10 @@ function addCurrentCostandTaco(){
             $("#tacoBeans").attr("beans", tacoBeans);
         }
     }
+    else{
+        $("#tacoBeans").html("");
+        $("#tacoBeans").attr("beans", "");
+    }
 
 
     var sauce = $("#sauce input[type='radio']:checked");
@@ -335,6 +358,11 @@ function addCurrentCostandTaco(){
             $("#tacoSauce").attr("sauce", tacoSauce);
         }
     }
+    else{
+        $("#tacoSauce").html("");
+        $("#tacoSauce").attr("sauce", "");
+    }
+
 
     var vegetables = $("#vegetables input[type='checkbox']:checked");
     var tacoVeggies ="";
@@ -371,6 +399,10 @@ function addCurrentCostandTaco(){
         $("#tacoExtras").html("Extras: " + tacoExtras);
         $("#tacoExtras").attr("extras", tacoExtras);
     }
+    else{
+        $("#tacoExtras").html("");
+        $("#tacoExtras").attr("extras", "");
+    }
 
 
     totalExtrasPrice = totalExtrasPrice*100;
@@ -390,8 +422,74 @@ function addCurrentCostandTaco(){
 }
 
 function resetOrder(){
+    $(".tortillaOption").removeClass("selectedImage");
+    $(".tortillaOption").eq(0).addClass("selectedImage")
+    $(".fillingOption").removeClass("selectedImage");
+    $(".fillingOption").eq(0).addClass("selectedImage")
+    $(".cheeseOption input").prop('checked', false);
+    $(".riceOption input").prop('checked', false);
+    $(".beansOption input").prop('checked', false);
+    $(".sauceOption input").prop('checked', false);
+    deleteAllVeggies();
+    deleteAllExtras();
 
 }
+
+
+function addAllVeggies(){
+    $(".veggieOption input").prop('checked', true);
+    $("#selectVegetables").css("display", "none");
+    $("#deselectVegetables").css("display", "block");
+    addCurrentCostandTaco();
+    
+}
+
+function addAllExtras(){
+    $(".extrasOption input").prop('checked', true);
+    $("#selectExtras").css("display", "none");
+    $("#deselectExtras").css("display", "block");
+    addCurrentCostandTaco();
+    
+}
+
+function deleteAllVeggies(){
+    $(".veggieOption input").prop('checked', false);
+    $("#deselectVegetables").css("display", "none");
+    $("#selectVegetables").css("display", "block");
+    addCurrentCostandTaco();
+    
+}
+
+function deleteAllExtras(){
+    $(".extrasOption input").prop('checked', false);
+    $("#deselectExtras").css("display", "none");
+    $("#selectExtras").css("display", "block");
+    addCurrentCostandTaco();
+    
+}
+
+function orderPrevious(){
+
+}
+
+function payPopup(){
+    if($(".order").size() !== 0){
+        $("#blackScreenofDeath").css("display","block");
+        $("#payment").css("display","block");
+        var total = $("#totalPrice").attr("price");
+        $("#paymentTotal").html("Your order comes out to: $" + total);
+    }
+    else{
+        alert("Please order at least one taco to continue. Thanks!");
+    }
+
+}
+
+function cancelPayment(){
+    $("#blackScreenofDeath").css("display","none");
+    $("#payment").css("display","none");
+}
+
 
 function deleteOrder(){
     tacoOrder = $(this).parent();
@@ -400,15 +498,6 @@ function deleteOrder(){
     updateTotalPrice();
 }
 
-function populateTable(){
-    var taco = $(this)
-    tacoTortilla = taco.attr('tortilla');
-    tacoFilling = taco.attr('filling');
-    tacoCheese = taco.attr('cheese');
-    tacoRice = taco.attr('rice');
-    tacoBeans = taco.attr('beans');
-    tacoSauce = taco.attr('sauce');
-    tacoVegetables = taco.attr('vegetables');
-    tacoExtras = taco.attr('extras');
-
+function goToHomePage(){
+    window.location = "index.html";
 }

@@ -260,7 +260,7 @@ function getMenuItem($ItemType)
 function getConnection() {
 	$dbhost="localhost";
 	$dbuser="root";
-	$dbpass="halomasterchief";
+	$dbpass="";
 	$dbname="Taco_Truck";
 	$dbh = new PDO("mysql:host=$dbhost;dbname=$dbname", $dbuser, $dbpass);	
 	$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
