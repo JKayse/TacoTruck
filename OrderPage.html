@@ -58,27 +58,7 @@
                     </div>
 
                     <h3>Filling</h3>
-                    <div id = "filling">
-                        <div class = "fillingOption selectedImage">
-                            <img src="img/chicken.png" alt="Chicken Taco" title="Chicken Taco" price="0.75">
-                            <h4>Chicken</h4>
-                        </div>
-
-                        <div class = "fillingOption">
-                            <img src="img/steak.png" alt="Steak Taco" title="Steak Taco" price="1.00">
-                            <h4>Steak</h4>
-                        </div>
-
-                        <div class = "fillingOption">
-                            <img src="img/carnitas.png" alt="Carnitas Taco" title="Carnitas Taco" price="1.00">
-                            <h4>Carnitas</h4>
-                        </div>
-
-                        <div class = "fillingOption">
-                            <img src="img/veggies.png" alt="Veggie Taco" title="Veggie Taco" price="0.50">
-                            <h4>Veggie</h4>
-                        </div>
-                    </div>
+                    <div id = "filling"></div>
 
                     <h3>Cheese</h3>
                     <div id = "cheese">
@@ -243,6 +223,9 @@
                         <div class = "veggieOption">
                             <input type="checkbox" name="veggie" value="Lettuce" price="0.00">Lettuce
                         </div>
+
+                        <br>
+                        <button type="button">Select All</button>
                     </div>
 
                     <h3>Extras</h3>
@@ -269,17 +252,20 @@
 
                         <div class = "extrasOption">
                             <input type="checkbox" name="extras" value="Bacon" price="0.50">Bacon       
-                        </div>               
+                        </div>   
+
+                        <br>
+                        <button type="button">Select All</button>            
                     </div>
                 </div>
                 <div id="menuButtons">
-                    <button type="button">Save Taco</button>
+                    <button type="button">Add Taco</button>
                     <button type="button">Reset Taco</button>
-                    <h4 id= "tacoPrice" tacoPrice="1.00">Current Price: $1.00/ea</h4>
+                    <h4 id= "tacoPrice" tacoPrice="1.00">Current Price: $1.25/ea</h4>
                     <h4>Current Taco: </h4>
                     <div id = "currentTaco">
                         <h5 id="tacoTortilla" tortilla="Flour">Tortilla: Flour</h5>
-                        <h5 id="tacoFilling" filling="Chicken">Filling: Chicken</h5>   
+                        <h5 id="tacoFilling" filling="Chicken">Filling: Steak</h5>   
                         <h5 id="tacoCheese" cheese></h5>
                         <h5 id="tacoRice" rice></h5>  
                         <h5 id="tacoBeans" beans></h5>
@@ -305,8 +291,10 @@
                         </select>
                         <input id = "number" type="text" name="creditCardNumber" placeholder="Credit Card Number">
                         <h3 id="paymentTotal"></h3>
-
-                        <input type="submit" value="Submit">
+                        <div class="buttons">
+                            <input id = "pay" type="submit" value="Pay">
+                            <input id = "cancel" type="button" value="Cancel">
+                        <div>
                     </form> 
                 </div>
             </div> 

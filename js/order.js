@@ -18,6 +18,20 @@ $(document).ready(function() {
     $(document).on('click', ".order .itemList", populateTable);
     $(document).on('click', "#orderMenu .itemList", populateTable);
     $(document).on('mouseover', ".order", setHoverPosition);
+   
+
+    $.ajax({url:"api/Orders/Filling/", success: function(json){
+        json = JSON.parse(json);
+        var filling = json.Filling;
+        for(var i = 0; i < filling.length ; i++){
+            var name = filling[i].Name;
+            var price = parseFloat(filling[i].Price).toFixed(2);
+            var item = "<div class='fillingOption'><img src='img/"+ name +".png' alt='"+name+" Taco' alt='"+name+" Taco' price='" +price+"'><h4>" + name +"</h4></div>";
+            console.log(item);
+            $("#filling").append(item);
+            $(".fillingOption").eq(0).addClass("selectedImage");
+        }
+    }});
     
 
 
@@ -303,4 +317,3 @@ function populateTable(){
     tacoExtras = taco.attr('extras');
 
 }
-
