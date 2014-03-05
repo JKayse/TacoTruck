@@ -13,7 +13,7 @@ $app->get(
 	});
 
 $app->get('/Orders', 'getOrders');
-//$app->get('/wines/:id','getWine');
+$app->get('/Locations/','getLocations');
 //$app->get('/wines/search/:query', 'findByName');
 $app->post('/Orders', 'addOrders');
 //$app->put('/wines/:id', 'updateWine');
@@ -34,6 +34,19 @@ function getOrders() {
 	}
 }
 
+function getLocations(){
+	$sql = "SELECT Name,Address,City,State,Zipcode FROM Locations GROUP BY Name";
+	try{
+		$db = getConnection();
+		$stmt = $db->query($sql);
+		$orders = $stmt->fetchAll(PDO::FETCH_OBJ);
+		$db = null;
+		echo '{ Locations": ' . json_encode($orders) . '}';
+	} catch(PDOException $e) {
+		echo '{"error":{"text":'. $e->getMessage() . '}}';
+	}
+}
+
 
 /*
 function getWine($id) {
@@ -50,7 +63,7 @@ function getWine($id) {
 		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
 	}
 }
-*/
+*//*
 function addOrder() {
 	error_log('addOrder\n', 3, '/var/tmp/php.log');
 	$request = Slim::getInstance()->request();
@@ -73,7 +86,7 @@ function addOrder() {
 		error_log($e->getMessage(), 3, '/var/tmp/php.log');
 		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
 	}
-}
+}*/
 /*
 function updateWine($id) {
 	$request = Slim::getInstance()->request();
