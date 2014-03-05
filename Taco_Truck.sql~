@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 05, 2014 at 02:47 AM
+-- Generation Time: Mar 05, 2014 at 10:42 PM
 -- Server version: 5.5.35-0ubuntu0.13.10.2
 -- PHP Version: 5.5.3-1ubuntu2.2
 
@@ -19,7 +19,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `Taco_Truck`
 --
-CREATE DATABASE IF NOT EXISTS Taco_Truck;
 
 -- --------------------------------------------------------
 
@@ -63,61 +62,61 @@ CREATE TABLE IF NOT EXISTS `Menu` (
   `TacoFixinId` int(11) NOT NULL AUTO_INCREMENT,
   `ItemType` varchar(255) NOT NULL,
   `Name` varchar(255) NOT NULL,
-  `Price` varchar(10) NOT NULL,
-  `HeatRating` varchar(11) DEFAULT '0',
+  `Price` double NOT NULL,
+  `HeatRating` int(11) DEFAULT NULL,
   PRIMARY KEY (`TacoFixinId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=194 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=46 ;
 
 --
 -- Dumping data for table `Menu`
 --
 
 INSERT INTO `Menu` (`TacoFixinId`, `ItemType`, `Name`, `Price`, `HeatRating`) VALUES
-(149, 'type', 'Steak', '1', ''),
-(150, 'type', 'Chicken', '0.75', ''),
-(151, 'type', 'Carnitas', '1', ''),
-(152, 'type', 'Veggie', '0.5', ''),
-(153, 'tortillas', 'Flour', '0.25', ''),
-(154, 'tortillas', 'Cayenne', '0.35', ''),
-(155, 'tortillas', 'Wheat', '0.35', ''),
-(156, 'tortillas', 'Spinach', '0.3', ''),
-(157, 'rice', 'Cilantro Rice', '0.25', ''),
-(158, 'rice', 'Spanish Rice', '0.25', ''),
-(159, 'cheese', 'Queso Fresco', '0.5', ''),
-(160, 'cheese', 'Cheddar/Jack Mix', '0.35', ''),
-(161, 'cheese', 'Monterrey Jack', '0.35', ''),
-(162, 'beans', 'Refried Beans', '0.35', ''),
-(163, 'beans', 'Whole Pinto Beans', '0.25', ''),
-(164, 'beans', 'Black Beans', '0.1', ''),
-(165, 'sauces', 'Hot Tomatillo', '0', '3'),
-(166, 'sauces', 'Death', '0', '4'),
-(167, 'sauces', 'Fresh Lime Juice', '0', '1'),
-(168, 'sauces', 'Bad Ass BBQ', '0', '2'),
-(169, 'sauces', 'Mild Tomatillo', '0', '2'),
-(170, 'sauces', 'Ranch', '0', '1'),
-(171, 'sauces', 'No Sauce', '0', '0'),
-(172, 'sauces', 'Habenero', '0', '3'),
-(173, 'sauces', 'Salsa', '0', '2'),
-(174, 'sauces', 'Ancho', '0', '1'),
-(175, 'sauces', 'Tomatillo', '0', '1'),
-(176, 'sauces', 'Herb Vinigrette', '0', '1'),
-(177, 'vegetables', 'Poblano Salsa', '0', ''),
-(178, 'vegetables', 'Roasted Garlic', '0', ''),
-(179, 'vegetables', 'Peppers/Onions', '0', ''),
-(180, 'vegetables', 'Red Onion', '0', ''),
-(181, 'vegetables', 'Jalapenos', '0', ''),
-(182, 'vegetables', 'Pico de Gallo', '0', ''),
-(183, 'vegetables', 'White Onion', '0', ''),
-(184, 'vegetables', 'Tomatoes', '0', ''),
-(185, 'vegetables', 'Cilantro', '0', ''),
-(186, 'vegetables', 'Tortilla Strips', '0', ''),
-(187, 'vegetables', 'Lettuce', '0', ''),
-(188, 'extras', 'X - Extra Meat/Veggies', '1', ''),
-(189, 'extras', 'Sour Cream', '0.75', ''),
-(190, 'extras', 'Guacamole', '0.75', ''),
-(191, 'extras', 'Queso', '0.5', ''),
-(192, 'extras', 'Sliced Avocado', '0.75', ''),
-(193, 'extras', 'Bacon', '0.5', '');
+(1, 'type', 'Steak', 1, 0),
+(2, 'type', 'Chicken', 0.75, 0),
+(3, 'type', 'Carnitas', 1, 0),
+(4, 'type', 'Veggie', 0.5, 0),
+(5, 'tortillas', 'Flour', 0.25, 0),
+(6, 'tortillas', 'Cayenne', 0.35, 0),
+(7, 'tortillas', 'Wheat', 0.35, 0),
+(8, 'tortillas', 'Spinach', 0.3, 0),
+(9, 'rice', 'Cilantro Rice', 0.25, 0),
+(10, 'rice', 'Spanish Rice', 0.25, 0),
+(11, 'cheese', 'Queso Fresco', 0.5, 0),
+(12, 'cheese', 'Cheddar/Jack Mix', 0.35, 0),
+(13, 'cheese', 'Monterrey Jack', 0.35, 0),
+(14, 'beans', 'Refried Beans', 0.35, 0),
+(15, 'beans', 'Whole Pinto Beans', 0.25, 0),
+(16, 'beans', 'Black Beans', 0.1, 0),
+(17, 'sauces', 'Hot Tomatillo', 0, 3),
+(18, 'sauces', 'Death', 0, 4),
+(19, 'sauces', 'Fresh Lime Juice', 0, 1),
+(20, 'sauces', 'Bad Ass BBQ', 0, 2),
+(21, 'sauces', 'Mild Tomatillo', 0, 2),
+(22, 'sauces', 'Ranch', 0, 1),
+(23, 'sauces', 'No Sauce', 0, 0),
+(24, 'sauces', 'Habenero', 0, 3),
+(25, 'sauces', 'Salsa', 0, 2),
+(26, 'sauces', 'Ancho', 0, 1),
+(27, 'sauces', 'Tomatillo', 0, 1),
+(28, 'sauces', 'Herb Vinigrette', 0, 1),
+(29, 'vegetables', 'Poblano Salsa', 0, 0),
+(30, 'vegetables', 'Roasted Garlic', 0, 0),
+(31, 'vegetables', 'Peppers/Onions', 0, 0),
+(32, 'vegetables', 'Red Onion', 0, 0),
+(33, 'vegetables', 'Jalapenos', 0, 0),
+(34, 'vegetables', 'Pico de Gallo', 0, 0),
+(35, 'vegetables', 'White Onion', 0, 0),
+(36, 'vegetables', 'Tomatoes', 0, 0),
+(37, 'vegetables', 'Cilantro', 0, 0),
+(38, 'vegetables', 'Tortilla Strips', 0, 0),
+(39, 'vegetables', 'Lettuce', 0, 0),
+(40, 'extras', 'X - Extra Meat/Veggies', 1, 0),
+(41, 'extras', 'Sour Cream', 0.75, 0),
+(42, 'extras', 'Guacamole', 0.75, 0),
+(43, 'extras', 'Queso', 0.5, 0),
+(44, 'extras', 'Sliced Avocado', 0.75, 0),
+(45, 'extras', 'Bacon', 0.5, 0);
 
 -- --------------------------------------------------------
 
@@ -287,46 +286,47 @@ INSERT INTO `OrderItemDetails` (`OrderItemDetailId`, `OrderItemId`, `TacoFixinId
 --
 
 CREATE TABLE IF NOT EXISTS `Orders` (
-  `OrderId` int(2) DEFAULT NULL,
-  `UserId` int(2) DEFAULT NULL,
-  `Date` varchar(19) DEFAULT NULL,
-  `Total` varchar(6) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `OrderId` int(2) NOT NULL AUTO_INCREMENT,
+  `UserId` int(11) NOT NULL,
+  `Date` datetime NOT NULL,
+  `Total` varchar(50) NOT NULL,
+  PRIMARY KEY (`OrderId`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=30 ;
 
 --
 -- Dumping data for table `Orders`
 --
 
 INSERT INTO `Orders` (`OrderId`, `UserId`, `Date`, `Total`) VALUES
-(1, 1, '12/22/2014 5:57:19', '$68.15'),
-(2, 1, '1/14/2015 6:56:35', '$28.51'),
-(3, 2, '12/23/2013 12:50:40', '$91.76'),
-(4, 2, '4/27/2013 8:41:09', '$23.46'),
-(5, 3, '2/13/2014 18:33:08', '$9.26'),
-(6, 3, '10/6/2013 2:07:47', '$51.78'),
-(7, 4, '12/9/2014 1:25:38', '$18.32'),
-(8, 4, '5/11/2013 16:03:37', '$21.24'),
-(9, 5, '9/19/2014 15:17:08', '$98.65'),
-(10, 5, '6/20/2014 9:29:33', '$20.1'),
-(11, 6, '3/25/2013 1:03:52', '$22.82'),
-(12, 6, '1/20/2014 0:59:20', '$75.48'),
-(13, 7, '9/27/2014 12:52:10', '$52.44'),
-(14, 7, '1/8/2015 3:47:51', '$60.46'),
-(15, 8, '10/19/2013 8:53:41', '$22.7'),
-(16, 8, '7/29/2014 10:15:40', '$60.6'),
-(17, 9, '7/9/2014 7:47:40', '$70.42'),
-(18, 9, '2/27/2014 19:49:39', '$27.05'),
-(19, 10, '5/23/2014 16:23:46', '$32.9'),
-(20, 10, '5/22/2013 5:16:24', '$44.23'),
-(21, 1, '7/14/2014 14:44:12', '$37.92'),
-(22, 2, '9/25/2013 12:17:35', '$18.76'),
-(23, 3, '2/21/2014 9:49:30', '$34.4'),
-(24, 4, '5/8/2014 2:34:09', '$75.92'),
-(25, 5, '10/28/2014 19:26:35', '$69.64'),
-(26, 6, '5/22/2013 0:51:56', '$13.3'),
-(27, 7, '2/28/2014 12:10:06', '$1.69'),
-(28, 8, '1/16/2014 14:24:49', '$56.42'),
-(29, 9, '3/21/2013 9:28:10', '$15.94');
+(1, 1, '2014-12-22 05:57:19', '$68.15'),
+(2, 1, '2015-01-14 06:56:35', '$28.51'),
+(3, 2, '2013-12-23 12:50:40', '$91.76'),
+(4, 2, '2013-04-27 08:41:09', '$23.46'),
+(5, 3, '2014-02-13 18:33:08', '$9.26 '),
+(6, 3, '2013-10-06 02:07:47', '$51.78'),
+(7, 4, '2014-12-09 01:25:38', '$18.32'),
+(8, 4, '2013-05-11 16:03:37', '$21.24'),
+(9, 5, '2014-09-19 15:17:08', '$98.65'),
+(10, 5, '2014-06-20 09:29:33', '$20.10'),
+(11, 6, '2013-03-25 01:03:52', '$22.82'),
+(12, 6, '2014-01-20 00:59:20', '$75.48'),
+(13, 7, '2014-09-27 12:52:10', '$52.44'),
+(14, 7, '2015-01-08 03:47:51', '$60.46'),
+(15, 8, '2013-10-19 08:53:41', '$22.70'),
+(16, 8, '2014-07-29 10:15:40', '$60.60'),
+(17, 9, '2014-07-09 07:47:40', '$70.42'),
+(18, 9, '2014-02-27 19:49:39', '$27.05'),
+(19, 10, '2014-05-23 16:23:46', '$32.90'),
+(20, 10, '2013-05-22 05:16:24', '$44.23'),
+(21, 1, '2014-07-14 14:44:12', '$37.92'),
+(22, 2, '2013-09-25 12:17:35', '$18.76'),
+(23, 3, '2014-02-21 09:49:30', '$34.40'),
+(24, 4, '2014-05-08 02:34:09', '$75.92'),
+(25, 5, '2014-10-28 19:26:35', '$69.64'),
+(26, 6, '2013-05-22 00:51:56', '$13.30'),
+(27, 7, '2014-02-28 12:10:06', '$1.69 '),
+(28, 8, '2014-01-16 14:24:49', '$56.42'),
+(29, 9, '2013-03-21 09:28:10', '$15.94');
 
 -- --------------------------------------------------------
 
