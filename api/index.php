@@ -14,8 +14,8 @@ $app->get(
 
 $app->get('/Orders', 'getOrders');
 $app->get('/Locations/','getLocations');
-//$app->get('/wines/search/:query', 'findByName');
-$app->post('/Orders', 'addOrders');
+$app->get('/Orders/Filling/', 'getFillings');
+//$app->post('/Orders', 'addOrders');
 //$app->put('/wines/:id', 'updateWine');
 //$app->delete('/wines/:id','deleteWine');
 
@@ -123,27 +123,24 @@ function deleteWine($id) {
 		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
 	}
 }
-
-function findByName($query) {
-	$sql = "SELECT * FROM wine WHERE UPPER(name) LIKE :query ORDER BY name";
+*/
+function getFillings() {
+	$sql = "SELECT Name, Price FROM Menu WHERE ItemType = 'type'";
 	try {
 		$db = getConnection();
-		$stmt = $db->prepare($sql);
-		$query = "%".$query."%";  
-		$stmt->bindParam("query", $query);
-		$stmt->execute();
-		$wines = $stmt->fetchAll(PDO::FETCH_OBJ);
+		$stmt = $db->query($sql);
+		$Filling = $stmt->fetchAll(PDO::FETCH_OBJ);
 		$db = null;
-		echo '{"wine": ' . json_encode($wines) . '}';
+		echo '{"Filling": ' . json_encode($Filling) . '}';
 	} catch(PDOException $e) {
 		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
 	}
 }
-*/
+
 function getConnection() {
 	$dbhost="localhost";
 	$dbuser="root";
-	$dbpass="";
+	$dbpass="halomasterchief";
 	$dbname="Taco_Truck";
 	$dbh = new PDO("mysql:host=$dbhost;dbname=$dbname", $dbuser, $dbpass);	
 	$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
