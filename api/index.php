@@ -247,7 +247,7 @@ function addUser()
 	$db = getConnection();
 	$sql = "INSERT INTO Users (firstname, lastname, email, password, cc_provider, cc_number) VALUES
 			(:firstname, :lastname, :email, :password, :cc_provider, :cc_number)";
-	$stmt-> = $db->prepare($sql);
+	$stmt = $db->prepare($sql);
 	$stmt->bindParam("firstname", $firstname);
 	$stmt->bindParam("lastname", $lastname);
 	$stmt->bindParam("email", $email);
