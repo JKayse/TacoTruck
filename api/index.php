@@ -156,17 +156,33 @@ function getLocations(){
 */
 function getMenuItem($ItemType)
 {
-	$sql = "SELECT Name, Price FROM Menu WHERE ItemType=:ItemType";
-	try {
-		$db = getConnection();
-		$stmt = $db->prepare($sql);
-		$stmt->bindParam("ItemType",$ItemType);
-		$stmt->execute();
-		$Items = $stmt->fetchAll(PDO::FETCH_OBJ);
-		$db = null;
-		echo '{"' . $ItemType. '": ' . json_encode($Items) . '}';
-	} catch(PDOException $e) {
+	if($ItemType != "sauces"){	
+		$sql = "SELECT Name, Price FROM Menu WHERE ItemType=:ItemType";
+		try {
+			$db = getConnection();
+			$stmt = $db->prepare($sql);
+			$stmt->bindParam("ItemType",$ItemType);
+			$stmt->execute();
+			$Items = $stmt->fetchAll(PDO::FETCH_OBJ);
+			$db = null;
+			echo '{"' . $ItemType. '": ' . json_encode($Items) . '}';
+		} catch(PDOException $e) {
 		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
+		}
+	}
+	else{
+		$sql = "SELECT Name, Price, HeatRating FROM Menu WHERE ItemType=:ItemType";
+		try {
+			$db = getConnection();
+			$stmt = $db->prepare($sql);
+			$stmt->bindParam("ItemType",$ItemType);
+			$stmt->execute();
+			$Items = $stmt->fetchAll(PDO::FETCH_OBJ);
+			$db = null;
+			echo '{"' . $ItemType. '": ' . json_encode($Items) . '}';
+		} catch(PDOException $e) {
+		echo '{"error":{"text":'. $e->getMessage() .'}}';
+		}
 	}
 }
 
