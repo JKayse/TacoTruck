@@ -227,7 +227,8 @@ hr {
 }
 
 .itemList {
-    width: 115px;
+    width: 126px;
+    margin-right: 2px;
 }
 
 .order .itemList:hover {
