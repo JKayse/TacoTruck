@@ -38,6 +38,10 @@ $app->get('/Menu/:ItemType', 'getMenuItem');
 * Link to get Payment
 */
 $app->get('/Payment/:UserId', 'getPayment');
+
+//User Registration
+$app->post('/AddUser', 'addUser');
+
 //$app->post('/Orders', 'addOrders');
 //$app->put('/wines/:id', 'updateWine');
 //$app->delete('/wines/:id','deleteWine');
@@ -228,6 +232,31 @@ function getMenuItem($ItemType)
 	} catch(PDOException $e) {
 		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
 	}
+}
+
+//User Registration
+function addUser()
+{
+	$firstname = $app->request()->post('firstname');
+	$lastname = $app->request()->post('lastname');
+	$email = $app->request()->post('email');
+	$password = password_hash($app->request()->post('password'));
+	$cc_provider = $app->request()->post('cc_provider');
+	$cc_number = $app->request()->post('cc_number');
+
+	$db = getConnection();
+	$sql = "INSERT INTO Users (firstname, lastname, email, password, cc_provider, cc_number) VALUES
+			(:firstname, :lastname, :email, :password, :cc_provider, :cc_number)";
+	$stmt-> = $db->prepare($sql);
+	$stmt->bindParam("firstname", $firstname);
+	$stmt->bindParam("lastname", $lastname);
+	$stmt->bindParam("email", $email);
+	$stmt->bindParam("password", $password);
+	$stmt->bindParam("cc_provider", $cc_provider);
+	$stmt->bindParam("cc_number", $cc_number);
+
+	$stmt->execute();
+	$db = null;
 }
 
 /**
