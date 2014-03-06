@@ -85,7 +85,7 @@ function getOrder($OrderId){
 }
 
 function getPayment($UserId){
-	$sql = "SELECT Users.GivenName, Users.SurName, Users.CC_Provider, User.CC_Number
+	$sql = "SELECT Users.GivenName, Users.SurName, Users.CC_Provider, Users.CC_Number
 		FROM Users WHERE UserId =:UserId";
 	try {
 		$db = getConnection();
