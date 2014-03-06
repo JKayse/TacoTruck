@@ -332,3 +332,27 @@ hr {
     float:right;
     margin-right: 30%;
 }
+
+#previousOrderList{
+    height:200px;
+    overflow-y:auto;
+    margin-left: 5px;
+    margin-right:5px;
+    background-color: rgb(121, 183, 196);
+    border-style: solid;
+}
+
+#previousOrderList h5{
+    margin: 3px 0px 3px 3px;
+}
+
+#previousOrder button{
+    width:40%;
+    margin-left: 25px;
+    height:30px;
+    margin-bottom: 10px;
+}
+
+#previousOrder{
+    display: none;
+}
