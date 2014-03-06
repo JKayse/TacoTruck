@@ -237,23 +237,23 @@ function getMenuItem($ItemType)
 //User Registration
 function addUser()
 {
-	$firstname = $app->request()->post('firstname');
-	$lastname = $app->request()->post('lastname');
-	$email = $app->request()->post('email');
+	$firstname = $app->request()->post('givenName');
+	$lastname = $app->request()->post('surname');
+	$email = $app->request()->post('emailAddress');
 	$password = password_hash($app->request()->post('password'));
 	$cc_provider = $app->request()->post('cc_provider');
 	$cc_number = $app->request()->post('cc_number');
 
 	$db = getConnection();
-	$sql = "INSERT INTO Users (firstname, lastname, email, password, cc_provider, cc_number) VALUES
-			(:firstname, :lastname, :email, :password, :cc_provider, :cc_number)";
-	$stmt-> = $db->prepare($sql);
-	$stmt->bindParam("firstname", $firstname);
-	$stmt->bindParam("lastname", $lastname);
-	$stmt->bindParam("email", $email);
-	$stmt->bindParam("password", $password);
-	$stmt->bindParam("cc_provider", $cc_provider);
-	$stmt->bindParam("cc_number", $cc_number);
+	$sql = "INSERT INTO Users (GivenName, Surname, EmailAddress, Password, TelephoneNumber, CC_Provider, CC_Number);
+			(:givenName, :surname, :emailAddress, :password, :cc_provider, :cc_number)";
+	$stmt = $db->prepare($sql);
+	$stmt->bindParam("GivenName", $givenName);
+	$stmt->bindParam("Surname", $surname);
+	$stmt->bindParam("EmailAddress", $emailAddress);
+	$stmt->bindParam("Password", $password);
+	$stmt->bindParam("CC_Provider", $cc_provider);
+	$stmt->bindParam("CC_Number", $cc_number);
 
 	$stmt->execute();
 	$db = null;
