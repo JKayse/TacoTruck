@@ -156,7 +156,7 @@ function getLocations(){
 */
 function getMenuItem($ItemType)
 {
-	if($ItemType != "sauces"){	
+	if($ItemType != "Sauces"){	
 		$sql = "SELECT Name, Price FROM Menu WHERE ItemType=:ItemType";
 		try {
 			$db = getConnection();

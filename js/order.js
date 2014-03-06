@@ -757,7 +757,7 @@ function hideOrderPrevious(){
 
 function addOrderPrevious(){
     var prevOrderTotal = $("#totalPreviousPrice").attr("price");
-    $("#addedOrders").append("<span class = 'order prevOrder' totValue ='" + prevOrderTotal + "'><button type='button' class = 'delete button'>X</button><button type='button' class='button'>Previous Order</button><input type='number' class ='quantity' name='quantity' value='1' min='0' step='1'><span class='tacoPrice' tacoValue ='" + prevOrderTotal + "'>$"+prevOrderTotal+"</span><div class='tacoDetails'>''</div></span><br>");
+    $("#addedOrders").append("<span class = 'order prevOrder' totValue ='" + prevOrderTotal + "'><button type='button' class = 'delete button'>X</button><button type='button' class='button'>Previous Order</button><input type='number' class ='quantity' name='quantity' value='1' min='1' step='1'><span class='tacoPrice' tacoValue ='" + prevOrderTotal + "'>$"+prevOrderTotal+"</span><div class='tacoDetails'>''</div></span><br>");
     var insert2 = "<img src = 'img/leftArrow.png' alt='Arrow' title='Arrow'>";
     insert2 = insert2 + $('#previousOrderList').html();
     var taco = $(".prevOrder .tacoDetails");
