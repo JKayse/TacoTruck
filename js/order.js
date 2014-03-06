@@ -27,7 +27,7 @@ $(document).ready(function() {
     $(document).on('click', "#newOrder", orderAgain);
     $(document).on('click', "#locations", goToMap);
     $(document).on('click', "#cancel", cancelPayment);
-    $(document).on('click', "#pay", finalizeOrder);
+    $(document).on('submit', "#giveMeMoney", finalizeOrder);
 
    
 
@@ -122,7 +122,7 @@ $(document).ready(function() {
             var item = "<div class='veggieOption'><input type='checkbox' name='veggie' value ='" + name + "' price='" +price+"' title='"+name+"'>" + name + "</input></div>";
             $("#vegetables").append(item);
         }
-        var buttons = "<button class='button' id='selectVegetables' type='button'>Select All</button><button class='button' id='deselectVegetables' type='button'>Deselect All</button>";
+        var buttons = "<br><div id='veggieButtons'><button class='button' id='selectVegetables' type='button'>Select All</button><button class='button' id='deselectVegetables' type='button'>Deselect All</button></div>";
         $("#vegetables").append(buttons);
     }});
 
@@ -135,7 +135,7 @@ $(document).ready(function() {
             var item = "<div class='extrasOption'><input type='checkbox' name='extras' value ='" + name + "' price='" +price+"' title='"+name+"'>" + name + "</input></div>";
             $("#extras").append(item);
         }
-        var buttons = "<button  class='button' id='selectExtras' type='button'>Select All</button><button  class='button' id='deselectExtras' type='button'>Deselect All</button>";
+        var buttons = "<br><div id='extraButtons'><button  class='button' id='selectExtras' type='button'>Select All</button><button  class='button' id='deselectExtras' type='button'>Deselect All</button></div>";
         $("#extras").append(buttons);
     }});
 
@@ -191,10 +191,13 @@ function addOrder(event){
     var tacoSauce = $("#tacoSauce").attr("sauce");
     var tacoVegetables = $("#tacoVegetables").attr("vegetables");
     var tacoExtras = $("#tacoExtras").attr("extras");
+    var tacoQuantity = parseFloat($(".enterQuantity").val());
+
 
 
     var tacoPrice = parseFloat($("#tacoPrice").attr("tacoPrice")).toFixed(2);
-    $("#addedOrders").append("<span class = 'order' totValue ='" + tacoPrice + "'><button type='button' class = 'delete button'>X</button><button type='button' class='itemList button' filling='" + tacoFilling +"' tortilla='" + tacoTortilla +"' cheese='" + tacoCheese + "' rice='" + tacoRice +"' beans='" + tacoBeans +"' sauce='" + tacoSauce +"' vegetables='" + tacoVegetables +"' extras='" + tacoExtras +"'>"+ tacoName + " Taco</button><input type='number' class ='quantity' name='quantity' value='1' min='1' step='1'><span class='tacoPrice' tacoValue ='" + tacoPrice + "'>$"+tacoPrice+"</span><div class='tacoDetails'>''</div></span><br>");
+    $("#addedOrders").append("<span class = 'order' totValue ='" + tacoPrice + "'><button type='button' class = 'delete button'>X</button><button type='button' class='itemList button' filling='" + tacoFilling +"' tortilla='" + tacoTortilla +"' cheese='" + tacoCheese + "' rice='" + tacoRice +"' beans='" + tacoBeans +"' sauce='" + tacoSauce +"' vegetables='" + tacoVegetables +"' extras='" + tacoExtras +"'>"+ tacoName + " Taco</button><input type='number' class ='quantity' name='quantity' value='" + tacoQuantity +"' min='1' step='1'><span class='tacoPrice' tacoValue ='" + tacoPrice + "'>$"+tacoPrice+"</span><div class='tacoDetails'>''</div></span><br>");
+    updateEveryTacoPrice();
     var tacos = $(".tacoDetails");
     for(var i = 0; i<tacos.size();i++){
         
@@ -439,38 +442,31 @@ function resetOrder(){
     $(".sauceOption input").prop('checked', false);
     deleteAllVeggies();
     deleteAllExtras();
+    $(".enterQuantity").val("1");
 
 }
 
 
 function addAllVeggies(){
     $(".veggieOption input").prop('checked', true);
-    $("#selectVegetables").css("display", "none");
-    $("#deselectVegetables").css("display", "block");
     addCurrentCostandTaco();
     
 }
 
 function addAllExtras(){
     $(".extrasOption input").prop('checked', true);
-    $("#selectExtras").css("display", "none");
-    $("#deselectExtras").css("display", "block");
     addCurrentCostandTaco();
     
 }
 
 function deleteAllVeggies(){
     $(".veggieOption input").prop('checked', false);
-    $("#deselectVegetables").css("display", "none");
-    $("#selectVegetables").css("display", "block");
     addCurrentCostandTaco();
     
 }
 
 function deleteAllExtras(){
     $(".extrasOption input").prop('checked', false);
-    $("#deselectExtras").css("display", "none");
-    $("#selectExtras").css("display", "block");
     addCurrentCostandTaco();
     
 }

@@ -53,6 +53,7 @@ h2, h3, h4,  button{
 #orderMenu h4{
     margin: 0px;
     text-align: center;
+    margin-top: 2px;
 }
 
 #orderMenu h5{
@@ -197,7 +198,7 @@ hr {
 }
 
 .quantity {
-    width: 40px;
+    width: 75px;
 }
 
 #orderMenu .cheeseOption, .riceOption, .beansOption, .veggieOption, .sauceOption, .extrasOption{
@@ -237,6 +238,7 @@ hr {
     font-size: 18px;
     margin-right:2px;
 }
+
 
 #blackScreenofDeath{
     display: none;
@@ -290,15 +292,10 @@ hr {
 }
 
 
-#accordion button {
+#veggieButtons, #extraButtons {
     position: absolute;
     bottom:3px;
     left:3px;
-}
-
-
-#deselectVegetables, #deselectExtras {
-    display: none;
 }
 
 #paySuccess {
@@ -329,3 +326,9 @@ hr {
     font-size:18px;
 }
 
+.enterQuantity {
+    margin: 0px;
+    width: 12%;
+    float:right;
+    margin-right: 30%;
+}
