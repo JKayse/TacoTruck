@@ -65,7 +65,7 @@ function getPreviousOrders($UserId) {
 }
 
 function getOrder($OrderId){
-	$sql = "SELECT Orders.Total,OrderItem.Quantity,Menu.Name FROM
+	$sql = "SELECT Orders.Total,OrderItem.Quantity,OrderItem.OrderItemId,Menu.Name FROM
 			Orders INNER JOIN (OrderItem INNER JOIN (OrderItemDetails 
 			INNER JOIN Menu ON OrderItemDetails.TacoFixinId = Menu.TacoFixInId)
 			ON OrderItem.OrderItemId = OrderItemDetails.OrderItemId) ON 
