@@ -250,7 +250,7 @@ $(document).ready(function() {
                     }
                     if(extras !== ""){
                         extras = extras.substring(2);
-                        addSection = addSection + "<h5 class='prevVeggies' extras='" + extras + "'>Extras: " + extras + "</h5>";
+                        addSection = addSection + "<h5 class='prevExtras' extras='" + extras + "'>Extras: " + extras + "</h5>";
                     }
                     
                     addSection = addSection + "<h5 class='prevQuantity' quantity='" + quantity + "'>Quantity: " + quantity + "</h5></div><hr>";
@@ -320,7 +320,7 @@ $(document).ready(function() {
             }
             if(extras !== ""){
                 extras = extras.substring(2);
-                addSection = addSection + "<h5 class='prevVeggies' extras='" + extras + "'>Extras: " + extras + "</h5>";
+                addSection = addSection + "<h5 class='prevExtras' extras='" + extras + "'>Extras: " + extras + "</h5>";
             }
             addSection = addSection + "<h5 class='prevQuantity' quantity='" + quantity + "'>Quantity: " + quantity + "</h5></div>";
             $("#previousOrderList").append(addSection);
@@ -772,8 +772,145 @@ function addOrderPrevious(){
 }
 
 function createOrder(){
-    var curTacoDetails = $(".curOrder .tacoDetails");
-    var prevTacoDetails = $(".prevOrder .tacoDetails");
-    console.log(curTacoDetails);
-    console.log(prevTacoDetails);
+    var prevOrders = $(".prevOrder")
+    var prevTacoDetails = $(".tacoDetails .prevTaco");
+    var curTacoDetails = $(".curOrder");
+    var tacos = [];
+    var taco = {};
+    var order = {};
+    var toppings = [];
+    var quantity;
+    var tortilla;
+    var filling;
+    var cheese;
+    var rice;
+    var beans;
+    var sauce;
+    var vegetables;
+    var extras;
+    var quantityWanted;
+    for(var j = 0; j < prevOrders.length; j++){
+        prevTacoDetails = prevOrders.eq(j).children(".tacoDetails").children(".prevTaco");
+        quantityWanted = prevOrders.eq(j).children(".quantity").val();
+        quantityWanted = parseFloat(quantityWanted);
+
+        
+        for(var i = 0; i < prevTacoDetails.length ; i++){
+            var taco = {};
+            tortilla = prevTacoDetails.eq(i).children(".prevTortilla");
+            toppings.push(tortilla.attr("tortilla"));
+            filling = prevTacoDetails.eq(i).children(".prevFilling");
+            toppings.push(filling.attr("filling"));
+            cheese = prevTacoDetails.eq(i).children(".prevCheese");
+            if(cheese.length !== 0){
+                toppings.push(cheese.attr("cheese"));
+            }
+            rice = prevTacoDetails.eq(i).children(".prevRice");
+            if(rice.length !== 0){
+                toppings.push(rice.attr("rice"));
+            }
+            beans = prevTacoDetails.eq(i).children(".prevBeans");
+            if(beans.length !== 0){
+                toppings.push(beans.attr("beans"));
+            }
+            sauce = prevTacoDetails.eq(i).children(".prevSauce");
+            if(sauce.length !== 0){
+                toppings.push(sauce.attr("sauce"));
+            }
+            vegetables = prevTacoDetails.eq(i).children(".prevVeggies");
+            if(vegetables.length !== 0){
+                var vegetables = vegetables.attr("extras");
+                var res = vegetables.split(", ");
+                for(var k = 0; k < res.length; k++){
+                    toppings.push(res[k]);
+                }
+                
+            }
+            extras = prevTacoDetails.eq(i).children(".prevExtras");
+            if(extras.length !== 0){
+                var extras = extras.attr("extras");
+                var res = extras.split(", ");
+                for(var k = 0; k < res.length; k++){
+                    toppings.push(res[k]);
+                }
+                
+            }
+            quantity = prevTacoDetails.eq(i).children(".prevQuantity");
+            quantity = quantity.attr("quantity");
+            quantity = parseFloat(quantity);
+            finalQuantity = quantity * quantityWanted;
+
+            taco.toppings= toppings;
+            taco.quantity = finalQuantity;
+            toppings = [];
+            quantity="";
+            tacos.push(taco);
+        }
+        quantityWanted ="";
+
+    }
+
+    for(var i = 0; i < curTacoDetails.length ; i++){
+        var taco = {};
+        var items = curTacoDetails.eq(i).children(".itemList");
+        var quantity = curTacoDetails.eq(i).children(".quantity").val();
+        
+
+        tortilla = items.attr("tortilla");
+        toppings.push(tortilla);
+
+        filling = items.attr("filling");
+        toppings.push(filling);
+
+        cheese = items.attr("cheese");
+        if(cheese !== ""){
+            toppings.push(cheese);
+        }
+
+        rice = items.attr("rice");
+        if(rice !== ""){
+            toppings.push(rice);
+        }
+
+        beans = items.attr("beans");
+        if(beans !== ""){
+            toppings.push(beans);
+        }
+
+        sauce = items.attr("sauce");
+        if(sauce !== ""){
+            toppings.push(sauce);
+        }
+
+        vegetables = items.attr("vegetables");
+        if(vegetables !== ""){
+            var res = vegetables.split(", ");
+            for(var j = 0; j < res.length; j++){
+                toppings.push(res[j]);
+            }
+        }
+
+        extras = items.attr("extras");
+        if(extras !== ""){
+            var res = extras.split(", ");
+            for(var j = 0; j < res.length; j++){
+                toppings.push(res[j]);
+            }
+        }
+
+        taco.quantity = quantity;
+        taco.toppings = toppings;
+        toppings = [];
+        quantity="";
+        tacos.push(taco);
+    }
+
+    order.tacos = tacos;
+    price = $("#totalPrice").attr("price")
+    price = "$"+ price;
+    order.price = price;
+    
+    order = JSON.stringify(order);
+
+
 }
