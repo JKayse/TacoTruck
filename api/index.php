@@ -74,8 +74,7 @@ function getUser($Email)
 * @return JSON of the OrderId of the most recent Order
 */
 function getPreviousOrders($UserId) {
-	$sql = "SELECT OrderId FROM Orders WHERE UserId =:UserId AND Date = (SELECT MAX(Date) From
-			Orders)";
+	$sql = "SELECT OrderId, MAX(DATE) FROM Orders WHERE UserId=:UserId";
 	try {
 		$db = getConnection();
 		$stmt = $db->prepare($sql);
@@ -149,69 +148,6 @@ function getLocations(){
 		echo '{"error":{"text":'. $e->getMessage() . '}}';
 	}
 }
-
-
-/*
-function addOrder() {
-	error_log('addOrder\n', 3, '/var/tmp/php.log');
-	$request = Slim::getInstance()->request();
-	$wine = json_decode($request->getBody());
-	$sql = "INSERT INTO wine (name, grapes, country, region, year, description) VALUES (:name, :grapes, :country, :region, :year, :description)";
-	try {
-		$db = getConnection();
-		$stmt = $db->prepare($sql);  
-		$stmt->bindParam("name", $wine->name);
-		$stmt->bindParam("grapes", $wine->grapes);
-		$stmt->bindParam("country", $wine->country);
-		$stmt->bindParam("region", $wine->region);
-		$stmt->bindParam("year", $wine->year);
-		$stmt->bindParam("description", $wine->description);
-		$stmt->execute();
-		$wine->id = $db->lastInsertId();
-		$db = null;
-		echo json_encode($wine); 
-	} catch(PDOException $e) {
-		error_log($e->getMessage(), 3, '/var/tmp/php.log');
-		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
-	}
-}*/
-/*
-function updateWine($id) {
-	$request = Slim::getInstance()->request();
-	$body = $request->getBody();
-	$wine = json_decode($body);
-	$sql = "UPDATE wine SET name=:name, grapes=:grapes, country=:country, region=:region, year=:year, description=:description WHERE id=:id";
-	try {
-		$db = getConnection();
-		$stmt = $db->prepare($sql);  
-		$stmt->bindParam("name", $wine->name);
-		$stmt->bindParam("grapes", $wine->grapes);
-		$stmt->bindParam("country", $wine->country);
-		$stmt->bindParam("region", $wine->region);
-		$stmt->bindParam("year", $wine->year);
-		$stmt->bindParam("description", $wine->description);
-		$stmt->bindParam("id", $id);
-		$stmt->execute();
-		$db = null;
-		echo json_encode($wine); 
-	} catch(PDOException $e) {
-		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
-	}
-}
-
-function deleteWine($id) {
-	$sql = "DELETE FROM wine WHERE id=:id";
-	try {
-		$db = getConnection();
-		$stmt = $db->prepare($sql);  
-		$stmt->bindParam("id", $id);
-		$stmt->execute();
-		$db = null;
-	} catch(PDOException $e) {
-		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
-	}
-}
-*/
 
 /**
 * A function that gets the different Taco toppings
