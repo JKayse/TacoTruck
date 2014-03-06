@@ -1,9 +1,15 @@
 <?php
 
+/**
+* index.php.  This file contains all the backend functions that run the website
+* Uses Slim framework.  
+*/
+
 require 'Slim/Slim.php';
 
 $app = new Slim();
 
+//Sets up the links to the functions
 $app->get(
 	'/',
 	function() use($app) {
@@ -11,22 +17,26 @@ $app->get(
 		$response->status(200);
 		$response->write('The API is working');
 	});
-//Getting orders
+/**
+* Links to get Orders
+*/
 $app->get('/PreviousOrders/:UserId', 'getPreviousOrders');
 $app->get('/Orders/:OrderId', 'getOrder');
+/**
+* Links to get User
+*/
 $app->get('/Users/:Email', 'getUser');
+/**
+* Link to get Locations
+*/
 $app->get('/Locations/','getLocations');
-//Getting the ingredients for tacos
+/**
+* Link to get Taco Toppings
+*/
 $app->get('/Menu/:ItemType', 'getMenuItem');
-$app->get('/M/Filling/', 'getFillings');
-$app->get('/M/Tortillas/', 'getTortillas');
-$app->get('/M/Rice/', 'getRice');
-$app->get('/M/Cheese/', 'getCheese');
-$app->get('/M/Beans/', 'getBeans');
-$app->get('/M/Sauces/', 'getSauces');
-$app->get('/M/Vegetables/', 'getVegetables');
-$app->get('/M/Extras/', 'getExtras');
-//Getting Payment
+/**
+* Link to get Payment
+*/
 $app->get('/Payment/:UserId', 'getPayment');
 //$app->post('/Orders', 'addOrders');
 //$app->put('/wines/:id', 'updateWine');
@@ -34,6 +44,11 @@ $app->get('/Payment/:UserId', 'getPayment');
 
 $app->run();
 
+/**
+* A function that gets the UserId based on the email
+* @param String of the email of the User
+* @return JSON of the UserId 
+*/
 function getUser($Email)
 {
 	$sql = "SELECT UserId FROM Users WHERE EmailAddresses=:Email";
@@ -49,7 +64,11 @@ function getUser($Email)
 		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
 	}	
 }
-
+/**
+* A function that gets the OrderId of the last order made by the User
+* @param INT the UserId of the User
+* @return JSON of the OrderId of the most recent Order
+*/
 function getPreviousOrders($UserId) {
 	$sql = "SELECT OrderId FROM Orders WHERE UserId =:UserId AND Date = (SELECT MAX(Date) From
 			Orders)";
@@ -66,6 +85,11 @@ function getPreviousOrders($UserId) {
 	}
 }
 
+/**
+* A function that gets the Order details 
+* @param INT the OrderId of the most recent order
+* @return JSON of the total price, quantity, OrderItemId, and toppings of the taco
+*/
 function getOrder($OrderId){
 	$sql = "SELECT Orders.Total,OrderItem.Quantity,OrderItem.OrderItemId,Menu.ItemType, 			Menu.Name FROM Orders INNER JOIN (OrderItem INNER JOIN (OrderItemDetails 
 			INNER JOIN Menu ON OrderItemDetails.TacoFixinId = Menu.TacoFixInId)
@@ -84,6 +108,11 @@ function getOrder($OrderId){
 	} 
 }
 
+/**
+* A function that gets the Payment details of the user 
+* @param INT UserId of the User
+* @return JSON of User's name, Credit Card Provider, and Credit Card Number
+*/
 function getPayment($UserId){
 	$sql = "SELECT Users.GivenName, Users.SurName, Users.CC_Provider, Users.CC_Number
 		FROM Users WHERE UserId =:UserId";
@@ -100,6 +129,10 @@ function getPayment($UserId){
 	} 
 }
 
+/**
+* A function that returns the location of the Taco Truck
+* @return Json of the Location's name, address, city, state, and zipcode
+*/
 function getLocations(){
 	$sql = "SELECT Name,Address,City,State,Zipcode FROM Locations GROUP BY Name";
 	try{
@@ -176,112 +209,11 @@ function deleteWine($id) {
 }
 */
 
-//Getting the different Taco ingredients
-function getFillings() {
-	$sql = "SELECT Name, Price FROM Menu WHERE ItemType = 'type'";
-	try {
-		$db = getConnection();
-		$stmt = $db->query($sql);
-		$Filling = $stmt->fetchAll(PDO::FETCH_OBJ);
-		$db = null;
-		echo '{"Filling": ' . json_encode($Filling) . '}';
-	} catch(PDOException $e) {
-		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
-	}
-}
-
-function getTortillas() {
-	$sql = "SELECT Name, Price FROM Menu WHERE ItemType = 'tortillas'";
-	try {
-		$db = getConnection();
-		$stmt = $db->query($sql);
-		$Filling = $stmt->fetchAll(PDO::FETCH_OBJ);
-		$db = null;
-		echo '{"Tortillas": ' . json_encode($Filling) . '}';
-	} catch(PDOException $e) {
-		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
-	}
-}
-
-function getRice() {
-	$sql = "SELECT Name, Price FROM Menu WHERE ItemType = 'rice'";
-	try {
-		$db = getConnection();
-		$stmt = $db->query($sql);
-		$Filling = $stmt->fetchAll(PDO::FETCH_OBJ);
-		$db = null;
-		echo '{"Rice": ' . json_encode($Filling) . '}';
-	} catch(PDOException $e) {
-		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
-	}
-}
-
-function getCheese() {
-	$sql = "SELECT Name, Price FROM Menu WHERE ItemType = 'cheese'";
-	try {
-		$db = getConnection();
-		$stmt = $db->query($sql);
-		$Filling = $stmt->fetchAll(PDO::FETCH_OBJ);
-		$db = null;
-		echo '{"Cheese": ' . json_encode($Filling) . '}';
-	} catch(PDOException $e) {
-		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
-	}
-}
-
-function getBeans() {
-	$sql = "SELECT Name, Price FROM Menu WHERE ItemType = 'beans'";
-	try {
-		$db = getConnection();
-		$stmt = $db->query($sql);
-		$Filling = $stmt->fetchAll(PDO::FETCH_OBJ);
-		$db = null;
-		echo '{"Beans": ' . json_encode($Filling) . '}';
-	} catch(PDOException $e) {
-		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
-	}
-}
-
-function getSauces() {
-	$sql = "SELECT Name, Price,HeatRating FROM Menu WHERE ItemType = 'sauces'";
-	try {
-		$db = getConnection();
-		$stmt = $db->query($sql);
-		$Filling = $stmt->fetchAll(PDO::FETCH_OBJ);
-		$db = null;
-		echo '{"Sauces": ' . json_encode($Filling) . '}';
-	} catch(PDOException $e) {
-		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
-	}
-}
-
-function getVegetables() {
-	$sql = "SELECT Name, Price FROM Menu WHERE ItemType = 'vegetables'";
-	try {
-		$db = getConnection();
-		$stmt = $db->query($sql);
-		$Filling = $stmt->fetchAll(PDO::FETCH_OBJ);
-		$db = null;
-		echo '{"Vegetables": ' . json_encode($Filling) . '}';
-	} catch(PDOException $e) {
-		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
-	}
-}
-
-function getExtras() {
-	$sql = "SELECT Name, Price FROM Menu WHERE ItemType = 'extras'";
-	try {
-		$db = getConnection();
-		$stmt = $db->query($sql);
-		$Filling = $stmt->fetchAll(PDO::FETCH_OBJ);
-		$db = null;
-		echo '{"Extras": ' . json_encode($Filling) . '}';
-	} catch(PDOException $e) {
-		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
-	}
-}
-
-
+/**
+* A function that gets the different Taco toppings
+* @param String of the type of Item in the Taco, e.g. rice, sauce
+* @return Json of the Name of the item and the price
+*/
 function getMenuItem($ItemType)
 {
 	$sql = "SELECT Name, Price FROM Menu WHERE ItemType=:ItemType";
@@ -298,7 +230,9 @@ function getMenuItem($ItemType)
 	}
 }
 
-//Setting up connection to database
+/**
+* A function that sets up the connection to the database
+*/
 function getConnection() {
 	$dbhost="localhost";
 	$dbuser="root";
