@@ -122,7 +122,7 @@ $(document).ready(function() {
             var item = "<div class='veggieOption'><input type='checkbox' name='veggie' value ='" + name + "' price='" +price+"' title='"+name+"'>" + name + "</input></div>";
             $("#vegetables").append(item);
         }
-        var buttons = "<button id='selectVegetables' type='button'>Select All</button><button id='deselectVegetables' type='button'>Deselect All</button>";
+        var buttons = "<button class='button' id='selectVegetables' type='button'>Select All</button><button class='button' id='deselectVegetables' type='button'>Deselect All</button>";
         $("#vegetables").append(buttons);
     }});
 
@@ -135,7 +135,7 @@ $(document).ready(function() {
             var item = "<div class='extrasOption'><input type='checkbox' name='extras' value ='" + name + "' price='" +price+"' title='"+name+"'>" + name + "</input></div>";
             $("#extras").append(item);
         }
-        var buttons = "<button id='selectExtras' type='button'>Select All</button><button id='deselectExtras' type='button'>Deselect All</button>";
+        var buttons = "<button  class='button' id='selectExtras' type='button'>Select All</button><button  class='button' id='deselectExtras' type='button'>Deselect All</button>";
         $("#extras").append(buttons);
     }});
 
@@ -150,7 +150,10 @@ function setHoverPosition()
     for(var i = 0; i < spans.size(); i++)
     {
         var position = spans.eq(i).position();
-        $(".order .tacoDetails").eq(i).offset({top:position.top, left:380});
+        left = position.left;
+        left = left + spans.eq(i).width();
+        console.log(left);
+        $(".order .tacoDetails").eq(i).offset({top:position.top, left: left});
     }
     
 }
@@ -191,7 +194,7 @@ function addOrder(event){
 
 
     var tacoPrice = parseFloat($("#tacoPrice").attr("tacoPrice")).toFixed(2);
-    $("#addedOrders").append("<span class = 'order' totValue ='" + tacoPrice + "'><button type='button' class = 'delete'>X</button><button type='button' class='itemList' filling='" + tacoFilling +"' tortilla='" + tacoTortilla +"' cheese='" + tacoCheese + "' rice='" + tacoRice +"' beans='" + tacoBeans +"' sauce='" + tacoSauce +"' vegetables='" + tacoVegetables +"' extras='" + tacoExtras +"'>"+ tacoName + " Taco</button><input type='number' class ='quantity' name='quantity' value='1' min='1' step='1'><span class='tacoPrice' tacoValue ='" + tacoPrice + "'>$"+tacoPrice+"</span><div class='tacoDetails'>''</div></span><br>");
+    $("#addedOrders").append("<span class = 'order' totValue ='" + tacoPrice + "'><button type='button' class = 'delete button'>X</button><button type='button' class='itemList button' filling='" + tacoFilling +"' tortilla='" + tacoTortilla +"' cheese='" + tacoCheese + "' rice='" + tacoRice +"' beans='" + tacoBeans +"' sauce='" + tacoSauce +"' vegetables='" + tacoVegetables +"' extras='" + tacoExtras +"'>"+ tacoName + " Taco</button><input type='number' class ='quantity' name='quantity' value='1' min='1' step='1'><span class='tacoPrice' tacoValue ='" + tacoPrice + "'>$"+tacoPrice+"</span><div class='tacoDetails'>''</div></span><br>");
     var tacos = $(".tacoDetails");
     for(var i = 0; i<tacos.size();i++){
         
@@ -514,7 +517,8 @@ function goToMap(){
     window.location = "map.html";
 }
 
-function finalizeOrder(){
+function finalizeOrder(event){
+    event.preventDefault();
     $("#payInfo").css("display", "none");
     $("#paySuccess").css("display", "block");
 }
