@@ -19,6 +19,7 @@ body {
 	padding: 1%;
 	background-color: rgb(42, 145, 165);
 	font-size: 1.2em;
+	overflow: auto;
 }
  
 
