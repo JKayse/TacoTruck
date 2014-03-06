@@ -25,7 +25,7 @@ header {
     margin-left: auto;
     margin-right: auto;
     background-color: rgb(253, 253, 236);
-    height: 84%;
+    height: 100%;
 
 }
 
@@ -42,6 +42,8 @@ h1 {
 h2, h3, h4,  button{
     font-family: 'Oldenburg', cursive;
 }
+
+
 
 .selectedImage {
     border-style: solid;
@@ -64,6 +66,7 @@ h2, h3, h4,  button{
 
 #currentTaco {
     border-style: solid;
+    background-color: rgba(93, 179, 201, 0.21);
 }
 
 #orderMenu #menuButtons h4{
@@ -72,12 +75,13 @@ h2, h3, h4,  button{
 
 #orderMenu #menuButtons button{
     float:right;
+    margin-right:0px;
 
 }
 
 .tortillaOption , .fillingOption{
     width: 80px;
-    margin: 2px 25px;
+    margin: 2px 32px;
     display: inline-block;
 }
 
@@ -121,7 +125,7 @@ hr {
     border-width: 3px;
     border-color: rgb(95, 54, 39);
     margin: 20px;
-    height: 92%;
+    height: 78%;
     background-color: rgba(95, 54, 39, 0.45);
 
 }
@@ -142,30 +146,31 @@ hr {
 }
 
 #orderMenu {
-    width:55%;
+    width:59%;
     float: left;
-    margin: 15px 40px 0px 40px;
+    margin: 15px 20px 0px 20px;
 }
 
 #orderMenu h2{
     margin: 0px;
 }
 
-
 .ui-accordion-header {
     border-style: solid;
     border-width: 2px;
-    border-color: green;
+    border-color: rgb(42, 145, 165);
     border-radius: 2px;
     text-align: center;
+    background-color: rgba(93, 179, 201, 0.21);
 }
 
 .ui-accordion-content {
     border-style: solid;
     border-width: 2px;
-    border-color: black;
+    border-color: rgb(42, 145, 165);
     border-radius: 2px;
     height:115px;
+    background-color: rgba(93, 179, 201, 0.21);
 }
 
 #accordion h3 {
@@ -176,7 +181,7 @@ hr {
 #orderButtons button {
     width: 98%;
     height: 30px;
-    margin: 4px;
+    margin: 7px 2px 7px 3px;
     font-size: 20px;
 }
 
@@ -186,13 +191,18 @@ hr {
     font-size: 20px;
 }
 
+#menuButtons div{
+    border-color: rgb(42, 145, 165);
+    border-width: 2px;
+}
+
 .quantity {
     width: 40px;
 }
 
 #orderMenu .cheeseOption, .riceOption, .beansOption, .veggieOption, .sauceOption, .extrasOption{
     display: inline-block;
-    width: 32%;
+    width: 33%;
 }
 
 #orderMenu .sauceOption img{
@@ -206,7 +216,7 @@ hr {
     border-width: 2px;
     border-color: rgba(255, 255, 255, 0.48);
     position: absolute;
-    margin-left: 230px;
+    margin-left: 240px;
     width: 20%;
     margin-top: -25px;
 }
@@ -217,6 +227,15 @@ hr {
 
 .itemList {
     width: 115px;
+}
+
+.order .itemList:hover {
+    background: linear-gradient(rgb(255, 255, 255), rgb(165, 196, 236));
+}
+
+.tacoPrice{
+    font-size: 18px;
+    margin-right:2px;
 }
 
 #blackScreenofDeath{
@@ -295,3 +314,18 @@ hr {
     margin-left: 5px;
     margin-bottom: 15px
 }
+
+.button{
+    background: linear-gradient(rgb(255, 255, 255), rgb(165, 196, 236));
+    border-color: rgba(95, 54, 39, 0.54);
+    border-width:2px;
+}
+
+.button:hover{
+    background: linear-gradient(rgb(165, 196, 236), rgb(255, 255, 255));
+}
+
+#accordion div{
+    font-size:18px;
+}
+
