@@ -26,6 +26,8 @@ $app->get('/M/Beans/', 'getBeans');
 $app->get('/M/Sauces/', 'getSauces');
 $app->get('/M/Vegetables/', 'getVegetables');
 $app->get('/M/Extras/', 'getExtras');
+//Getting Payment
+$app->get('/Payment/:UserId', '');
 //$app->post('/Orders', 'addOrders');
 //$app->put('/wines/:id', 'updateWine');
 //$app->delete('/wines/:id','deleteWine');
@@ -65,8 +67,7 @@ function getPreviousOrders($UserId) {
 }
 
 function getOrder($OrderId){
-	$sql = "SELECT Orders.Total,OrderItem.Quantity,OrderItem.OrderItemId,Menu.Name FROM
-			Orders INNER JOIN (OrderItem INNER JOIN (OrderItemDetails 
+	$sql = "SELECT Orders.Total,OrderItem.Quantity,OrderItem.OrderItemId,Menu.ItemType, 			Menu.Name FROM Orders INNER JOIN (OrderItem INNER JOIN (OrderItemDetails 
 			INNER JOIN Menu ON OrderItemDetails.TacoFixinId = Menu.TacoFixInId)
 			ON OrderItem.OrderItemId = OrderItemDetails.OrderItemId) ON 
 			Orders.OrderId = OrderItem.OrderId AND Orders.OrderId=:OrderId ";
