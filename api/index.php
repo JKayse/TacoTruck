@@ -27,7 +27,7 @@ $app->get('/M/Sauces/', 'getSauces');
 $app->get('/M/Vegetables/', 'getVegetables');
 $app->get('/M/Extras/', 'getExtras');
 //Getting Payment
-$app->get('/Payment/:UserId', '');
+$app->get('/Payment/:UserId', 'getPayment');
 //$app->post('/Orders', 'addOrders');
 //$app->put('/wines/:id', 'updateWine');
 //$app->delete('/wines/:id','deleteWine');
@@ -79,6 +79,22 @@ function getOrder($OrderId){
 		$orders = $stmt->fetchAll(PDO::FETCH_OBJ);
 		$db = null;
 		echo '{"Order": ' . json_encode($orders) . '}';
+	} catch(PDOException $e) {
+		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
+	} 
+}
+
+function getPayment($UserId){
+	$sql = "SELECT Users.GivenName, Users.SurName, Users.CC_Provider, User.CC_Number
+		FROM Users WHERE UserId =:UserId";
+	try {
+		$db = getConnection();
+		$stmt = $db->prepare($sql);
+		$stmt->bindParam("UserId",$UserId);
+		$stmt->execute();  
+		$Payment = $stmt->fetchAll(PDO::FETCH_OBJ);
+		$db = null;
+		echo '{"Payment": ' . json_encode($Payment) . '}';
 	} catch(PDOException $e) {
 		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
 	} 
