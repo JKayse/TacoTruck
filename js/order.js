@@ -32,7 +32,7 @@ $(document).ready(function() {
    
 
 
-    $.ajax({url:"api/M/Tortillas/", success: function(json){
+    $.ajax({url:"api/Menu/Tortillas", success: function(json){
         json = JSON.parse(json);
         var tortilla = json.Tortillas;
         for(var i = 0; i < tortilla.length ; i++){
@@ -137,6 +137,101 @@ $(document).ready(function() {
         }
         var buttons = "<br><div id='extraButtons'><button  class='button' id='selectExtras' type='button'>Select All</button><button  class='button' id='deselectExtras' type='button'>Deselect All</button></div>";
         $("#extras").append(buttons);
+    }});
+
+    $.ajax({url:"api/PreviousOrders/1", success: function(json){
+        json = JSON.parse(json);
+        var orderId = json.OrderId;
+        var id = orderId[0].OrderId;
+        $.ajax({url:"api/Orders/" + id, success: function(json){
+            json = JSON.parse(json);
+            var order = json.Order;
+            var orderItemId = order[0].OrderItemId;
+            var quantity= order[0].Quantity;
+            var total = order[0].Total;
+            var type = order[0].ItemType;
+            var name = order[0].Name;
+            if(type === "type"){
+                var filling = name;
+            }
+            if(type === "tortillas"){
+                var tortilla = name;
+            }
+            if(type === "cheese"){
+                var cheese = name;
+            }
+            if(type === "rice"){
+                var rice = name;
+            }
+            if(type === "beans"){
+                var beans = name;
+            }
+            if(type === "sauces"){
+                var sauce = name;
+            }
+            if(type === "vegetables"){
+                var vegetables = name;
+            }
+            if(type === "extras"){
+                var extras = name;
+            }
+
+            console.log(filling);
+            var tortilla;
+            var filling;
+            var cheese;
+            var rice;
+            var beans;
+            var sauce;
+            var vegetables;
+            var extras;
+
+            console.log();
+            for(var i = 1; i < order.length; i++){
+                if(orderItemId === order[i].OrderItemId){
+                    if(type === "type"){
+                        var filling = name;
+                    }
+                    if(type === "tortillas"){
+                        var tortilla = name;
+                    }
+                    if(type === "cheese"){
+                        var cheese = name;
+                    }
+                    if(type === "rice"){
+                        var rice = name;
+                    }
+                    if(type === "beans"){
+                        var beans = name;
+                    }
+                    if(type === "sauces"){
+                        var sauce = name;
+                    }
+                    if(type === "vegetables"){
+                        var vegetables = vegetables + name;
+                    }
+                    if(type === "extras"){
+                        var extras = extras + name;
+                    }
+                }
+                else{
+                    //add previous order to thing
+                    
+
+                    orderItemId = order[i].OrderItemId;
+                    quantity = order[i].Quantity;
+                    total = order[i].Total;
+                    console.log();
+
+                }
+
+
+            }
+
+        }});
+   
+
+
     }});
 
     
@@ -480,7 +575,6 @@ function payPopup(){
         $("#payment").css("display","block");
         var total = $("#totalPrice").attr("price");
         $("#paymentTotal").html("Your order comes out to: $" + total);
-        //Add an if statement to check if the user is logged . change it to actually get a user id
         $.ajax({url:"api/Payment/1", success: function(json){
         json = JSON.parse(json);
         var userInfo = json.Payment;
@@ -488,8 +582,6 @@ function payPopup(){
         var lName = userInfo[0].SurName;
         var providerName = userInfo[0].CC_Provider;
         var number = userInfo[0].CC_Number;
-        console.log(providerName);
-
         var twoInputs = $("#giveMeMoney input");
 
         $("#provider option[value='" + providerName + "']").prop('selected',true);
