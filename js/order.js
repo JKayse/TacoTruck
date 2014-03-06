@@ -32,7 +32,7 @@ $(document).ready(function() {
    
 
 
-    $.ajax({url:"api/Orders/Tortillas/", success: function(json){
+    $.ajax({url:"api/M/Tortillas/", success: function(json){
         json = JSON.parse(json);
         var tortilla = json.Tortillas;
         for(var i = 0; i < tortilla.length ; i++){
@@ -44,9 +44,9 @@ $(document).ready(function() {
         $(".tortillaOption").eq(0).addClass("selectedImage");
     }});
 
-    $.ajax({url:"api/Orders/Filling/", success: function(json){
+    $.ajax({url:"api/Menu/type", success: function(json){
         json = JSON.parse(json);
-        var filling = json.Filling;
+        var filling = json.type;
         for(var i = 0; i < filling.length ; i++){
             var name = filling[i].Name;
             var price = parseFloat(filling[i].Price).toFixed(2);
@@ -57,7 +57,7 @@ $(document).ready(function() {
     }});
 
 
-    $.ajax({url:"api/Orders/Cheese/", success: function(json){
+    $.ajax({url:"api/Menu/Cheese", success: function(json){
         json = JSON.parse(json);
         var cheese = json.Cheese;
         for(var i = 0; i < cheese.length ; i++){
@@ -70,7 +70,7 @@ $(document).ready(function() {
         $("#cheese").append(noItem);
     }});
 
-    $.ajax({url:"api/Orders/Rice/", success: function(json){
+    $.ajax({url:"api/Menu/Rice", success: function(json){
         json = JSON.parse(json);
         var rice = json.Rice;
         for(var i = 0; i < rice.length ; i++){
@@ -83,7 +83,7 @@ $(document).ready(function() {
         $("#rice").append(noItem);
     }});
 
-    $.ajax({url:"api/Orders/Beans/", success: function(json){
+    $.ajax({url:"api/Menu/Beans", success: function(json){
         json = JSON.parse(json);
         var beans = json.Beans;
         for(var i = 0; i < beans.length ; i++){
@@ -96,7 +96,7 @@ $(document).ready(function() {
         $("#beans").append(noItem);
     }});
 
-    $.ajax({url:"api/Orders/Sauces/", success: function(json){
+    $.ajax({url:"api/Menu/Sauces", success: function(json){
         json = JSON.parse(json);
         var sauce = json.Sauces;
         for(var i = 0; i < sauce.length ; i++){
@@ -113,7 +113,7 @@ $(document).ready(function() {
         $( "#sauce input" ).each(addheatImage);
     }});
 
-    $.ajax({url:"api/Orders/Vegetables/", success: function(json){
+    $.ajax({url:"api/Menu/Vegetables", success: function(json){
         json = JSON.parse(json);
         var vegetables = json.Vegetables;
         for(var i = 0; i < vegetables.length ; i++){
@@ -126,7 +126,7 @@ $(document).ready(function() {
         $("#vegetables").append(buttons);
     }});
 
-    $.ajax({url:"api/Orders/Extras/", success: function(json){
+    $.ajax({url:"api/Menu/Extras", success: function(json){
         json = JSON.parse(json);
         var extras = json.Extras;
         for(var i = 0; i < extras.length ; i++){
@@ -152,7 +152,6 @@ function setHoverPosition()
         var position = spans.eq(i).position();
         left = position.left;
         left = left + spans.eq(i).width();
-        console.log(left);
         $(".order .tacoDetails").eq(i).offset({top:position.top, left: left});
     }
     
@@ -481,6 +480,25 @@ function payPopup(){
         $("#payment").css("display","block");
         var total = $("#totalPrice").attr("price");
         $("#paymentTotal").html("Your order comes out to: $" + total);
+        //Add an if statement to check if the user is logged . change it to actually get a user id
+        $.ajax({url:"api/Payment/1", success: function(json){
+        json = JSON.parse(json);
+        var userInfo = json.Payment;
+        var fName = userInfo[0].GivenName;
+        var lName = userInfo[0].SurName;
+        var providerName = userInfo[0].CC_Provider;
+        var number = userInfo[0].CC_Number;
+        console.log(providerName);
+
+        var twoInputs = $("#giveMeMoney input");
+
+        $("#provider option[value='" + providerName + "']").prop('selected',true);
+        twoInputs.eq(0).val(userInfo[0].GivenName);
+        twoInputs.eq(1).val(userInfo[0].SurName);
+        $("#number").val(userInfo[0].CC_Number);
+        
+    }});
+
     }
     else{
         alert("Please order at least one taco to continue. Thanks!");
