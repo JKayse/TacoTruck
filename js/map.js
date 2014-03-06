@@ -1,119 +1,72 @@
 var geocoder;
-
+var map;
+var word;
 function initialize() {
   var mapOptions = {
           center: new google.maps.LatLng(32.7758, -96.7967),
-          zoom: 10
+          zoom: 12,
+          styles:[{"featureType":"landscape","stylers":[{"color":"#6c8080"},{"visibility":"simplified"}]},{"featureType":"administrative","elementType":"labels.text","stylers":[{"visibility":"off"}]},{"featureType":"road","stylers":[{"visibility":"simplified"}]},{"featureType":"poi","stylers":[{"visibility":"off"}]},{"featureType":"road.highway","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"road.highway","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"labels","stylers":[{"visibility":"off"}]},{"elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"road.highway","stylers":[{"color":"#d98080"},{"hue":"#eeff00"},{"lightness":100},{"weight":1.5}]}]
+
   };
 
-  var map = new google.maps.Map(document.getElementById('map-canvas'),
+   map = new google.maps.Map(document.getElementById('map-canvas'),
       mapOptions);
+
+
+
+
+
+
+
+
 
   geocoder = new  google.maps.Geocoder();
 
-  var hardCoded = [
-  {
-    "name": "Klyde Warren Park",
-    "address": "2012 Woodall Rodgers Fwy",
-    "city": "Dallas",
-    "state": "TX",
-    "zipcode": 75201
-  },
-  {
-    "name": "Southern Methodist Unversity",
-    "address": "6425 Boaz Lane",
-    "city": "Dallas",
-    "state": "TX",
-    "zipcode": 75205
-  },
-  {
-    "name": "Addison Circle Park",
-    "address": "Addison Circle",
-    "city": "Addison",
-    "state": "TX",
-    "zipcode": 75001
-  },
-  {
-    "name": "Truck Yard",
-    "address": "5624 Sears St",
-    "city": "Dallas",
-    "state": "TX",
-    "zipcode": 75206
-  },
-  {
-    "name": "Deep Ellum",
-    "address": "2630 Commerce St",
-    "city": "Dallas",
-    "state": "TX",
-    "zipcode": 75226
-  }
-]
-/*var tempArrayOfLocations= [
-[32.842856, -96.784932],
-[32.781630, -96.804416],
-[32.790523, -96.796605],
-[32.743665, -96.726696],
-];
-*/
-
-var tempArrayOfLocations = new Array();
-
-for( var z= 0; z < hardCoded.length; z++){
-codeAddress(hardCoded[z]);
-}
-
-
-//setMarkers(tempArrayOfLocations, map);
   
 }
 
-  function codeAddress(address) {
+  function codeAddress(address, words) {
     
-    geocoder.geocode( { 'address': address}, function(results, status) {
+    geocoder.geocode( { 'address': address }, function(results, status) {
       if (status == google.maps.GeocoderStatus.OK) {
         map.setCenter(results[0].geometry.location);
         var marker = new google.maps.Marker({
             map: map,
-            position: results[0].geometry.location
+            position: results[0].geometry.location,
+            icon: "img/taco_icon.png",
+             title: words
         });
       } else {
         alert("Geocode was not successful for the following reason: " + status);
       }
+
+        map.setCenter(new google.maps.LatLng(32.7758, -96.7967));
+        map.setZoom(11);
     });
   }
 
+initialize();
 
 
-function loadScript() {
-  var script = document.createElement('script');
-  script.type = 'text/javascript';
-  script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&' +
-      'callback=initialize';
-  document.body.appendChild(script);
-}
 
-function setMarkers(locations, map) {
- var shape = {
-      coord: [1, 1, 1, 20, 18, 20, 18 , 1],
-      type: 'poly'
-  };
 
-  var temp;
-  for(var i = 0; i < locations.length ; i++){
-    temp = locations[i]
-    var myLatLng = new google.maps.LatLng(temp[0], temp[1]);
-     var beachMarker = new google.maps.Marker({
-      position: myLatLng,
-      map: map,
-      icon: "img/taco_icon.png"
+$(document).ready(function() {
+    $("header").load("Header.html");
   });
 
-  }
-}
 
+ $.ajax({url:"api/Locations", success: function(json){
+        word = JSON.parse(json).Locations;
+       
+          var  textout ="";
+        for(var i = 0; i < word.length ; i++){
+          console.log(json.length);
+          codeAddress(word[i].Address + " " + word[i].City , word[i].Name);
 
+          textout = textout + "<h4>" + word[i].Name + "</h4>" + word[i].Address +"</br>"+ word[i].City +" ,"+ word[i].State +" "+ word[i].Zipcode + "</br>" ; 
 
-window.onload = loadScript;
-initialize();
-setMarkers();
-google.maps.event.addDomListener(window, 'load', initialize);
+        }
+
+        document.getElementById("names").innerHTML = textout;
+
+    }});

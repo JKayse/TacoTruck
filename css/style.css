@@ -54,6 +54,7 @@ h2, h3, h4,  button{
 #orderMenu h4{
     margin: 0px;
     text-align: center;
+    margin-top: 2px;
 }
 
 #orderMenu h5{
@@ -198,7 +199,7 @@ hr {
 }
 
 .quantity {
-    width: 40px;
+    width: 75px;
 }
 
 #orderMenu .cheeseOption, .riceOption, .beansOption, .veggieOption, .sauceOption, .extrasOption{
@@ -220,6 +221,7 @@ hr {
     margin-left: 240px;
     width: 20%;
     margin-top: -25px;
+    z-index: 100;
 }
 
 .order:hover .tacoDetails{
@@ -227,7 +229,8 @@ hr {
 }
 
 .itemList {
-    width: 115px;
+    width: 126px;
+    margin-right: 2px;
 }
 
 .order .itemList:hover {
@@ -238,6 +241,7 @@ hr {
     font-size: 18px;
     margin-right:2px;
 }
+
 
 #blackScreenofDeath{
     display: none;
@@ -291,15 +295,10 @@ hr {
 }
 
 
-#accordion button {
+#veggieButtons, #extraButtons {
     position: absolute;
     bottom:3px;
     left:3px;
-}
-
-
-#deselectVegetables, #deselectExtras {
-    display: none;
 }
 
 #paySuccess {
@@ -330,3 +329,33 @@ hr {
     font-size:18px;
 }
 
+.enterQuantity {
+    margin: 0px;
+    width: 12%;
+    float:right;
+    margin-right: 30%;
+}
+
+#previousOrderList{
+    height:200px;
+    overflow-y:auto;
+    margin-left: 5px;
+    margin-right:5px;
+    background-color: rgb(121, 183, 196);
+    border-style: solid;
+}
+
+#previousOrderList h5{
+    margin: 3px 0px 3px 3px;
+}
+
+#previousOrder button{
+    width:40%;
+    margin-left: 25px;
+    height:30px;
+    margin-bottom: 10px;
+}
+
+#previousOrder{
+    display: none;
+}

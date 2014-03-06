@@ -66,11 +66,13 @@
                 <div id="menuButtons">
                     <button class="button" type="button">Add Taco</button>
                     <button class="button" type="button">Reset Taco</button>
+                    <input type="number" class="enterQuantity" name="quantity" value="1" title="Quantity" min="0" step="1">
+                    <h4>Quantity:</h4>
                     <h4 id= "tacoPrice" tacoPrice="1.00">Current Price: $1.25/ea</h4>
                     <h4>Current Taco: </h4>
                     <div id = "currentTaco">
                         <h5 id="tacoTortilla" tortilla="Flour">Tortilla: Flour</h5>
-                        <h5 id="tacoFilling" filling="Chicken">Filling: Steak</h5>   
+                        <h5 id="tacoFilling" filling="Steak">Filling: Steak</h5>   
                         <h5 id="tacoCheese" cheese></h5>
                         <h5 id="tacoRice" rice></h5>  
                         <h5 id="tacoBeans" beans></h5>
@@ -86,16 +88,16 @@
                     <div id="payInfo">
                         <h2>Pay for your Order:</h2>
                         <hr>
-                        <form name="pay" action="#" method="get">
-                            <input id = "fname" type="text" name="firstName" placeholder="First Name">
-                            <input id = "lname" type="text" name="lastName" placeholder="Last Name">
+                        <form id="giveMeMoney" name="pay" action="#" method="get">
+                            <input id = "fname" type="text" name="firstName" placeholder="First Name" title="Enter your first name." required>
+                            <input id = "lname" type="text" name="lastName" placeholder="Last Name" title="Enter your last name."required>
                             <br>
                             <select name="provider" id = "provider">
-                                <option value="MasterCard">MasterCard</option>
-                                <option value="Visa">Visa</option>
-                                <option value="American Express">American Express</option>
+                                <option id="MasterCard" value="MasterCard">MasterCard</option>
+                                <option id="Visa" value="Visa">Visa</option>
+                                <option id="American Express" value="American Express">American Express</option>
                             </select>
-                            <input id = "number" type="text" name="creditCardNumber" placeholder="Credit Card Number">
+                            <input id = "number" type="text" name="creditCardNumber" placeholder="Credit Card Number" title="Enter a valid credit card number."required pattern="^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$">
                             <h3 id="paymentTotal"></h3>
                             <div class="buttons">
                                 <input  class="button" id = "pay" type="submit" value="Pay">
@@ -112,6 +114,14 @@
                             <button class="button" type="button" id="locations">View Locations</button>
                         </div>
 
+                    </div>
+                    <div id="previousOrder">
+                        <h3>Here is your previous order:</h3>
+                        <div id="previousOrderList"></div>
+                        <h3 id="totalPreviousPrice"></h3>
+                        <h3>Would you like to add these tacos to your current order?</h3>
+                        <button class="button" type="button" id="addPrevTacos">Yes</button>
+                        <button class="button" type="button" id="cancelPrevTacos">No</button>
                     </div>
                 </div>
             </div> 
