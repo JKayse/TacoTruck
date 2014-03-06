@@ -11,8 +11,8 @@ $app->get(
 		$response->status(200);
 		$response->write('The API is working');
 	});
-
-$app->get('/Orders/:UserId', 'getPreviousOrders');
+//Getting orders
+$app->get('/PreviousOrders/:UserId', 'getPreviousOrders');
 $app->get('/Orders/:OrderId', 'getOrder');
 $app->get('/Users/:Email', 'getUser');
 $app->get('/Locations/','getLocations');
@@ -65,7 +65,22 @@ function getPreviousOrders($UserId) {
 }
 
 function getOrder($OrderId){
-	$sql = "SELECT Order.Total,OrderItem.Quantity,Menu.Name"; 
+	$sql = "SELECT Orders.Total,OrderItem.Quantity,Menu.Name FROM
+			Orders INNER JOIN (OrderItem INNER JOIN (OrderItemDetails 
+			INNER JOIN Menu ON OrderItemDetails.TacoFixinId = Menu.TacoFixInId)
+			ON OrderItem.OrderItemId = OrderItemDetails.OrderItemId) ON 
+			Orders.OrderId = OrderItem.OrderId AND Orders.OrderId=:OrderId ";
+	try {
+		$db = getConnection();
+		$stmt = $db->prepare($sql);
+		$stmt->bindParam("OrderId",$OrderId);
+		$stmt->execute();  
+		$orders = $stmt->fetchAll(PDO::FETCH_OBJ);
+		$db = null;
+		echo '{"Order": ' . json_encode($orders) . '}';
+	} catch(PDOException $e) {
+		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
+	} 
 }
 
 function getLocations(){
@@ -83,21 +98,6 @@ function getLocations(){
 
 
 /*
-function getWine($id) {
-	$sql = "SELECT * FROM wine WHERE id=:id";
-	try {
-		$db = getConnection();
-		$stmt = $db->prepare($sql);  
-		$stmt->bindParam("id", $id);
-		$stmt->execute();
-		$wine = $stmt->fetchObject();  
-		$db = null;
-		echo json_encode($wine); 
-	} catch(PDOException $e) {
-		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
-	}
-}
-*//*
 function addOrder() {
 	error_log('addOrder\n', 3, '/var/tmp/php.log');
 	$request = Slim::getInstance()->request();
