@@ -12,35 +12,60 @@ $app->get(
 		$response->write('The API is working');
 	});
 
-$app->get('/Orders', 'getPreviousOrders');
+$app->get('/Orders/:UserId', 'getPreviousOrders');
+$app->get('/Orders/:OrderId', 'getOrder');
+$app->get('/Users/:Email', 'getUser');
 $app->get('/Locations/','getLocations');
 //Getting the ingredients for tacos
 $app->get('/Menu/:ItemType', 'getMenuItem');
-$app->get('/Orders/Filling/', 'getFillings');
-$app->get('/Orders/Tortillas/', 'getTortillas');
-$app->get('/Orders/Rice/', 'getRice');
-$app->get('/Orders/Cheese/', 'getCheese');
-$app->get('/Orders/Beans/', 'getBeans');
-$app->get('/Orders/Sauces/', 'getSauces');
-$app->get('/Orders/Vegetables/', 'getVegetables');
-$app->get('/Orders/Extras/', 'getExtras');
+$app->get('/M/Filling/', 'getFillings');
+$app->get('/M/Tortillas/', 'getTortillas');
+$app->get('/M/Rice/', 'getRice');
+$app->get('/M/Cheese/', 'getCheese');
+$app->get('/M/Beans/', 'getBeans');
+$app->get('/M/Sauces/', 'getSauces');
+$app->get('/M/Vegetables/', 'getVegetables');
+$app->get('/M/Extras/', 'getExtras');
 //$app->post('/Orders', 'addOrders');
 //$app->put('/wines/:id', 'updateWine');
 //$app->delete('/wines/:id','deleteWine');
 
 $app->run();
 
-function getPreviousOrders() {
-	$sql = "SELECT ";
+function getUser($Email)
+{
+	$sql = "SELECT UserId FROM Users WHERE EmailAddresses=:Email";
 	try {
 		$db = getConnection();
-		$stmt = $db->query($sql);  
+		$stmt = $db->prepare($sql);
+		$stmt->bindParam("Email",$Email);
+		$stmt->execute();
+		$ID = $stmt->fetchAll(PDO::FETCH_OBJ);
+		$db = null;
+		echo json_encode($ID);
+	} catch(PDOException $e) {
+		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
+	}	
+}
+
+function getPreviousOrders($UserId) {
+	$sql = "SELECT OrderId FROM Orders WHERE UserId =:UserId AND Date = (SELECT MAX(Date) From
+			Orders)";
+	try {
+		$db = getConnection();
+		$stmt = $db->prepare($sql);
+		$stmt->bindParam("UserId",$UserId);
+		$stmt->execute();  
 		$orders = $stmt->fetchAll(PDO::FETCH_OBJ);
 		$db = null;
-		echo '{"orders": ' . json_encode($orders) . '}';
+		echo '{"OrderId": ' . json_encode($orders) . '}';
 	} catch(PDOException $e) {
 		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
 	}
+}
+
+function getOrder($OrderId){
+	$sql = "SELECT Order.Total,OrderItem.Quantity,Menu.Name"; 
 }
 
 function getLocations(){
@@ -48,9 +73,9 @@ function getLocations(){
 	try{
 		$db = getConnection();
 		$stmt = $db->query($sql);
-		$orders = $stmt->fetchAll(PDO::FETCH_OBJ);
+		$Locations = $stmt->fetchAll(PDO::FETCH_OBJ);
 		$db = null;
-		echo '{ Locations": ' . json_encode($orders) . '}';
+		echo '{"Locations": ' . json_encode($Locations) . '}';
 	} catch(PDOException $e) {
 		echo '{"error":{"text":'. $e->getMessage() . '}}';
 	}
@@ -250,7 +275,7 @@ function getMenuItem($ItemType)
 		$stmt->execute();
 		$Items = $stmt->fetchAll(PDO::FETCH_OBJ);
 		$db = null;
-		echo json_encode($Items);
+		echo '{"' . $ItemType. '": ' . json_encode($Items) . '}';
 	} catch(PDOException $e) {
 		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
 	}
@@ -260,7 +285,7 @@ function getMenuItem($ItemType)
 function getConnection() {
 	$dbhost="localhost";
 	$dbuser="root";
-	$dbpass="";
+	$dbpass="halomasterchief";
 	$dbname="Taco_Truck";
 	$dbh = new PDO("mysql:host=$dbhost;dbname=$dbname", $dbuser, $dbpass);	
 	$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
