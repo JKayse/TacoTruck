@@ -220,6 +220,7 @@ hr {
     margin-left: 240px;
     width: 20%;
     margin-top: -25px;
+    z-index: 100;
 }
 
 .order:hover .tacoDetails{

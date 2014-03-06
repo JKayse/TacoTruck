@@ -19,7 +19,6 @@ $(document).ready(function() {
     $(document).on('click', "#deselectExtras", deleteAllExtras);
     $(document).on('click', ".tortillaOption", addTortillaSelector);
     $(document).on('click', ".fillingOption", addFillingSelector);
-    $(document).on('click', "#orderPrevious", orderPrevious);
     $(document).on('click', "#payOrder", payPopup);
     $(document).on('click', "header img", goToHomePage);
     $(document).on('click', "header h1", goToHomePage);
@@ -31,6 +30,8 @@ $(document).ready(function() {
     $(document).on('click', "#orderPrevious", showOrderPrevious);
     $(document).on('click', "#cancelPrevTacos", hideOrderPrevious);
     $(document).on('click', "#addPrevTacos", addOrderPrevious);
+
+    
 
    
 
@@ -195,7 +196,6 @@ $(document).ready(function() {
                 var extras = name;
             }
 
-            console.log();
             for(var i = 1; i < order.length; i++){
                 if(orderItemId === order[i].OrderItemId){
                     type = order[i].ItemType;
@@ -387,12 +387,12 @@ function addOrder(event){
 
 
     var tacoPrice = parseFloat($("#tacoPrice").attr("tacoPrice")).toFixed(2);
-    $("#addedOrders").append("<span class = 'order' totValue ='" + tacoPrice + "'><button type='button' class = 'delete button'>X</button><button type='button' class='itemList button' filling='" + tacoFilling +"' tortilla='" + tacoTortilla +"' cheese='" + tacoCheese + "' rice='" + tacoRice +"' beans='" + tacoBeans +"' sauce='" + tacoSauce +"' vegetables='" + tacoVegetables +"' extras='" + tacoExtras +"'>"+ tacoName + " Taco</button><input type='number' class ='quantity' name='quantity' value='" + tacoQuantity +"' min='0' step='1'><span class='tacoPrice' tacoValue ='" + tacoPrice + "'>$"+tacoPrice+"</span><div class='tacoDetails'>''</div></span><br>");
+    $("#addedOrders").append("<span class = 'order curOrder' totValue ='" + tacoPrice + "'><button type='button' class = 'delete button'>X</button><button type='button' class='itemList button' filling='" + tacoFilling +"' tortilla='" + tacoTortilla +"' cheese='" + tacoCheese + "' rice='" + tacoRice +"' beans='" + tacoBeans +"' sauce='" + tacoSauce +"' vegetables='" + tacoVegetables +"' extras='" + tacoExtras +"'>"+ tacoName + " Taco</button><input type='number' class ='quantity' name='quantity' value='" + tacoQuantity +"' min='0' step='1'><span class='tacoPrice' tacoValue ='" + tacoPrice + "'>$"+tacoPrice+"</span><div class='tacoDetails'>''</div></span><br>");
     updateEveryTacoPrice();
-    var tacos = $(".tacoDetails");
+    var tacos = $(".curOrder .tacoDetails");
     for(var i = 0; i<tacos.size();i++){
         
-        var taco = $(".order .itemList").eq(i)
+        var taco = $(".order .itemList").eq(i);
         tacoTortilla = taco.attr('tortilla');
         tacoFilling = taco.attr('filling');
         tacoCheese = taco.attr('cheese');
@@ -662,10 +662,6 @@ function deleteAllExtras(){
     
 }
 
-function orderPrevious(){
-
-}
-
 function payPopup(){
     if($(".order").size() !== 0){
         $("#blackScreenofDeath").css("display","block");
@@ -688,6 +684,8 @@ function payPopup(){
         twoInputs.eq(1).val(userInfo[0].SurName);
         $("#number").val(userInfo[0].CC_Number);
         
+        createOrder();
+
     }});
 
     }
@@ -726,7 +724,15 @@ function finalizeOrder(event){
     event.preventDefault();
     $("#payInfo").css("display", "none");
     $("#paySuccess").css("display", "block");
+    $.ajax({
+            type: "POST",
+            url: "api/",
+            data: {
+                
+            }
+    });
 }
+
 
 function showOrderPrevious(){
     if($(".prevTaco").length === 0){
@@ -750,22 +756,24 @@ function hideOrderPrevious(){
 }
 
 function addOrderPrevious(){
-        var prevOrderTotal = $("#totalPreviousPrice").attr("price");
-        console.log(prevOrderTotal);
-        $("#addedOrders").append("<span class = 'order prevOrder' totValue ='" + prevOrderTotal + "'><button type='button' class = 'delete button'>X</button><button type='button' class='button'>Previous Order</button><input type='number' class ='quantity' name='quantity' value='1' min='0' step='1'><span class='tacoPrice' tacoValue ='" + prevOrderTotal + "'>$"+prevOrderTotal+"</span><div class='tacoDetails'>''</div></span><br>");
-        var insert = "<img src = 'img/leftArrow.png' alt='Arrow' title='Arrow'>";
-        insert = insert + $('#previousOrderList').html();
-        var taco = $(".prevOrder .tacoDetails");
-        taco.html(insert);
-        updateTotalPrice();
+    var prevOrderTotal = $("#totalPreviousPrice").attr("price");
+    $("#addedOrders").append("<span class = 'order prevOrder' totValue ='" + prevOrderTotal + "'><button type='button' class = 'delete button'>X</button><button type='button' class='button'>Previous Order</button><input type='number' class ='quantity' name='quantity' value='1' min='0' step='1'><span class='tacoPrice' tacoValue ='" + prevOrderTotal + "'>$"+prevOrderTotal+"</span><div class='tacoDetails'>''</div></span><br>");
+    var insert2 = "<img src = 'img/leftArrow.png' alt='Arrow' title='Arrow'>";
+    insert2 = insert2 + $('#previousOrderList').html();
+    var taco = $(".prevOrder .tacoDetails");
+    taco.html(insert2);
+    updateTotalPrice();
 
-        $("#blackScreenofDeath").css("display","none");
-        $("#payment").css("display","none");
-        $("#previousOrder").css("display","none");
-        $("#payInfo").css("display", "none");
-        $("#paySuccess").css("display", "none");
+    $("#blackScreenofDeath").css("display","none");
+    $("#payment").css("display","none");
+    $("#previousOrder").css("display","none");
+    $("#payInfo").css("display", "none");
+    $("#paySuccess").css("display", "none");
+}
 
-
-
-
+function createOrder(){
+    var curTacoDetails = $(".curOrder .tacoDetails");
+    var prevTacoDetails = $(".prevOrder .tacoDetails");
+    console.log(curTacoDetails);
+    console.log(prevTacoDetails);
 }
