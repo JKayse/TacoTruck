@@ -74,8 +74,7 @@ function getUser($Email)
 * @return JSON of the OrderId of the most recent Order
 */
 function getPreviousOrders($UserId) {
-	$sql = "SELECT OrderId FROM Orders WHERE UserId =:UserId AND Date = (SELECT MAX(Date) From
-			Orders)";
+	$sql = "SELECT OrderId, MAX(DATE) FROM Orders WHERE UserId=:UserId";
 	try {
 		$db = getConnection();
 		$stmt = $db->prepare($sql);
@@ -202,7 +201,7 @@ function addUser()
 function getConnection() {
 	$dbhost="localhost";
 	$dbuser="root";
-	$dbpass="";
+	$dbpass="halomasterchief";
 	$dbname="Taco_Truck";
 	$dbh = new PDO("mysql:host=$dbhost;dbname=$dbname", $dbuser, $dbpass);	
 	$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
