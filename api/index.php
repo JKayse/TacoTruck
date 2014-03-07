@@ -335,8 +335,8 @@ function login() {
 */
 function logout() {
 	$_SESSION['loggedin'] = false;
-	$_SESSION['userId' = NULL;
-	$_SESSION['email'] = NULL:
+	$_SESSION['userId'] = NULL;
+	$_SESSION['email'] = NULL;
 }
 
 /**
