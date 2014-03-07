@@ -43,14 +43,24 @@ $app->get('/Menu/:ItemType', 'getMenuItem');
 $app->get('/Payment/:UserId', 'getPayment');
 
 /**
-*User Registration
+* Checks whether the user is logged in
+*/
+$app->get('/LoginStatus', 'getLoginStatus');
+
+/**
+* User Registration
 */
 $app->post('/Users', 'addUser');
 
 /**
-*User Login
+* User Login
 */
 $app->post('/Login', 'login');
+
+/**
+* User Logout
+*/
+$app->post('/Logout', 'logout');
 
 /*
 * Link to add orders
@@ -249,6 +259,17 @@ function getMenuItem($ItemType)
 }
 
 /**
+* A function to check whether or not the user is logged in
+*/
+function getLoginStatus() {
+	if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+/**
 * A funtion that takes the information inputed by a user and creates
 * an account for them by inserting them into the database
 */
@@ -307,6 +328,13 @@ function login() {
 	} catch(PDOException $e) {
 		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
 	}
+}
+
+/**
+* A function to log the user out
+*/
+function logout() {
+	$_SESSION['loggedin'] = false;
 }
 
 /**
