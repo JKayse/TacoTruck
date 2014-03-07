@@ -726,13 +726,15 @@ function finalizeOrder(event){
     $("#payInfo").css("display", "none");
     $("#paySuccess").css("display", "block");
     
-    /*$.ajax({
+   /* $.ajax({
             type: "POST",
-            url: "api/",
+            url: "api/Orders",
             data: {
+
                 order: createOrder();
             }
-    });*/
+    });
+    */
 }
 
 
