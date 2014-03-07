@@ -95,7 +95,8 @@ function getUser($Email)
 * @return JSON of the OrderId of the most recent Order
 */
 function getPreviousOrders($UserId) {
-	$sql = "SELECT OrderId, MAX(DATE) FROM Orders WHERE UserId=:UserId";
+	$sql = "SELECT OrderId FROM Orders WHERE UserId =:UserId AND DATE = ( 
+		SELECT MAX(DATE) FROM Orders WHERE UserId =:UserId)";
 	try {
 		$db = getConnection();
 		$stmt = $db->prepare($sql);

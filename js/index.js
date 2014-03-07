@@ -10,7 +10,7 @@ $(document).ready(function() {
     $(document).on('click', "#signUp", signUp);
     $(document).on('click', "header #signIn button", signIn);
     $(document).on('click', "header #signedIn a", signOut);
-}
+});
 
 function goToHomePage(){
     window.location = "index.html";
@@ -25,10 +25,27 @@ function goToMap(){
 }
 
 function signUp{
+    $.ajax({
+            type: "POST",
+            url: "api/",
+            data: {
+                user: addUser();
+            }
+    });
+    window.location = "orderpage.html";
 }
 
 function signIn{
+    $.ajax({
+            type: "POST",
+            url: "api/",
+            data: {
+                user: login();
+            }
+    });
+    window.location = "orderpage.html";
 }
 
 function signOut{
+
 }
