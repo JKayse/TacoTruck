@@ -186,29 +186,40 @@ function getMenuItem($ItemType)
 	}
 }
 
-//User Registration
+/**
+* A funtion that takes the information inputed by a user and creates
+* an account for them by inserting them into the database
+**/
 function addUser()
 {
-	$firstname = $app->request()->post('givenName');
-	$lastname = $app->request()->post('surname');
-	$email = $app->request()->post('emailAddress');
+	$givenname = $app->request()->post('firstname');
+	$surname = $app->request()->post('lastname');
+	$emailAddress = $app->request()->post('email');
 	$password = password_hash($app->request()->post('password'));
-	$cc_provider = $app->request()->post('cc_provider');
-	$cc_number = $app->request()->post('cc_number');
+	$cc_provider = $app->request()->post('ccprovider');
+	$cc_number = $app->request()->post('ccnumber');
 
-	$db = getConnection();
-	$sql = "INSERT INTO Users (GivenName, Surname, EmailAddress, Password, TelephoneNumber, CC_Provider, CC_Number);
-			(:givenName, :surname, :emailAddress, :password, :cc_provider, :cc_number)";
-	$stmt = $db->prepare($sql);
-	$stmt->bindParam("GivenName", $givenName);
-	$stmt->bindParam("Surname", $surname);
-	$stmt->bindParam("EmailAddress", $emailAddress);
-	$stmt->bindParam("Password", $password);
-	$stmt->bindParam("CC_Provider", $cc_provider);
-	$stmt->bindParam("CC_Number", $cc_number);
+	$sql = "INSERT INTO Users (GivenName, Surname, EmailAddress, Password, TelephoneNumber, CC_Provider, CC_Number) VALUES (:givenName, :surname, :emailAddress, :password, :cc_provider, :cc_number)";
 
-	$stmt->execute();
-	$db = null;
+	try
+	{
+		$db = getConnection();
+				
+		$stmt = $db->prepare($sql);
+		$stmt->bindParam(":givenName", $givenName);
+		$stmt->bindParam(":surname", $surname);
+		$stmt->bindParam(":emailAddress", $emailAddress);
+		$stmt->bindParam(":password", $password);
+		$stmt->bindParam(":cc_provider", $cc_provider);
+		$stmt->bindParam(":cc_number", $cc_number);
+
+		$stmt->execute();
+		$db = null;
+	}
+	catch(PDOException $e) 
+	{
+		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
+	}
 }
 
 /**
