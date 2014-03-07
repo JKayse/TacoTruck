@@ -141,9 +141,8 @@ function addOrder()
 {
 	try {
 	$request = Slim::getInstance()->request();
-	$Order = json_decode($request->getBody());
+	$Order = json_decode($request->getBody(), true);
 	$db = getConnection();
-
 	date_default_timezone_set('America/Chicago');
 	$date = date('Y-m-d h:i:s');
 	$price = $Order['price'];
