@@ -25,10 +25,34 @@ function goToMap(){
 }
 
 function signUp{
+    $.ajax({
+            type: "POST",
+            url: "api/",
+            data: {
+                user: addUser();
+            }
+    });
+
 }
 
 function signIn{
+    $.ajax({
+            type: "POST",
+            url: "api/",
+            data: {
+                user: login();
+            }
+    });
+
 }
 
 function signOut{
+    $.ajax({
+            type: "POST",
+            url: "api/",
+            data: {
+                user: logout();
+            }
+    });
+
 }
