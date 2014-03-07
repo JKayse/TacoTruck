@@ -6,6 +6,9 @@ $(function() {
 
 
 $(document).ready(function() {
+    //Check if user is logged in or not. If they are are, add the order previous button and the new welcome bar with their name. 
+
+
     $("header").load("Header.html");
     $("#menuButtons button").eq(0).click(addOrder);
     $("#menuButtons button").eq(1).click(resetOrder);
@@ -683,8 +686,6 @@ function payPopup(){
         twoInputs.eq(0).val(userInfo[0].GivenName);
         twoInputs.eq(1).val(userInfo[0].SurName);
         $("#number").val(userInfo[0].CC_Number);
-        
-        createOrder();
 
     }});
 
@@ -724,13 +725,14 @@ function finalizeOrder(event){
     event.preventDefault();
     $("#payInfo").css("display", "none");
     $("#paySuccess").css("display", "block");
-    $.ajax({
+    
+    /*$.ajax({
             type: "POST",
             url: "api/",
             data: {
-                
+                order: createOrder();
             }
-    });
+    });*/
 }
 
 
