@@ -1,8 +1,5 @@
 
 
-$(function() {
-    $( "#accordion" ).accordion({collapsible: true} );
-  });
 
 
 $(document).ready(function() {
@@ -337,6 +334,11 @@ $(document).ready(function() {
     
 
 
+});
+
+
+$(function() {
+    $( "#accordion" ).accordion({collapsible: true} );
 });
 
 function setHoverPosition()
@@ -726,15 +728,15 @@ function finalizeOrder(event){
     $("#payInfo").css("display", "none");
     $("#paySuccess").css("display", "block");
     
-   /* $.ajax({
+   $.ajax({
             type: "POST",
             url: "api/Orders",
             data: {
 
-                order: createOrder();
+                order: createOrder()
             }
     });
-    */
+    
 }
 
 
@@ -915,6 +917,6 @@ function createOrder(){
     order.price = price;
     
     order = JSON.stringify(order);
-
+    console.log(order);
 
 }

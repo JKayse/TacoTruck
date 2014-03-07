@@ -52,7 +52,9 @@ initialize();
 
 $(document).ready(function() {
     $("header").load("Header.html");
-  });
+    $(document).on('click', "header img", goToHomePage);
+    $(document).on('click', "header h1", goToHomePage);
+  
 
 
  $.ajax({url:"api/Locations", success: function(json){
@@ -70,3 +72,10 @@ $(document).ready(function() {
         document.getElementById("names").innerHTML = textout;
 
     }});
+ });
+
+
+
+function goToHomePage(){
+    window.location = "index.html";
+}
