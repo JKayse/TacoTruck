@@ -318,7 +318,7 @@ function login() {
 		$stmt->execute();
 		$hashedPassword = $stmt->fetchAll(PDO::FETCH_OBJ);
 		
-		if(password_verify($password, $hashedPassword) {
+		if(crypt($password) == $hashedPassword) {
 			$_SESSION['loggedin'] = true;
 			$query = $db->prepare("SELECT UserId FROM Users WHERE EmailAddress=:email")->bindParam("email", $email);
 			$query->execute();
