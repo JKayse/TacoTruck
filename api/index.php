@@ -152,25 +152,20 @@ function addOrder()
 	$stmt = $db->query($sql);  
 	$sql2 = "SELECT OrderId FROM Orders WHERE UserId = '$userId'AND Date = '$date' AND 			Total = '$price'";
 	$stmt = $db->query($sql2);
-	$result = $stmt->fetchAll(PDO::FETCH_OBJ);
-	$OrderId = $result['OrderId'];
+	$OrderId = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
 	foreach($Order['tacos'] as $type) {
 		$TacoFixinIdArray = null;
 		foreach($type['toppings'] as $topping) {
-			//echo "<br>Topping: " . $topping;
 			$sql = "SELECT TacoFixinId WHERE Name = '$topping'";
 			$stmt = $db->query($sql);
-			$result = $stmt->fetchAll(PDO::FETCH_OBJ);
-			$TacoFixinIdArray[] = $result['TacoFixinId'];
+			$TacoFixinIdArray[] = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
 		}
 		$quantity = $type['quantity'];
 		$sql = "INSERT INTO OrderItem (OrderId, Quantity) VALUES ('$OrderId', 			'$quantity')";
 		$stmt = $db->query($sql);
 		$sql2 = "SELECT OrderItemId FROM OrderItem WHERE OrderId = '$OrderId' AND 			Quantity = '$quantity'";
 		$stmt = $db->query($sql2);
-		$result = $stmt->fetchAll(PDO::FETCH_OBJ);
-		$OrderItemId = $result['OrderItemId'];	
-		//echo "<br>Quantity: " . $type['quantity'];
+		$OrderItemId = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);	
 		foreach($TacoFixinIdArray as $val){
 			$sql = "INSERT INTO OrderItemDetails (OrderItemId, TacoFixinId) VALUES
 				('$OrderItemId','$val')";
@@ -323,7 +318,7 @@ function login() {
 		$stmt->execute();
 		$hashedPassword = $stmt->fetchAll(PDO::FETCH_OBJ);
 		
-		if(password_verify($password, $hashedPassword) {
+		if(password_verify($password, $hashedPassword)) {
 			$_SESSION['loggedin'] = true;
 			$query = $db->prepare("SELECT UserId FROM Users WHERE EmailAddress=:email")->bindParam("email", $email);
 			$query->execute();
@@ -340,8 +335,8 @@ function login() {
 */
 function logout() {
 	$_SESSION['loggedin'] = false;
-	$_SESSION['userId' = NULL;
-	$_SESSION['email'] = NULL:
+	$_SESSION['userId'] = NULL;
+	$_SESSION['email'] = NULL;
 }
 
 /**
