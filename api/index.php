@@ -40,7 +40,7 @@ $app->get('/Menu/:ItemType', 'getMenuItem');
 $app->get('/Payment/:UserId', 'getPayment');
 
 //User Registration
-$app->post('/AddUser', 'addUser');
+$app->post('/Users', 'addUser');
 
 //$app->post('/Orders', 'addOrders');
 //$app->put('/wines/:id', 'updateWine');
@@ -189,29 +189,29 @@ function getMenuItem($ItemType)
 /**
 * A funtion that takes the information inputed by a user and creates
 * an account for them by inserting them into the database
-**/
+*/
 function addUser()
 {
-	$givenname = $app->request()->post('firstname');
-	$surname = $app->request()->post('lastname');
-	$emailAddress = $app->request()->post('email');
-	$password = password_hash($app->request()->post('password'));
-	$cc_provider = $app->request()->post('ccprovider');
-	$cc_number = $app->request()->post('ccnumber');
-
-	$sql = "INSERT INTO Users (GivenName, Surname, EmailAddress, Password, TelephoneNumber, CC_Provider, CC_Number) VALUES (:givenName, :surname, :emailAddress, :password, :cc_provider, :cc_number)";
+	$givenName = Slim::getInstance()->request()->post('firstname');
+	$surname = Slim::getInstance()->request()->post('lastname');
+	$emailAddress = Slim::getInstance()->request()->post('email');
+	$password = password_hash(Slim::getInstance()->request()->post('password'), PASSWORD_DEFAULT);
+	$cc_provider = Slim::getInstance()->request()->post('ccprovider');
+	$cc_number = Slim::getInstance()->request()->post('ccnumber');
+	
+	$sql = "INSERT INTO Users (GivenName, Surname, EmailAddress, Password, CC_Provider, CC_Number) VALUES (:givenName, :surname, :emailAddress, :password, :cc_provider, :cc_number)";
 
 	try
 	{
 		$db = getConnection();
 				
 		$stmt = $db->prepare($sql);
-		$stmt->bindParam(":givenName", $givenName);
-		$stmt->bindParam(":surname", $surname);
-		$stmt->bindParam(":emailAddress", $emailAddress);
-		$stmt->bindParam(":password", $password);
-		$stmt->bindParam(":cc_provider", $cc_provider);
-		$stmt->bindParam(":cc_number", $cc_number);
+		$stmt->bindParam("givenName", $givenName);
+		$stmt->bindParam("surname", $surname);
+		$stmt->bindParam("emailAddress", $emailAddress);
+		$stmt->bindParam("password", $password);
+		$stmt->bindParam("cc_provider", $cc_provider);
+		$stmt->bindParam("cc_number", $cc_number);
 
 		$stmt->execute();
 		$db = null;
