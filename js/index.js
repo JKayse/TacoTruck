@@ -10,7 +10,7 @@ $(document).ready(function() {
     $(document).on('click', "#signUp", signUp);
     $(document).on('click', "header #signIn button", signIn);
     $(document).on('click', "header #signedIn a", signOut);
-}
+});
 
 function goToHomePage(){
     window.location = "index.html";
