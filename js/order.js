@@ -918,7 +918,7 @@ function createOrder(){
     order.price = price;
     
     order = JSON.stringify(order);
-    console.log(order);
+    return order;
 
 }
 
@@ -926,12 +926,23 @@ function signIn(){
     event.preventDefault();
     /*$.ajax({
             type: "POST",
-            url: "api/Orders",
+            url: "api/Login",
             data: {
 
-                order: createOrder()
+                order: loginInfo()
             }
     });
     */
 }
 
+function loginInfo()
+{
+    var email = $("#signInEmail").val();
+    var password = $("#signInPass").val();
+    var loginInfo ={};
+    loginInfo.email = email;
+    loginInfo.password = password;
+    loginInfo = JSON.stringify(loginInfo);
+    return loginInfo;
+
+}

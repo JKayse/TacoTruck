@@ -149,11 +149,11 @@ function addOrder()
 	$userId = 1;
 
 	$sql = "INSERT INTO ORDERS (UserId, Date, Total) VALUES ('$userId', '$date', 		'$price')";
-	$stmt = $db->query($sql);
+	$stmt = $db->query($sql);  
 	$sql2 = "SELECT OrderId FROM Orders WHERE UserId = '$userId'AND Date = '$date' AND 			Total = '$price'";
 	$stmt = $db->query($sql2);
 	$result = $stmt->fetchAll(PDO::FETCH_OBJ);
-	$OrderId = $result['OrderId'];	
+	$OrderId = $result['OrderId'];
 	foreach($Order['tacos'] as $type) {
 		$TacoFixinIdArray = null;
 		foreach($type['toppings'] as $topping) {
