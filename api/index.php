@@ -328,6 +328,24 @@ function login() {
 	} catch(PDOException $e) {
 		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
 	}
+
+	if(isset($_SESSION['loggedin'] == true) {
+		echo "<br>User is logged in!";
+	} else {
+		echo "<br>User is NOT logged in!";
+	}
+	
+	if(isset($_SESSION['userId']) {
+		echo "<br>UserId is set!";
+	} else {
+		echo "<br>UserId is NOT set!";
+	}
+	
+	if(isset($_SESSION['email']) {
+		echo "<br>Email is set!";
+	} else {
+		echo "<br>Email is NOT set!";
+	}
 }
 
 /**
