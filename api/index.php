@@ -5,6 +5,9 @@
 * Uses Slim framework.  
 */
 
+session_cashe_limiter(false);
+session_start();
+
 require 'Slim/Slim.php';
 
 $app = new Slim();
@@ -39,8 +42,15 @@ $app->get('/Menu/:ItemType', 'getMenuItem');
 */
 $app->get('/Payment/:UserId', 'getPayment');
 
-//User Registration
+/**
+*User Registration
+*/
 $app->post('/Users', 'addUser');
+
+/**
+*User Login
+*/
+$app->post('/Login', 'login');
 
 /*
 * Link to add orders
@@ -270,6 +280,31 @@ function addUser()
 	}
 	catch(PDOException $e) 
 	{
+		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
+	}
+}
+
+/**
+* A function to check if the user entered the correct email and password.
+* If so, a cookie is created containing their username
+*/
+function login() {
+	$email = Slim::getInstance()->request()->post('email');
+	$password = Slim::getInstance()->request()->post('password');
+
+	$sql = "SELECT Password FROM Users WHERE email=:email";
+
+	try {
+		$db = getConnection();
+		$stmt = $db->prepare($sql);
+		$stmt->bindParam("email", $email);
+		$stmt->execute();
+		$hashedPassword = $stmt->fetchAll(PDO::FETCH_OBJ);
+		
+		if(password_verify($password, $hashedPassword) {
+			$_SESSION['loggedin'] = true;
+		}
+	} catch(PDOException $e) {
 		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
 	}
 }
