@@ -32,7 +32,7 @@ function signUp{
                 user: addUser();
             }
     });
-
+    window.location = "orderpage.html";
 }
 
 function signIn{
@@ -43,16 +43,9 @@ function signIn{
                 user: login();
             }
     });
-
+    window.location = "orderpage.html";
 }
 
 function signOut{
-    $.ajax({
-            type: "POST",
-            url: "api/",
-            data: {
-                user: logout();
-            }
-    });
 
 }
