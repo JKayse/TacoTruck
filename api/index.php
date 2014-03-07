@@ -42,9 +42,10 @@ $app->get('/Payment/:UserId', 'getPayment');
 //User Registration
 $app->post('/Users', 'addUser');
 
-//$app->post('/Orders', 'addOrders');
-//$app->put('/wines/:id', 'updateWine');
-//$app->delete('/wines/:id','deleteWine');
+/*
+* Link to add orders
+*/
+$app->post('/Orders', 'addOrder');
 
 $app->run();
 
@@ -109,6 +110,57 @@ function getOrder($OrderId){
 	} catch(PDOException $e) {
 		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
 	} 
+}
+
+/**
+* A function that adds the order informations to the Order tables
+*
+*/
+function addOrder()
+{
+	try {
+	$request = Slim::getInstance()->request();
+	$Order = json_decode($request->getBody());
+	$db = getConnection();
+
+	date_default_timezone_set('America/Chicago');
+	$date = date('Y-m-d h:i:s');
+	$price = $Order['price'];
+	$userId = 1;
+
+	$sql = "INSERT INTO ORDERS (UserId, Date, Total) VALUES ('$userId', '$date', ''$price')";
+	$stmt = $db->query($sql);
+	$sql2 = "SELECT OrderId FROM Orders WHERE UserId = '$userId',AND Date = '$date', AND Total = 			'$price'";
+	$stmt = $db->query($sql2);
+	$result = $stmt->fetchAll(PDO::FETCH_OBJ);
+	$OrderId = $result['OrderId'];	
+	foreach($Order['tacos'] as $type) {
+		$TacoFixinIdArray = null;
+		foreach($type['toppings'] as $topping) {
+			//echo "<br>Topping: " . $topping;
+			$sql = "SELECT TacoFixinId WHERE Name = '$topping'";
+			$stmt = $db->query($sql);
+			$result = $stmt->fetchAll(PDO::FETCH_OBJ);
+			$TacoFixinIdArray[] = $result['TacoFixinId'];
+		}
+		$quantity = $type['quantity'];
+		$sql = "INSERT INTO OrderItem (OrderId, Quantity) VALUES ('$OrderId', 			'$quantity')";
+		$stmt = $db->query($sql);
+		$sql2 = "SELECT OrderItemId FROM OrderItem WHERE OrderId = '$OrderId' AND 			Quantity = '$quantity'";
+		$stmt = $db->query($sql2);
+		$result = $stmt->fetchAll(PDO::FETCH_OBJ);
+		$OrderItemId = $result['OrderItemId'];	
+		//echo "<br>Quantity: " . $type['quantity'];
+		foreach($TacoFixinIdArray as $val){
+			$sql = "INSERT INTO OrderItemDetails (OrderItemId, TacoFixinId) VALUES
+				('$OrderItemId','$val')";
+			$stmt = db->query($sql);
+		}	
+	}
+	} catch(PDOException $e) {
+		echo '{"error":{"text":'. $e->getMessage() . '}}';
+	}
+
 }
 
 /**
