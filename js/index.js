@@ -27,25 +27,51 @@ function goToMap(){
 function signUp(){
     $.ajax({
             type: "POST",
-            url: "api/",
+            url: "api/AddUser",
             data: {
-                user: addUser()
+                givenName: $("#givenName").val(),
+                surname: $("#surname").val(),
+                givenName: $("#givenName").val(),
+                emailAddress: $("#email").val(),
+                password: $("#password").val(),
+                cc_provider: $("#ccProvider").val(),
+                cc_number: $("#ccNumber").val(),
             }
     });
+    
     window.location = "orderpage.html";
 }
 
 function signIn(){
-    $.ajax({
+    event.preventDefault();
+    /*$.ajax({
             type: "POST",
-            url: "api/",
+            url: "api/Login",
             data: {
-                user: login()
+                email: $("#signInEmail").val(),
+                password: $("#signInPass").val()
+            },
+            success: function(json){
+                if(json === null){
+                    alert("The information entered was not correct. Try Again.");
+                }
+                else{
+                    window.location = "orderpage.html";
+
+                }
+
             }
     });
-    window.location = "orderpage.html";
+    */
 }
 
-function signOut(){
+function signout(){
+    $.ajax({
+            type: "POST",
+            url: "api/Logout",
+            success: function(){
+                $("#signIn").css("display", "block");
+                $("#signedIn").css("display", "none");
+            }});
 
 }

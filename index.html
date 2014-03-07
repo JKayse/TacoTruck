@@ -23,18 +23,18 @@
 	    </section>
 	    <form name="CreateAnAccount" action="#" method="post">
 		<p>Create an Account!</p>
-	    	<input type="text" placeholder="First Name" name="firstname">
-	   	<input type="text" placeholder="Last Name" name="lastname"><br>
-	    	<input type="text" placeholder="Email"name="email"><br>
-	    	<input type="password" placeholder="Password" name="password">
-	   	<input type="password" placeholder="Confirm Password" name="confirmPass"><br>
-	    	<select name="Credit Card Providers">
+	    	<input type="text" id="givenName" placeholder="First Name" name="firstname">
+	   	<input type="text" id="surname" placeholder="Last Name" name="lastname"><br>
+	    	<input type="text" id="email" placeholder="Email"name="email"><br>
+	    	<input type="password" id="password" placeholder="Password" name="password">
+	   	<input type="password" id="confirmPassword" placeholder="Confirm Password" name="confirmPass"><br>
+	    	<select id="ccProvider" name="Credit Card Providers">
 		    <option value="providers">Credit Card Provider</option>
 		    <option value="visa">Visa</option>
 		    <option value="mastercard">Master Card</option>
 		    <option value="amex">American Express</option>
 	    	</select>
-	    	<input type="text" placeholder="Credit Card Number" name="ccnumber"><br>
+	    	<input type="text" id="ccNumber" placeholder="Credit Card Number" name="ccnumber"><br>
 	    	<input type="submit" class="button" id ="signUp" value="Sign Up">   
 	    </form>
 	</div>
