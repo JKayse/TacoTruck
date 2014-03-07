@@ -19,7 +19,6 @@ $(document).ready(function() {
     $(document).on('click', "#deselectExtras", deleteAllExtras);
     $(document).on('click', ".tortillaOption", addTortillaSelector);
     $(document).on('click', ".fillingOption", addFillingSelector);
-    $(document).on('click', "#orderPrevious", orderPrevious);
     $(document).on('click', "#payOrder", payPopup);
     $(document).on('click', "header img", goToHomePage);
     $(document).on('click', "header h1", goToHomePage);
@@ -28,11 +27,16 @@ $(document).ready(function() {
     $(document).on('click', "#locations", goToMap);
     $(document).on('click', "#cancel", cancelPayment);
     $(document).on('submit', "#giveMeMoney", finalizeOrder);
+    $(document).on('click', "#orderPrevious", showOrderPrevious);
+    $(document).on('click', "#cancelPrevTacos", hideOrderPrevious);
+    $(document).on('click', "#addPrevTacos", addOrderPrevious);
+
+    
 
    
 
 
-    $.ajax({url:"api/M/Tortillas/", success: function(json){
+    $.ajax({url:"api/Menu/Tortillas", success: function(json){
         json = JSON.parse(json);
         var tortilla = json.Tortillas;
         for(var i = 0; i < tortilla.length ; i++){
@@ -139,6 +143,194 @@ $(document).ready(function() {
         $("#extras").append(buttons);
     }});
 
+    $.ajax({url:"api/PreviousOrders/1", success: function(json){
+        json = JSON.parse(json);
+        var orderId = json.OrderId;
+        var id = orderId[0].OrderId;
+        if(id === null){
+            return;
+        }
+        $.ajax({url:"api/Orders/" + id, success: function(json){
+            json = JSON.parse(json);
+            var order = json.Order;
+            var orderItemId = order[0].OrderItemId;
+            var quantity= order[0].Quantity;
+            var total = order[0].Total;
+            var type = order[0].ItemType;
+            var name = order[0].Name;
+
+            $("#totalPreviousPrice").html("The total price is: " + total);
+            total = total.substring(1);
+            $("#totalPreviousPrice").attr("price", total);
+            var tortilla ="";
+            var filling ="";
+            var cheese ="";
+            var rice ="";
+            var beans="";
+            var sauce="";
+            var vegetables="";
+            var extras="";
+            var addSection="";
+            if(type === "type"){
+                var filling = name;
+            }
+            if(type === "tortillas"){
+                var tortilla = name;
+            }
+            if(type === "cheese"){
+                var cheese = name;
+            }
+            if(type === "rice"){
+                var rice = name;
+            }
+            if(type === "beans"){
+                var beans = name;
+            }
+            if(type === "sauces"){
+                var sauce = name;
+            }
+            if(type === "vegetables"){
+                var vegetables = name;
+            }
+            if(type === "extras"){
+                var extras = name;
+            }
+
+            for(var i = 1; i < order.length; i++){
+                if(orderItemId === order[i].OrderItemId){
+                    type = order[i].ItemType;
+                    name = order[i].Name;                    
+
+
+                    if(type === "type"){
+                        filling = name;
+                    }
+                    if(type === "tortillas"){
+                        tortilla = name;
+                    }
+                    if(type === "cheese"){
+                        cheese = name;
+                    }
+                    if(type === "rice"){
+                        rice = name;
+                    }
+                    if(type === "beans"){
+                        beans = name;
+                    }
+                    if(type === "sauces"){
+                        sauce = name;
+                    }
+                    if(type === "vegetables"){
+                        vegetables = vegetables + ", "+ name;
+                    }
+                    if(type === "extras"){
+                        extras = extras + ", "+ name;
+                    }
+                }
+                else{
+                    //add previous order to thing
+                    
+                    
+                    addSection = "<div class = 'prevTaco'><h5 class='prevTortilla' tortilla='" + tortilla + "'>Tortilla: " + tortilla + "</h5><h5 class='prevFilling' filling='" + filling + "'>Filling: " + filling + "</h5>";
+                    if(cheese !== ""){
+                        addSection = addSection + "<h5 class='prevCheese' cheese='" + cheese + "'>Cheese: " + cheese + "</h5>";
+                    }
+                    if(rice !== ""){
+                        addSection = addSection + "<h5 class='prevRice' rice='" + rice + "'>Rice: " + rice + "</h5>";
+                    }
+                    if(beans !== ""){
+                        addSection = addSection + "<h5 class='prevBeans' beans='" + beans + "'>Beans: " + beans + "</h5>";
+                    }
+                    if(sauce !== ""){
+                        addSection = addSection + "<h5 class='prevSauce' sauce='" + sauce + "'>Sauce: " + sauce + "</h5>";
+                    }
+                    if(vegetables !== ""){
+                        vegetables = vegetables.substring(2);
+                        addSection = addSection + "<h5 class='prevVeggies' veggie='" + vegetables + "'>Vegetables: " + vegetables + "</h5>";
+                    }
+                    if(extras !== ""){
+                        extras = extras.substring(2);
+                        addSection = addSection + "<h5 class='prevExtras' extras='" + extras + "'>Extras: " + extras + "</h5>";
+                    }
+                    
+                    addSection = addSection + "<h5 class='prevQuantity' quantity='" + quantity + "'>Quantity: " + quantity + "</h5></div><hr>";
+                    $("#previousOrderList").append(addSection);
+
+                    addSection="";
+                    tortilla ="";
+                    filling ="";
+                    cheese ="";
+                    rice ="";
+                    beans="";
+                    sauce="";
+                    vegetables="";
+                    extras="";
+
+                    orderItemId = order[i].OrderItemId;
+                    quantity = order[i].Quantity;
+                    type = order[i].ItemType;
+                    name = order[i].Name;                    
+
+
+                    if(type === "type"){
+                        filling = name;
+                    }
+                    if(type === "tortillas"){
+                        tortilla = name;
+                    }
+                    if(type === "cheese"){
+                        cheese = name;
+                    }
+                    if(type === "rice"){
+                        rice = name;
+                    }
+                    if(type === "beans"){
+                        beans = name;
+                    }
+                    if(type === "sauces"){
+                        sauce = name;
+                    }
+                    if(type === "vegetables"){
+                        vegetables = vegetables + ", "+ name;
+                    }
+                    if(type === "extras"){
+                        extras = extras + ", "+ name;
+                    }
+
+                }
+
+
+            }
+            addSection = "<div class = 'prevTaco'><h5 class='prevTortilla' tortilla='" + tortilla + "'>Tortilla: " + tortilla + "</h5><h5 class='prevFilling' filling='" + filling + "'>Filling: " + filling + "</h5>";
+            if(cheese !== ""){
+                addSection = addSection + "<h5 class='prevCheese' cheese='" + cheese + "'>Cheese: " + cheese + "</h5>";
+            }
+            if(rice !== ""){
+                addSection = addSection + "<h5 class='prevRice' rice='" + rice + "'>Rice: " + rice + "</h5>";
+            }
+            if(beans !== ""){
+                addSection = addSection + "<h5 class='prevBeans' beans='" + beans + "'>Beans: " + beans + "</h5>";
+            }
+            if(sauce !== ""){
+                addSection = addSection + "<h5 class='prevSauce' sauce='" + sauce + "'>Sauce: " + sauce + "</h5>";
+            }
+            if(vegetables !== ""){
+                vegetables = vegetables.substring(2);
+                addSection = addSection + "<h5 class='prevVeggies' veggie='" + vegetables + "'>Vegetables: " + vegetables + "</h5>";
+            }
+            if(extras !== ""){
+                extras = extras.substring(2);
+                addSection = addSection + "<h5 class='prevExtras' extras='" + extras + "'>Extras: " + extras + "</h5>";
+            }
+            addSection = addSection + "<h5 class='prevQuantity' quantity='" + quantity + "'>Quantity: " + quantity + "</h5></div>";
+            $("#previousOrderList").append(addSection);
+
+        }});
+   
+
+
+    }});
+
     
 
 
@@ -195,12 +387,12 @@ function addOrder(event){
 
 
     var tacoPrice = parseFloat($("#tacoPrice").attr("tacoPrice")).toFixed(2);
-    $("#addedOrders").append("<span class = 'order' totValue ='" + tacoPrice + "'><button type='button' class = 'delete button'>X</button><button type='button' class='itemList button' filling='" + tacoFilling +"' tortilla='" + tacoTortilla +"' cheese='" + tacoCheese + "' rice='" + tacoRice +"' beans='" + tacoBeans +"' sauce='" + tacoSauce +"' vegetables='" + tacoVegetables +"' extras='" + tacoExtras +"'>"+ tacoName + " Taco</button><input type='number' class ='quantity' name='quantity' value='" + tacoQuantity +"' min='1' step='1'><span class='tacoPrice' tacoValue ='" + tacoPrice + "'>$"+tacoPrice+"</span><div class='tacoDetails'>''</div></span><br>");
+    $("#addedOrders").append("<span class = 'order curOrder' totValue ='" + tacoPrice + "'><button type='button' class = 'delete button'>X</button><button type='button' class='itemList button' filling='" + tacoFilling +"' tortilla='" + tacoTortilla +"' cheese='" + tacoCheese + "' rice='" + tacoRice +"' beans='" + tacoBeans +"' sauce='" + tacoSauce +"' vegetables='" + tacoVegetables +"' extras='" + tacoExtras +"'>"+ tacoName + " Taco</button><input type='number' class ='quantity' name='quantity' value='" + tacoQuantity +"' min='0' step='1'><span class='tacoPrice' tacoValue ='" + tacoPrice + "'>$"+tacoPrice+"</span><div class='tacoDetails'>''</div></span><br>");
     updateEveryTacoPrice();
-    var tacos = $(".tacoDetails");
+    var tacos = $(".curOrder .tacoDetails");
     for(var i = 0; i<tacos.size();i++){
         
-        var taco = $(".order .itemList").eq(i)
+        var taco = $(".order .itemList").eq(i);
         tacoTortilla = taco.attr('tortilla');
         tacoFilling = taco.attr('filling');
         tacoCheese = taco.attr('cheese');
@@ -470,17 +662,14 @@ function deleteAllExtras(){
     
 }
 
-function orderPrevious(){
-
-}
-
 function payPopup(){
     if($(".order").size() !== 0){
         $("#blackScreenofDeath").css("display","block");
         $("#payment").css("display","block");
+        $("#payInfo").css("display","block");
+
         var total = $("#totalPrice").attr("price");
         $("#paymentTotal").html("Your order comes out to: $" + total);
-        //Add an if statement to check if the user is logged . change it to actually get a user id
         $.ajax({url:"api/Payment/1", success: function(json){
         json = JSON.parse(json);
         var userInfo = json.Payment;
@@ -488,8 +677,6 @@ function payPopup(){
         var lName = userInfo[0].SurName;
         var providerName = userInfo[0].CC_Provider;
         var number = userInfo[0].CC_Number;
-        console.log(providerName);
-
         var twoInputs = $("#giveMeMoney input");
 
         $("#provider option[value='" + providerName + "']").prop('selected',true);
@@ -497,11 +684,13 @@ function payPopup(){
         twoInputs.eq(1).val(userInfo[0].SurName);
         $("#number").val(userInfo[0].CC_Number);
         
+        createOrder();
+
     }});
 
     }
     else{
-        alert("Please order at least one taco to continue. Thanks!");
+        alert("Please order at least one taco to continue. Thanks! :)");
     }
 
 }
@@ -535,4 +724,193 @@ function finalizeOrder(event){
     event.preventDefault();
     $("#payInfo").css("display", "none");
     $("#paySuccess").css("display", "block");
+    $.ajax({
+            type: "POST",
+            url: "api/",
+            data: {
+                
+            }
+    });
+}
+
+
+function showOrderPrevious(){
+    if($(".prevTaco").length === 0){
+        alert("You have no previous orders. Please add an order first. Thanks! :)");
+    }
+    else{
+        $("#blackScreenofDeath").css("display","block");
+        $("#payment").css("display","block");
+        $("#previousOrder").css("display","block");
+        $("#payInfo").css("display", "none");
+        $("#paySuccess").css("display", "none");
+    }
+}
+
+function hideOrderPrevious(){
+    $("#blackScreenofDeath").css("display","none");
+    $("#payment").css("display","none");
+    $("#previousOrder").css("display","none");
+    $("#payInfo").css("display", "none");
+    $("#paySuccess").css("display", "none");
+}
+
+function addOrderPrevious(){
+    var prevOrderTotal = $("#totalPreviousPrice").attr("price");
+    $("#addedOrders").append("<span class = 'order prevOrder' totValue ='" + prevOrderTotal + "'><button type='button' class = 'delete button'>X</button><button type='button' class='button'>Previous Order</button><input type='number' class ='quantity' name='quantity' value='1' min='1' step='1'><span class='tacoPrice' tacoValue ='" + prevOrderTotal + "'>$"+prevOrderTotal+"</span><div class='tacoDetails'>''</div></span><br>");
+    var insert2 = "<img src = 'img/leftArrow.png' alt='Arrow' title='Arrow'>";
+    insert2 = insert2 + $('#previousOrderList').html();
+    var taco = $(".prevOrder .tacoDetails");
+    taco.html(insert2);
+    updateTotalPrice();
+
+    $("#blackScreenofDeath").css("display","none");
+    $("#payment").css("display","none");
+    $("#previousOrder").css("display","none");
+    $("#payInfo").css("display", "none");
+    $("#paySuccess").css("display", "none");
+}
+
+function createOrder(){
+    var prevOrders = $(".prevOrder")
+    var prevTacoDetails = $(".tacoDetails .prevTaco");
+    var curTacoDetails = $(".curOrder");
+    var tacos = [];
+    var taco = {};
+    var order = {};
+    var toppings = [];
+    var quantity;
+    var tortilla;
+    var filling;
+    var cheese;
+    var rice;
+    var beans;
+    var sauce;
+    var vegetables;
+    var extras;
+    var quantityWanted;
+    for(var j = 0; j < prevOrders.length; j++){
+        prevTacoDetails = prevOrders.eq(j).children(".tacoDetails").children(".prevTaco");
+        quantityWanted = prevOrders.eq(j).children(".quantity").val();
+        quantityWanted = parseFloat(quantityWanted);
+
+        
+        for(var i = 0; i < prevTacoDetails.length ; i++){
+            var taco = {};
+            tortilla = prevTacoDetails.eq(i).children(".prevTortilla");
+            toppings.push(tortilla.attr("tortilla"));
+            filling = prevTacoDetails.eq(i).children(".prevFilling");
+            toppings.push(filling.attr("filling"));
+            cheese = prevTacoDetails.eq(i).children(".prevCheese");
+            if(cheese.length !== 0){
+                toppings.push(cheese.attr("cheese"));
+            }
+            rice = prevTacoDetails.eq(i).children(".prevRice");
+            if(rice.length !== 0){
+                toppings.push(rice.attr("rice"));
+            }
+            beans = prevTacoDetails.eq(i).children(".prevBeans");
+            if(beans.length !== 0){
+                toppings.push(beans.attr("beans"));
+            }
+            sauce = prevTacoDetails.eq(i).children(".prevSauce");
+            if(sauce.length !== 0){
+                toppings.push(sauce.attr("sauce"));
+            }
+            vegetables = prevTacoDetails.eq(i).children(".prevVeggies");
+            if(vegetables.length !== 0){
+                var vegetables = vegetables.attr("extras");
+                var res = vegetables.split(", ");
+                for(var k = 0; k < res.length; k++){
+                    toppings.push(res[k]);
+                }
+                
+            }
+            extras = prevTacoDetails.eq(i).children(".prevExtras");
+            if(extras.length !== 0){
+                var extras = extras.attr("extras");
+                var res = extras.split(", ");
+                for(var k = 0; k < res.length; k++){
+                    toppings.push(res[k]);
+                }
+                
+            }
+            quantity = prevTacoDetails.eq(i).children(".prevQuantity");
+            quantity = quantity.attr("quantity");
+            quantity = parseFloat(quantity);
+            finalQuantity = quantity * quantityWanted;
+
+            taco.toppings= toppings;
+            taco.quantity = finalQuantity;
+            toppings = [];
+            quantity="";
+            tacos.push(taco);
+        }
+        quantityWanted ="";
+
+    }
+
+    for(var i = 0; i < curTacoDetails.length ; i++){
+        var taco = {};
+        var items = curTacoDetails.eq(i).children(".itemList");
+        var quantity = curTacoDetails.eq(i).children(".quantity").val();
+        
+
+        tortilla = items.attr("tortilla");
+        toppings.push(tortilla);
+
+        filling = items.attr("filling");
+        toppings.push(filling);
+
+        cheese = items.attr("cheese");
+        if(cheese !== ""){
+            toppings.push(cheese);
+        }
+
+        rice = items.attr("rice");
+        if(rice !== ""){
+            toppings.push(rice);
+        }
+
+        beans = items.attr("beans");
+        if(beans !== ""){
+            toppings.push(beans);
+        }
+
+        sauce = items.attr("sauce");
+        if(sauce !== ""){
+            toppings.push(sauce);
+        }
+
+        vegetables = items.attr("vegetables");
+        if(vegetables !== ""){
+            var res = vegetables.split(", ");
+            for(var j = 0; j < res.length; j++){
+                toppings.push(res[j]);
+            }
+        }
+
+        extras = items.attr("extras");
+        if(extras !== ""){
+            var res = extras.split(", ");
+            for(var j = 0; j < res.length; j++){
+                toppings.push(res[j]);
+            }
+        }
+
+        taco.quantity = quantity;
+        taco.toppings = toppings;
+        toppings = [];
+        quantity="";
+        tacos.push(taco);
+    }
+
+    order.tacos = tacos;
+    price = $("#totalPrice").attr("price")
+    price = "$"+ price;
+    order.price = price;
+    
+    order = JSON.stringify(order);
+
+
 }

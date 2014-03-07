@@ -1,9 +1,105 @@
 /* CSS Document */
 
+@import url(http://fonts.googleapis.com/css?family=Germania+One);
+@import url(http://fonts.googleapis.com/css?family=Oldenburg);
+
+html{
+    height: 100%;
+}
+
+body{
+    margin-top: 0px;
+    background-image: url("../img/backgroundimage.png");
+    height: 99%;
+}
+
+header {
+    width: 80%;
+    height: 16%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: rgb(42, 145, 165);
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(182, 182, 182);
+
+}
+
+div{
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: rgb(253, 253, 236);
+    height: 85%;
+}
+    
 section{
+    width: 48%;
+    margin-top: 25px;
+    margin-left:auto;
+    margin-right:auto;
+    background-color: rgb(253, 253, 236);
 	float:left;
 }
 
 form{
+    width: 48%;
+    margin-top: 25px;
+    background-color: rgb(253, 253, 236);
+    border-style: solid;
+    border-color: rgb(95, 54, 39);
 	float:right;
+    margin-right:5px;
+}
+
+form p{
+    width: 43%;
+    height: 30px;
+    font-family: 'Germania One', cursive;
+    font-size: 25px;
+    margin-left: auto;
+    margin-right:auto;
+    margin-top:5px;
+    
+}
+
+form input{
+    width: 43%;
+    height: 30px;
+    margin: 5px 2px 5px 3px;
+    font-family: 'Germania One', cursive;
+    font-size: 20px;
+}
+
+form select{
+    width: 44%;
+    height: 30px;
+    margin: 5px 5px 5px 5px;
+    font-family: 'Germania One', cursive;
+    font-size: 20px;
+}
+
+section button{
+	width: 98%;
+    height: 30px;
+    margin: 7px 2px 7px 3px;
+    font-family: 'Germania One', cursive;
+    font-size: 20px;
+}
+
+#tacoLogo{
+    display:block;
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.button{
+    background: linear-gradient(rgb(255, 255, 255), rgb(165, 196, 236));
+    border-color: rgba(95, 54, 39, 0.54);
+    border-width:2px;
+}
+
+.button:hover{
+    background: linear-gradient(rgb(165, 196, 236), rgb(255, 255, 255));
 }

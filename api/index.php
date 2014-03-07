@@ -74,8 +74,7 @@ function getUser($Email)
 * @return JSON of the OrderId of the most recent Order
 */
 function getPreviousOrders($UserId) {
-	$sql = "SELECT OrderId FROM Orders WHERE UserId =:UserId AND Date = (SELECT MAX(Date) From
-			Orders)";
+	$sql = "SELECT OrderId, MAX(DATE) FROM Orders WHERE UserId=:UserId";
 	try {
 		$db = getConnection();
 		$stmt = $db->prepare($sql);
@@ -157,17 +156,33 @@ function getLocations(){
 */
 function getMenuItem($ItemType)
 {
-	$sql = "SELECT Name, Price FROM Menu WHERE ItemType=:ItemType";
-	try {
-		$db = getConnection();
-		$stmt = $db->prepare($sql);
-		$stmt->bindParam("ItemType",$ItemType);
-		$stmt->execute();
-		$Items = $stmt->fetchAll(PDO::FETCH_OBJ);
-		$db = null;
-		echo '{"' . $ItemType. '": ' . json_encode($Items) . '}';
-	} catch(PDOException $e) {
+	if($ItemType != "Sauces"){	
+		$sql = "SELECT Name, Price FROM Menu WHERE ItemType=:ItemType";
+		try {
+			$db = getConnection();
+			$stmt = $db->prepare($sql);
+			$stmt->bindParam("ItemType",$ItemType);
+			$stmt->execute();
+			$Items = $stmt->fetchAll(PDO::FETCH_OBJ);
+			$db = null;
+			echo '{"' . $ItemType. '": ' . json_encode($Items) . '}';
+		} catch(PDOException $e) {
 		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
+		}
+	}
+	else{
+		$sql = "SELECT Name, Price, HeatRating FROM Menu WHERE ItemType=:ItemType";
+		try {
+			$db = getConnection();
+			$stmt = $db->prepare($sql);
+			$stmt->bindParam("ItemType",$ItemType);
+			$stmt->execute();
+			$Items = $stmt->fetchAll(PDO::FETCH_OBJ);
+			$db = null;
+			echo '{"' . $ItemType. '": ' . json_encode($Items) . '}';
+		} catch(PDOException $e) {
+		echo '{"error":{"text":'. $e->getMessage() .'}}';
+		}
 	}
 }
 
@@ -202,7 +217,7 @@ function addUser()
 function getConnection() {
 	$dbhost="localhost";
 	$dbuser="root";
-	$dbpass="";
+	$dbpass="halomasterchief";
 	$dbname="Taco_Truck";
 	$dbh = new PDO("mysql:host=$dbhost;dbname=$dbname", $dbuser, $dbpass);	
 	$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

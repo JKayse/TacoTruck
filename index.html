@@ -6,30 +6,34 @@
         <meta charset="utf-8">
         <meta name="description" content="The login page.">
         <meta name="keywords" content="online, login, tacos, HTML">
-        <link rel="stylesheet" type="text/css" href="css/login.css">
+        <link rel="stylesheet" type="text/css" href="css/index.css">
     </head>
     <body>
 	<!--insert banner here-->
+	<header></header>
 	<!--buttons for ordering as guest and map-->
-	<section>
-	    <button id="guestOrder" type="button">Order Now as a Guest!</button><br>
-	    <button id="locations" type="button">View Taco Truck Locations</button><br>
-	    <img>logo</img>
-	</section>
-	<form>
-	    <input type="text" placeholder="First Name" name="firstname">
-	    <input type="text" placeholder="Last Name" name="lastname"><br>
-	    <input type="text" placeholder="Email"name="email"><br>
-	    <input type="password" placeholder="Password" name="password">
-	    <input type="password" placeholder="Confirm Password" name="confirmPass"><br>
-	    <select name="Credit Card Providers"> Credit Card Providers
-		<option value="visa">Visa</option>
-		<option value="mastercard">Master Card</option>
-		<option value="amex">American Express</option>
-		<option value="discover">Discover</option>
-	    </select>
-	    <input type="text" placeholder="Credit Card Number" name="ccnumber"><br>
-	    <input type="submit" value="Sign Up">   
-	</form>
+	<div>
+	    <section>
+	    	<button class="button" id="guestOrder" type="button">Order Now as a Guest!</button><br>
+	    	<button class="button" id="locations" type="button">View Taco Truck Locations</button><br>
+	    	<img id="tacoLogo" src="img/tacologo.png" alt="Taco Logo" title="TacoTaco">
+	    </section>
+	    <form>
+		<p>Create an Account!</p>
+	    	<input type="text" placeholder="First Name" name="firstname">
+	   	<input type="text" placeholder="Last Name" name="lastname"><br>
+	    	<input type="text" placeholder="Email"name="email"><br>
+	    	<input type="password" placeholder="Password" name="password">
+	   	<input type="password" placeholder="Confirm Password" name="confirmPass"><br>
+	    	<select name="Credit Card Providers">
+		    <option value="providers">Credit Card Provider</option>
+		    <option value="visa">Visa</option>
+		    <option value="mastercard">Master Card</option>
+		    <option value="amex">American Express</option>
+	    	</select>
+	    	<input type="text" placeholder="Credit Card Number" name="ccnumber"><br>
+	    	<input type="submit" class="button" value="Sign Up">   
+	    </form>
+	</div>
     </body>
 </html>
