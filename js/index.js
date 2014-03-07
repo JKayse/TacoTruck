@@ -36,6 +36,19 @@ function signUp(){
                 password: $("#password").val(),
                 cc_provider: $("#ccProvider").val(),
                 cc_number: $("#ccNumber").val(),
+            },
+            success:function(json){
+            if(json === null){
+                alert("Please enter valid information. Try again.");
+            }
+            else{
+                json = JSON.parse(json);
+                $("#signInEmail").val("");
+                $("#signInPass").val("");
+                $("#orderPrevious").css("display", "block");
+                $("#signIn").css("display", "none");
+                $("#signedIn").css("display", "block");
+                addUser();
             }
     });
     
