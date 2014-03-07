@@ -5,7 +5,7 @@
 $(document).ready(function() {
     //Check if user is logged in or not. If they are are, add the order previous button and the new welcome bar with their name. 
 
-
+    
     $("header").load("Header.html");
     $("#menuButtons button").eq(0).click(addOrder);
     $("#menuButtons button").eq(1).click(resetOrder);
@@ -31,7 +31,7 @@ $(document).ready(function() {
     $(document).on('click', "#orderPrevious", showOrderPrevious);
     $(document).on('click', "#cancelPrevTacos", hideOrderPrevious);
     $(document).on('click', "#addPrevTacos", addOrderPrevious);
-
+    calculatePreviousOrder();
     
 
    
@@ -144,193 +144,7 @@ $(document).ready(function() {
         $("#extras").append(buttons);
     }});
 
-    $.ajax({url:"api/PreviousOrders/1", success: function(json){
-        json = JSON.parse(json);
-        var orderId = json.OrderId;
-        var id = orderId[0].OrderId;
-        if(id === null){
-            return;
-        }
-        $.ajax({url:"api/Orders/" + id, success: function(json){
-            json = JSON.parse(json);
-            var order = json.Order;
-            var orderItemId = order[0].OrderItemId;
-            var quantity= order[0].Quantity;
-            var total = order[0].Total;
-            var type = order[0].ItemType;
-            var name = order[0].Name;
 
-            $("#totalPreviousPrice").html("The total price is: " + total);
-            total = total.substring(1);
-            $("#totalPreviousPrice").attr("price", total);
-            var tortilla ="";
-            var filling ="";
-            var cheese ="";
-            var rice ="";
-            var beans="";
-            var sauce="";
-            var vegetables="";
-            var extras="";
-            var addSection="";
-            if(type === "type"){
-                var filling = name;
-            }
-            if(type === "tortillas"){
-                var tortilla = name;
-            }
-            if(type === "cheese"){
-                var cheese = name;
-            }
-            if(type === "rice"){
-                var rice = name;
-            }
-            if(type === "beans"){
-                var beans = name;
-            }
-            if(type === "sauces"){
-                var sauce = name;
-            }
-            if(type === "vegetables"){
-                var vegetables = name;
-            }
-            if(type === "extras"){
-                var extras = name;
-            }
-
-            for(var i = 1; i < order.length; i++){
-                if(orderItemId === order[i].OrderItemId){
-                    type = order[i].ItemType;
-                    name = order[i].Name;                    
-
-
-                    if(type === "type"){
-                        filling = name;
-                    }
-                    if(type === "tortillas"){
-                        tortilla = name;
-                    }
-                    if(type === "cheese"){
-                        cheese = name;
-                    }
-                    if(type === "rice"){
-                        rice = name;
-                    }
-                    if(type === "beans"){
-                        beans = name;
-                    }
-                    if(type === "sauces"){
-                        sauce = name;
-                    }
-                    if(type === "vegetables"){
-                        vegetables = vegetables + ", "+ name;
-                    }
-                    if(type === "extras"){
-                        extras = extras + ", "+ name;
-                    }
-                }
-                else{
-                    //add previous order to thing
-                    
-                    
-                    addSection = "<div class = 'prevTaco'><h5 class='prevTortilla' tortilla='" + tortilla + "'>Tortilla: " + tortilla + "</h5><h5 class='prevFilling' filling='" + filling + "'>Filling: " + filling + "</h5>";
-                    if(cheese !== ""){
-                        addSection = addSection + "<h5 class='prevCheese' cheese='" + cheese + "'>Cheese: " + cheese + "</h5>";
-                    }
-                    if(rice !== ""){
-                        addSection = addSection + "<h5 class='prevRice' rice='" + rice + "'>Rice: " + rice + "</h5>";
-                    }
-                    if(beans !== ""){
-                        addSection = addSection + "<h5 class='prevBeans' beans='" + beans + "'>Beans: " + beans + "</h5>";
-                    }
-                    if(sauce !== ""){
-                        addSection = addSection + "<h5 class='prevSauce' sauce='" + sauce + "'>Sauce: " + sauce + "</h5>";
-                    }
-                    if(vegetables !== ""){
-                        vegetables = vegetables.substring(2);
-                        addSection = addSection + "<h5 class='prevVeggies' veggie='" + vegetables + "'>Vegetables: " + vegetables + "</h5>";
-                    }
-                    if(extras !== ""){
-                        extras = extras.substring(2);
-                        addSection = addSection + "<h5 class='prevExtras' extras='" + extras + "'>Extras: " + extras + "</h5>";
-                    }
-                    
-                    addSection = addSection + "<h5 class='prevQuantity' quantity='" + quantity + "'>Quantity: " + quantity + "</h5></div><hr>";
-                    $("#previousOrderList").append(addSection);
-
-                    addSection="";
-                    tortilla ="";
-                    filling ="";
-                    cheese ="";
-                    rice ="";
-                    beans="";
-                    sauce="";
-                    vegetables="";
-                    extras="";
-
-                    orderItemId = order[i].OrderItemId;
-                    quantity = order[i].Quantity;
-                    type = order[i].ItemType;
-                    name = order[i].Name;                    
-
-
-                    if(type === "type"){
-                        filling = name;
-                    }
-                    if(type === "tortillas"){
-                        tortilla = name;
-                    }
-                    if(type === "cheese"){
-                        cheese = name;
-                    }
-                    if(type === "rice"){
-                        rice = name;
-                    }
-                    if(type === "beans"){
-                        beans = name;
-                    }
-                    if(type === "sauces"){
-                        sauce = name;
-                    }
-                    if(type === "vegetables"){
-                        vegetables = vegetables + ", "+ name;
-                    }
-                    if(type === "extras"){
-                        extras = extras + ", "+ name;
-                    }
-
-                }
-
-
-            }
-            addSection = "<div class = 'prevTaco'><h5 class='prevTortilla' tortilla='" + tortilla + "'>Tortilla: " + tortilla + "</h5><h5 class='prevFilling' filling='" + filling + "'>Filling: " + filling + "</h5>";
-            if(cheese !== ""){
-                addSection = addSection + "<h5 class='prevCheese' cheese='" + cheese + "'>Cheese: " + cheese + "</h5>";
-            }
-            if(rice !== ""){
-                addSection = addSection + "<h5 class='prevRice' rice='" + rice + "'>Rice: " + rice + "</h5>";
-            }
-            if(beans !== ""){
-                addSection = addSection + "<h5 class='prevBeans' beans='" + beans + "'>Beans: " + beans + "</h5>";
-            }
-            if(sauce !== ""){
-                addSection = addSection + "<h5 class='prevSauce' sauce='" + sauce + "'>Sauce: " + sauce + "</h5>";
-            }
-            if(vegetables !== ""){
-                vegetables = vegetables.substring(2);
-                addSection = addSection + "<h5 class='prevVeggies' veggie='" + vegetables + "'>Vegetables: " + vegetables + "</h5>";
-            }
-            if(extras !== ""){
-                extras = extras.substring(2);
-                addSection = addSection + "<h5 class='prevExtras' extras='" + extras + "'>Extras: " + extras + "</h5>";
-            }
-            addSection = addSection + "<h5 class='prevQuantity' quantity='" + quantity + "'>Quantity: " + quantity + "</h5></div>";
-            $("#previousOrderList").append(addSection);
-
-        }});
-   
-
-
-    }});
 
     
 
@@ -928,21 +742,220 @@ function signIn(){
             type: "POST",
             url: "api/Login",
             data: {
+                email: $("#signInEmail").val(),
+                password: $("#signInPass").val()
+            },
+            success: function(json){
+                if(json === null){
+                    alert("The information entered was not correct. Try Again.");
+                }
+                else{
+                    json = JSON.parse(json);
+                    $("#signInEmail").val("");
+                    $("#signInPass").val("");
+                    $("#orderPrevious").css("display", "block");
+                    $("#signIn").css("display", "none");
+                    $("#signedIn").css("display", "block");
+                    calculatePreviousOrder();
 
-                order: loginInfo()
+                }
+
             }
     });
     */
 }
 
-function loginInfo()
-{
-    var email = $("#signInEmail").val();
-    var password = $("#signInPass").val();
-    var loginInfo ={};
-    loginInfo.email = email;
-    loginInfo.password = password;
-    loginInfo = JSON.stringify(loginInfo);
-    return loginInfo;
 
+
+function calculatePreviousOrder(){
+        //get userId from database.
+
+        $.ajax({url:"api/PreviousOrders/1", success: function(json){
+        json = JSON.parse(json);
+        var orderId = json.OrderId;
+        var id = orderId[0].OrderId;
+        if(id === null){
+            return;
+        }
+        $.ajax({url:"api/Orders/" + id, success: function(json){
+            json = JSON.parse(json);
+            var order = json.Order;
+            if(order === null){
+                return;
+            }
+            var orderItemId = order[0].OrderItemId;
+            var quantity= order[0].Quantity;
+            var total = order[0].Total;
+            var type = order[0].ItemType;
+            var name = order[0].Name;
+
+            $("#totalPreviousPrice").html("The total price is: " + total);
+            total = total.substring(1);
+            $("#totalPreviousPrice").attr("price", total);
+            var tortilla ="";
+            var filling ="";
+            var cheese ="";
+            var rice ="";
+            var beans="";
+            var sauce="";
+            var vegetables="";
+            var extras="";
+            var addSection="";
+            if(type === "type"){
+                var filling = name;
+            }
+            if(type === "tortillas"){
+                var tortilla = name;
+            }
+            if(type === "cheese"){
+                var cheese = name;
+            }
+            if(type === "rice"){
+                var rice = name;
+            }
+            if(type === "beans"){
+                var beans = name;
+            }
+            if(type === "sauces"){
+                var sauce = name;
+            }
+            if(type === "vegetables"){
+                var vegetables = name;
+            }
+            if(type === "extras"){
+                var extras = name;
+            }
+
+            for(var i = 1; i < order.length; i++){
+                if(orderItemId === order[i].OrderItemId){
+                    type = order[i].ItemType;
+                    name = order[i].Name;                    
+
+
+                    if(type === "type"){
+                        filling = name;
+                    }
+                    if(type === "tortillas"){
+                        tortilla = name;
+                    }
+                    if(type === "cheese"){
+                        cheese = name;
+                    }
+                    if(type === "rice"){
+                        rice = name;
+                    }
+                    if(type === "beans"){
+                        beans = name;
+                    }
+                    if(type === "sauces"){
+                        sauce = name;
+                    }
+                    if(type === "vegetables"){
+                        vegetables = vegetables + ", "+ name;
+                    }
+                    if(type === "extras"){
+                        extras = extras + ", "+ name;
+                    }
+                }
+                else{
+                    //add previous order to thing
+                    
+                    
+                    addSection = "<div class = 'prevTaco'><h5 class='prevTortilla' tortilla='" + tortilla + "'>Tortilla: " + tortilla + "</h5><h5 class='prevFilling' filling='" + filling + "'>Filling: " + filling + "</h5>";
+                    if(cheese !== ""){
+                        addSection = addSection + "<h5 class='prevCheese' cheese='" + cheese + "'>Cheese: " + cheese + "</h5>";
+                    }
+                    if(rice !== ""){
+                        addSection = addSection + "<h5 class='prevRice' rice='" + rice + "'>Rice: " + rice + "</h5>";
+                    }
+                    if(beans !== ""){
+                        addSection = addSection + "<h5 class='prevBeans' beans='" + beans + "'>Beans: " + beans + "</h5>";
+                    }
+                    if(sauce !== ""){
+                        addSection = addSection + "<h5 class='prevSauce' sauce='" + sauce + "'>Sauce: " + sauce + "</h5>";
+                    }
+                    if(vegetables !== ""){
+                        vegetables = vegetables.substring(2);
+                        addSection = addSection + "<h5 class='prevVeggies' veggie='" + vegetables + "'>Vegetables: " + vegetables + "</h5>";
+                    }
+                    if(extras !== ""){
+                        extras = extras.substring(2);
+                        addSection = addSection + "<h5 class='prevExtras' extras='" + extras + "'>Extras: " + extras + "</h5>";
+                    }
+                    
+                    addSection = addSection + "<h5 class='prevQuantity' quantity='" + quantity + "'>Quantity: " + quantity + "</h5></div><hr>";
+                    $("#previousOrderList").append(addSection);
+
+                    addSection="";
+                    tortilla ="";
+                    filling ="";
+                    cheese ="";
+                    rice ="";
+                    beans="";
+                    sauce="";
+                    vegetables="";
+                    extras="";
+
+                    orderItemId = order[i].OrderItemId;
+                    quantity = order[i].Quantity;
+                    type = order[i].ItemType;
+                    name = order[i].Name;                    
+
+
+                    if(type === "type"){
+                        filling = name;
+                    }
+                    if(type === "tortillas"){
+                        tortilla = name;
+                    }
+                    if(type === "cheese"){
+                        cheese = name;
+                    }
+                    if(type === "rice"){
+                        rice = name;
+                    }
+                    if(type === "beans"){
+                        beans = name;
+                    }
+                    if(type === "sauces"){
+                        sauce = name;
+                    }
+                    if(type === "vegetables"){
+                        vegetables = vegetables + ", "+ name;
+                    }
+                    if(type === "extras"){
+                        extras = extras + ", "+ name;
+                    }
+
+                }
+
+
+            }
+            addSection = "<div class = 'prevTaco'><h5 class='prevTortilla' tortilla='" + tortilla + "'>Tortilla: " + tortilla + "</h5><h5 class='prevFilling' filling='" + filling + "'>Filling: " + filling + "</h5>";
+            if(cheese !== ""){
+                addSection = addSection + "<h5 class='prevCheese' cheese='" + cheese + "'>Cheese: " + cheese + "</h5>";
+            }
+            if(rice !== ""){
+                addSection = addSection + "<h5 class='prevRice' rice='" + rice + "'>Rice: " + rice + "</h5>";
+            }
+            if(beans !== ""){
+                addSection = addSection + "<h5 class='prevBeans' beans='" + beans + "'>Beans: " + beans + "</h5>";
+            }
+            if(sauce !== ""){
+                addSection = addSection + "<h5 class='prevSauce' sauce='" + sauce + "'>Sauce: " + sauce + "</h5>";
+            }
+            if(vegetables !== ""){
+                vegetables = vegetables.substring(2);
+                addSection = addSection + "<h5 class='prevVeggies' veggie='" + vegetables + "'>Vegetables: " + vegetables + "</h5>";
+            }
+            if(extras !== ""){
+                extras = extras.substring(2);
+                addSection = addSection + "<h5 class='prevExtras' extras='" + extras + "'>Extras: " + extras + "</h5>";
+            }
+            addSection = addSection + "<h5 class='prevQuantity' quantity='" + quantity + "'>Quantity: " + quantity + "</h5></div>";
+            $("#previousOrderList").append(addSection);
+
+        }});
+
+    }});
 }
