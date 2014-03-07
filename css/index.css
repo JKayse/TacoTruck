@@ -25,7 +25,44 @@ header {
 
 }
 
-div{
+h1 { 
+    font-family: 'Germania One', cursive;
+    float: left;
+    margin-left: 40px;
+    font-size: 50px;
+    margin-top: 2%;
+    margin-bottom: 0px;
+    color: rgb(95, 54, 39);
+}
+
+header img {
+    float: left;
+    margin-left: 15px;
+    margin-top: 2px;
+    height: 100px;
+}
+
+.rightHeader {
+    float: right;      
+    margin-right: 20px;
+}
+
+#signIn {
+    display: block;
+    margin-top: 4%;
+}
+
+#signedIn {
+    display: none;
+    margin-top: 2%;
+    margin-bottom: 0px;
+}
+
+#signedIn h2 {
+    margin-bottom: 0px;
+}
+
+#registration {
     width: 80%;
     margin-left: auto;
     margin-right: auto;
@@ -42,7 +79,7 @@ section{
 	float:left;
 }
 
-form{
+#registration form{
     width: 48%;
     margin-top: 25px;
     background-color: rgb(253, 253, 236);
@@ -52,7 +89,7 @@ form{
     margin-right:5px;
 }
 
-form p{
+#registration form p{
     width: 43%;
     height: 30px;
     font-family: 'Germania One', cursive;
@@ -63,7 +100,7 @@ form p{
     
 }
 
-form input{
+#registration form input{
     width: 43%;
     height: 30px;
     margin: 5px 2px 5px 3px;
@@ -71,7 +108,7 @@ form input{
     font-size: 20px;
 }
 
-form select{
+#registration form select{
     width: 44%;
     height: 30px;
     margin: 5px 5px 5px 5px;
@@ -79,7 +116,7 @@ form select{
     font-size: 20px;
 }
 
-section button{
+#registration section button{
 	width: 98%;
     height: 30px;
     margin: 7px 2px 7px 3px;

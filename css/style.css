@@ -1,10 +1,15 @@
+/*Fonts used*/
 @import url(http://fonts.googleapis.com/css?family=Germania+One);
 @import url(http://fonts.googleapis.com/css?family=Oldenburg);
 
+
+
+/*Styles for the main blocks*/
 html {
     height: 100%;
 }
-body{
+
+body {
     margin-top: 0px;
     background-image: url("../img/backgroundimage.png");
     height: 100%;
@@ -19,17 +24,18 @@ header {
     border-style: solid;
     border-width: 1px;
     border-color: rgb(182, 182, 182);
-
 }
-#main{
+
+#main {
     width: 80%;
     margin-left: auto;
     margin-right: auto;
     background-color: rgb(253, 253, 236);
     height: 100%;
-
 }
 
+
+/*The header section*/
 h1 { 
     font-family: 'Germania One', cursive;
     float: left;
@@ -40,59 +46,11 @@ h1 {
     color: rgb(95, 54, 39);
 }
 
-h2, h3, h4,  button{
-    font-family: 'Oldenburg', cursive;
-}
-
-
-
-.selectedImage {
-    border-style: solid;
-    border-width: 2px;
-}
-
-#orderMenu h4{
-    margin: 0px;
-    text-align: center;
-    margin-top: 2px;
-}
-
-#orderMenu h5{
-    margin: 0px;
-    margin-left: 2px;
-}
-
-.tacoDetails h5{
-    margin:0px 0px 0px 2px;
-}
-
-#currentTaco {
-    border-style: solid;
-    background-color: rgba(93, 179, 201, 0.21);
-}
-
-#orderMenu #menuButtons h4{
-    text-align: left;
-}
-
-#orderMenu #menuButtons button{
-    float:right;
-    margin-right:0px;
-
-}
-
-.tortillaOption , .fillingOption{
-    width: 80px;
-    margin: 2px 32px;
-    display: inline-block;
-}
-
 header img {
     float: left;
     margin-left: 15px;
     margin-top: 2px;
     height: 100px;
-
 }
 
 .rightHeader {
@@ -100,26 +58,22 @@ header img {
     margin-right: 20px;
 }
 
-#signIn{
+#signIn {
     display: block;
     margin-top: 4%;
 }
 
-#signedIn{
+#signedIn {
     display: none;
     margin-top: 2%;
     margin-bottom: 0px;
 }
 
-#signedIn h2{
+#signedIn h2 {
     margin-bottom: 0px;
 }
 
-hr {
-    clear: both;
-    margin: 0px;
-}
-
+/*The orders section*/
 #orders {
     width:32%;
     float:left;
@@ -129,7 +83,6 @@ hr {
     margin: 20px;
     height: 78%;
     background-color: rgba(95, 54, 39, 0.45);
-
 }
 
 #orders h2 {
@@ -147,14 +100,138 @@ hr {
     overflow-y:auto;
 }
 
+#orderButtons button {
+    width: 98%;
+    height: 30px;
+    margin: 7px 2px 7px 3px;
+    font-size: 20px;
+}
+
+/*Styling for added orders in the order section.*/
+.itemList {
+    width: 126px;
+    margin-right: 2px;
+}
+
+.quantity {
+    width: 75px;
+}
+
+.order .itemList:hover {
+    background: linear-gradient(rgb(255, 255, 255), rgb(165, 196, 236));
+}
+
+.tacoDetails h5 {
+    margin:0px 0px 0px 2px;
+}
+
+.tacoDetails {
+    display: none;
+    background-color: rgb(42, 145, 165);
+    border-style: solid;
+    border-width: 2px;
+    border-color: rgba(255, 255, 255, 0.48);
+    position: absolute;
+    margin-left: 240px;
+    width: 20%;
+    margin-top: -25px;
+    z-index: 100;
+}
+
+.order:hover .tacoDetails {
+    display: block;
+}
+
+/*The order menu section*/
 #orderMenu {
     width:59%;
     float: left;
     margin: 15px 20px 0px 20px;
 }
 
-#orderMenu h2{
+#orderMenu h2 {
     margin: 0px;
+}
+
+#orderMenu h4 {
+    margin: 0px;
+    text-align: center;
+    margin-top: 2px;
+}
+
+#orderMenu h5 {
+    margin: 0px;
+    margin-left: 2px;
+}
+
+.selectedImage {
+    border-style: solid;
+    border-width: 2px;
+}
+
+.tortillaOption , .fillingOption {
+    width: 80px;
+    margin: 2px 32px;
+    display: inline-block;
+}
+
+.cheeseOption, .riceOption, .beansOption, .veggieOption, .sauceOption, .extrasOption {
+    display: inline-block;
+    width: 33%;
+}
+
+.sauceOption img {
+    float:right;
+}
+
+#vegetables, #extras {
+    position: relative;
+}
+
+
+#veggieButtons, #extraButtons {
+    position: absolute;
+    bottom:3px;
+    left:3px;
+}
+
+#menuButtons div {
+    border-color: rgb(42, 145, 165);
+    border-width: 2px;
+}
+
+#orderMenu #menuButtons h4 {
+    text-align: left;
+}
+
+#orderMenu #menuButtons button {
+    height: 30px;
+    margin: 4px; 
+    font-size: 20px;
+    float:right;
+    margin-right:0px;
+}
+
+.enterQuantity {
+    margin: 0px;
+    width: 12%;
+    float:right;
+    margin-right: 30%;
+}
+
+.tacoPrice {
+    font-size: 18px;
+    margin-right:2px;
+}
+
+#currentTaco {
+    border-style: solid;
+    background-color: rgba(93, 179, 201, 0.21);
+}
+
+/*The accordion styling*/
+#accordion div {
+    font-size:18px;
 }
 
 .ui-accordion-header {
@@ -179,71 +256,33 @@ hr {
     margin: 5px 0px 0px 0px;
 }
 
-
-#orderButtons button {
-    width: 98%;
-    height: 30px;
-    margin: 7px 2px 7px 3px;
-    font-size: 20px;
-}
-
-#menuButtons button {
-    height: 30px;
-    margin: 4px; 
-    font-size: 20px;
-}
-
-#menuButtons div{
-    border-color: rgb(42, 145, 165);
-    border-width: 2px;
-}
-
-.quantity {
-    width: 75px;
-}
-
-#orderMenu .cheeseOption, .riceOption, .beansOption, .veggieOption, .sauceOption, .extrasOption{
-    display: inline-block;
-    width: 33%;
-}
-
-#orderMenu .sauceOption img{
-    float:right;
-}
-
-.tacoDetails{
+/*Previous Orders section.*/
+#previousOrder {
     display: none;
-    background-color: rgb(42, 145, 165);
+}
+
+#previousOrderList {
+    height:200px;
+    overflow-y:auto;
+    margin-left: 5px;
+    margin-right:5px;
+    background-color: rgb(121, 183, 196);
     border-style: solid;
-    border-width: 2px;
-    border-color: rgba(255, 255, 255, 0.48);
-    position: absolute;
-    margin-left: 240px;
-    width: 20%;
-    margin-top: -25px;
-    z-index: 100;
 }
 
-.order:hover .tacoDetails{
-    display: block;
+#previousOrderList h5 {
+    margin: 3px 0px 3px 3px;
 }
 
-.itemList {
-    width: 126px;
-    margin-right: 2px;
+#previousOrder button {
+    width:40%;
+    margin-left: 25px;
+    height:30px;
+    margin-bottom: 10px;
 }
 
-.order .itemList:hover {
-    background: linear-gradient(rgb(255, 255, 255), rgb(165, 196, 236));
-}
-
-.tacoPrice{
-    font-size: 18px;
-    margin-right:2px;
-}
-
-
-#blackScreenofDeath{
+/*The payment section.*/
+#blackScreenofDeath {
     display: none;
     width:100%;
     height:100%;
@@ -251,6 +290,10 @@ hr {
     position: fixed;
     top:0px;
     left:0px;
+}
+
+#paySuccess {
+    display: none;
 }
 
 #payment {
@@ -270,7 +313,7 @@ hr {
     margin-left: 15px;
 }
 
-#fname, #lname, #number, #provider, #pay, #cancel{
+#fname, #lname, #number, #provider {
     width: 45%;
     margin:7px;
     margin-top: 30px
@@ -279,33 +322,14 @@ hr {
 
 #pay, #cancel {
     width:35%;
-    margin-left: 20px;
-    margin-top: 10px
+    margin:10px 7px 7px 20px;
 }
-#paymentTotal{
+
+#paymentTotal {
     text-align: center;
 }
 
-.buttons{
-    margin:15px 0px 15px 30px;
-}
-
-#vegetables, #extras {
-    position: relative;
-}
-
-
-#veggieButtons, #extraButtons {
-    position: absolute;
-    bottom:3px;
-    left:3px;
-}
-
-#paySuccess {
-    display: none;
-}
-
-#paySuccess h2,h3{
+#paySuccess h2, #paySuccess h3 {
     text-align: center;
 }
 
@@ -315,47 +339,26 @@ hr {
     margin-bottom: 15px
 }
 
-.button{
+.buttons {
+    margin:15px 0px 15px 30px;
+}
+
+/*Some general styling*/
+h2, h3, h4,  button {
+    font-family: 'Oldenburg', cursive;
+}
+
+.button {
     background: linear-gradient(rgb(255, 255, 255), rgb(165, 196, 236));
     border-color: rgba(95, 54, 39, 0.54);
     border-width:2px;
 }
 
-.button:hover{
+.button:hover {
     background: linear-gradient(rgb(165, 196, 236), rgb(255, 255, 255));
 }
 
-#accordion div{
-    font-size:18px;
-}
-
-.enterQuantity {
+hr {
+    clear: both;
     margin: 0px;
-    width: 12%;
-    float:right;
-    margin-right: 30%;
-}
-
-#previousOrderList{
-    height:200px;
-    overflow-y:auto;
-    margin-left: 5px;
-    margin-right:5px;
-    background-color: rgb(121, 183, 196);
-    border-style: solid;
-}
-
-#previousOrderList h5{
-    margin: 3px 0px 3px 3px;
-}
-
-#previousOrder button{
-    width:40%;
-    margin-left: 25px;
-    height:30px;
-    margin-bottom: 10px;
-}
-
-#previousOrder{
-    display: none;
 }

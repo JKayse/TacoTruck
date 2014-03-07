@@ -1,8 +1,5 @@
 
 
-$(function() {
-    $( "#accordion" ).accordion({collapsible: true} );
-  });
 
 
 $(document).ready(function() {
@@ -30,6 +27,7 @@ $(document).ready(function() {
     $(document).on('click', "#locations", goToMap);
     $(document).on('click', "#cancel", cancelPayment);
     $(document).on('submit', "#giveMeMoney", finalizeOrder);
+    $(document).on('submit', "#signInArea", signIn);
     $(document).on('click', "#orderPrevious", showOrderPrevious);
     $(document).on('click', "#cancelPrevTacos", hideOrderPrevious);
     $(document).on('click', "#addPrevTacos", addOrderPrevious);
@@ -337,6 +335,11 @@ $(document).ready(function() {
     
 
 
+});
+
+
+$(function() {
+    $( "#accordion" ).accordion({collapsible: true} );
 });
 
 function setHoverPosition()
@@ -726,13 +729,15 @@ function finalizeOrder(event){
     $("#payInfo").css("display", "none");
     $("#paySuccess").css("display", "block");
     
-    /*$.ajax({
+   $.ajax({
             type: "POST",
-            url: "api/",
+            url: "api/Orders",
             data: {
-                order: createOrder();
+
+                order: createOrder()
             }
-    });*/
+    });
+    
 }
 
 
@@ -913,6 +918,20 @@ function createOrder(){
     order.price = price;
     
     order = JSON.stringify(order);
-
+    console.log(order);
 
 }
+
+function signIn(){
+    event.preventDefault();
+    /*$.ajax({
+            type: "POST",
+            url: "api/Orders",
+            data: {
+
+                order: createOrder()
+            }
+    });
+    */
+}
+

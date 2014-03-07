@@ -24,28 +24,28 @@ function goToMap(){
     window.location = "map.html";
 }
 
-function signUp{
+function signUp(){
     $.ajax({
             type: "POST",
             url: "api/",
             data: {
-                user: addUser();
+                user: addUser()
             }
     });
     window.location = "orderpage.html";
 }
 
-function signIn{
+function signIn(){
     $.ajax({
             type: "POST",
             url: "api/",
             data: {
-                user: login();
+                user: login()
             }
     });
     window.location = "orderpage.html";
 }
 
-function signOut{
+function signOut(){
 
 }

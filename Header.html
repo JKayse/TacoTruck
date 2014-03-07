@@ -1,13 +1,13 @@
 <img src="img/taco_truck_logo.png" alt="Taco Logo" title="TacoTaco">
 <h1>TacoTaco</h1>
 <div id = "signIn" class="rightHeader">
-    <form name = "signIn" action = "#" method = "post">
-        <input type="text" name="email" placeholder="Email">
-        <input type="password" name="password" placeholder="Password">
+    <form id="signInArea" name = "signIn" action = "#" method = "post">
+        <input type="email" name="email" placeholder="Email" title="Must be a valid email address." required>
+        <input type="password" name="password" placeholder="Password" title="Must be at least 8 characters" required>
         <input class="button" type="submit" value="Sign In">
     </form>
 </div>
 <div id = "signedIn" class="rightHeader">
     <h2>Welcome, User</h2>
-    <a href="#">Sign Out</a>
+    <a href="#" id="signOut">Sign Out</a>
 </div>
