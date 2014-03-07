@@ -5,6 +5,9 @@
 * Uses Slim framework.  
 */
 
+session_cashe_limiter(false);
+session_start();
+
 require 'Slim/Slim.php';
 
 $app = new Slim();
@@ -39,12 +42,30 @@ $app->get('/Menu/:ItemType', 'getMenuItem');
 */
 $app->get('/Payment/:UserId', 'getPayment');
 
-//User Registration
-$app->post('/AddUser', 'addUser');
+/**
+* Checks whether the user is logged in
+*/
+$app->get('/LoginStatus', 'getLoginStatus');
 
-//$app->post('/Orders', 'addOrders');
-//$app->put('/wines/:id', 'updateWine');
-//$app->delete('/wines/:id','deleteWine');
+/**
+* User Registration
+*/
+$app->post('/Users', 'addUser');
+
+/**
+* User Login
+*/
+$app->post('/Login', 'login');
+
+/**
+* User Logout
+*/
+$app->post('/Logout', 'logout');
+
+/*
+* Link to add orders
+*/
+$app->post('/Orders', 'addOrder');
 
 $app->run();
 
@@ -109,6 +130,57 @@ function getOrder($OrderId){
 	} catch(PDOException $e) {
 		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
 	} 
+}
+
+/**
+* A function that adds the order informations to the Order tables
+*
+*/
+function addOrder()
+{
+	try {
+	$request = Slim::getInstance()->request();
+	$Order = json_decode($request->getBody());
+	$db = getConnection();
+
+	date_default_timezone_set('America/Chicago');
+	$date = date('Y-m-d h:i:s');
+	$price = $Order['price'];
+	$userId = 1;
+
+	$sql = "INSERT INTO ORDERS (UserId, Date, Total) VALUES ('$userId', '$date', ''$price')";
+	$stmt = $db->query($sql);
+	$sql2 = "SELECT OrderId FROM Orders WHERE UserId = '$userId',AND Date = '$date', AND Total = 			'$price'";
+	$stmt = $db->query($sql2);
+	$result = $stmt->fetchAll(PDO::FETCH_OBJ);
+	$OrderId = $result['OrderId'];	
+	foreach($Order['tacos'] as $type) {
+		$TacoFixinIdArray = null;
+		foreach($type['toppings'] as $topping) {
+			//echo "<br>Topping: " . $topping;
+			$sql = "SELECT TacoFixinId WHERE Name = '$topping'";
+			$stmt = $db->query($sql);
+			$result = $stmt->fetchAll(PDO::FETCH_OBJ);
+			$TacoFixinIdArray[] = $result['TacoFixinId'];
+		}
+		$quantity = $type['quantity'];
+		$sql = "INSERT INTO OrderItem (OrderId, Quantity) VALUES ('$OrderId', 			'$quantity')";
+		$stmt = $db->query($sql);
+		$sql2 = "SELECT OrderItemId FROM OrderItem WHERE OrderId = '$OrderId' AND 			Quantity = '$quantity'";
+		$stmt = $db->query($sql2);
+		$result = $stmt->fetchAll(PDO::FETCH_OBJ);
+		$OrderItemId = $result['OrderItemId'];	
+		//echo "<br>Quantity: " . $type['quantity'];
+		foreach($TacoFixinIdArray as $val){
+			$sql = "INSERT INTO OrderItemDetails (OrderItemId, TacoFixinId) VALUES
+				('$OrderItemId','$val')";
+			$stmt = db->query($sql);
+		}	
+	}
+	} catch(PDOException $e) {
+		echo '{"error":{"text":'. $e->getMessage() . '}}';
+	}
+
 }
 
 /**
@@ -186,29 +258,83 @@ function getMenuItem($ItemType)
 	}
 }
 
-//User Registration
+/**
+* A function to check whether or not the user is logged in
+*/
+function getLoginStatus() {
+	if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+/**
+* A funtion that takes the information inputed by a user and creates
+* an account for them by inserting them into the database
+*/
 function addUser()
 {
-	$firstname = $app->request()->post('givenName');
-	$lastname = $app->request()->post('surname');
-	$email = $app->request()->post('emailAddress');
-	$password = password_hash($app->request()->post('password'));
-	$cc_provider = $app->request()->post('cc_provider');
-	$cc_number = $app->request()->post('cc_number');
+	$givenName = Slim::getInstance()->request()->post('firstname');
+	$surname = Slim::getInstance()->request()->post('lastname');
+	$emailAddress = Slim::getInstance()->request()->post('email');
+	$password = password_hash(Slim::getInstance()->request()->post('password'), PASSWORD_DEFAULT);
+	$cc_provider = Slim::getInstance()->request()->post('ccprovider');
+	$cc_number = Slim::getInstance()->request()->post('ccnumber');
+	
+	$sql = "INSERT INTO Users (GivenName, Surname, EmailAddress, Password, CC_Provider, CC_Number) VALUES (:givenName, :surname, :emailAddress, :password, :cc_provider, :cc_number)";
 
-	$db = getConnection();
-	$sql = "INSERT INTO Users (GivenName, Surname, EmailAddress, Password, TelephoneNumber, CC_Provider, CC_Number);
-			(:givenName, :surname, :emailAddress, :password, :cc_provider, :cc_number)";
-	$stmt = $db->prepare($sql);
-	$stmt->bindParam("GivenName", $givenName);
-	$stmt->bindParam("Surname", $surname);
-	$stmt->bindParam("EmailAddress", $emailAddress);
-	$stmt->bindParam("Password", $password);
-	$stmt->bindParam("CC_Provider", $cc_provider);
-	$stmt->bindParam("CC_Number", $cc_number);
+	try
+	{
+		$db = getConnection();
+				
+		$stmt = $db->prepare($sql);
+		$stmt->bindParam("givenName", $givenName);
+		$stmt->bindParam("surname", $surname);
+		$stmt->bindParam("emailAddress", $emailAddress);
+		$stmt->bindParam("password", $password);
+		$stmt->bindParam("cc_provider", $cc_provider);
+		$stmt->bindParam("cc_number", $cc_number);
 
-	$stmt->execute();
-	$db = null;
+		$stmt->execute();
+		$db = null;
+	}
+	catch(PDOException $e) 
+	{
+		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
+	}
+}
+
+/**
+* A function to check if the user entered the correct email and password.
+* If so, a cookie is created containing their username
+*/
+function login() {
+	$email = Slim::getInstance()->request()->post('email');
+	$password = Slim::getInstance()->request()->post('password');
+
+	$sql = "SELECT Password FROM Users WHERE email=:email";
+
+	try {
+		$db = getConnection();
+		$stmt = $db->prepare($sql);
+		$stmt->bindParam("email", $email);
+		$stmt->execute();
+		$hashedPassword = $stmt->fetchAll(PDO::FETCH_OBJ);
+		
+		if(password_verify($password, $hashedPassword) {
+			$_SESSION['loggedin'] = true;
+		}
+	} catch(PDOException $e) {
+		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
+	}
+}
+
+/**
+* A function to log the user out
+*/
+function logout() {
+	$_SESSION['loggedin'] = false;
 }
 
 /**
