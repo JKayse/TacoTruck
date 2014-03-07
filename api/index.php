@@ -5,8 +5,8 @@
 * Uses Slim framework.  
 */
 
-session_cashe_limiter(false);
-session_start();
+//session_cashe_limiter(false);
+//session_start();
 
 require 'Slim/Slim.php';
 
@@ -174,7 +174,7 @@ function addOrder()
 		foreach($TacoFixinIdArray as $val){
 			$sql = "INSERT INTO OrderItemDetails (OrderItemId, TacoFixinId) VALUES
 				('$OrderItemId','$val')";
-			$stmt = db->query($sql);
+			$stmt = $db->query($sql);
 		}	
 	}
 	} catch(PDOException $e) {
@@ -273,6 +273,7 @@ function getLoginStatus() {
 * A funtion that takes the information inputed by a user and creates
 * an account for them by inserting them into the database
 */
+
 function addUser()
 {
 	$givenName = Slim::getInstance()->request()->post('firstname');
@@ -322,7 +323,7 @@ function login() {
 		$stmt->execute();
 		$hashedPassword = $stmt->fetchAll(PDO::FETCH_OBJ);
 		
-		if(password_verify($password, $hashedPassword) {
+		if(password_verify($password, $hashedPassword)) {
 			$_SESSION['loggedin'] = true;
 		}
 	} catch(PDOException $e) {
@@ -333,6 +334,7 @@ function login() {
 /**
 * A function to log the user out
 */
+
 function logout() {
 	$_SESSION['loggedin'] = false;
 }
