@@ -318,7 +318,7 @@ function login() {
 		$stmt->execute();
 		$hashedPassword = $stmt->fetchAll(PDO::FETCH_OBJ);
 		
-		if(password_verify($password, $hashedPassword) {
+		if(password_verify($password, $hashedPassword)) {
 			$_SESSION['loggedin'] = true;
 			$query = $db->prepare("SELECT UserId FROM Users WHERE EmailAddress=:email")->bindParam("email", $email);
 			$query->execute();
@@ -335,8 +335,8 @@ function login() {
 */
 function logout() {
 	$_SESSION['loggedin'] = false;
-	$_SESSION['userId' = NULL;
-	$_SESSION['email'] = NULL:
+	$_SESSION['userId'] = NULL;
+	$_SESSION['email'] = NULL;
 }
 
 /**

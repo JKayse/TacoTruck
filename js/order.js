@@ -31,6 +31,7 @@ $(document).ready(function() {
     $(document).on('click', "#orderPrevious", showOrderPrevious);
     $(document).on('click', "#cancelPrevTacos", hideOrderPrevious);
     $(document).on('click', "#addPrevTacos", addOrderPrevious);
+    $(document).on('click', "#signOut", signout);
     calculatePreviousOrder();
     
 
@@ -765,6 +766,16 @@ function signIn(){
     */
 }
 
+function signout(){
+    $.ajax({
+            type: "POST",
+            url: "api/Logout",
+            success: function(){
+                $("#signIn").css("display", "block");
+                $("#signedIn").css("display", "none");
+            }});
+
+}
 
 
 function calculatePreviousOrder(){
