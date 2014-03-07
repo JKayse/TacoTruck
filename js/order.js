@@ -27,6 +27,7 @@ $(document).ready(function() {
     $(document).on('click', "#locations", goToMap);
     $(document).on('click', "#cancel", cancelPayment);
     $(document).on('submit', "#giveMeMoney", finalizeOrder);
+    $(document).on('submit', "#signInArea", signIn);
     $(document).on('click', "#orderPrevious", showOrderPrevious);
     $(document).on('click', "#cancelPrevTacos", hideOrderPrevious);
     $(document).on('click', "#addPrevTacos", addOrderPrevious);
@@ -920,3 +921,17 @@ function createOrder(){
     console.log(order);
 
 }
+
+function signIn(){
+    event.preventDefault();
+    /*$.ajax({
+            type: "POST",
+            url: "api/Orders",
+            data: {
+
+                order: createOrder()
+            }
+    });
+    */
+}
+
