@@ -314,7 +314,7 @@ function login() {
 	$email = Slim::getInstance()->request()->post('email');
 	$password = Slim::getInstance()->request()->post('password');
 
-	$sql = "SELECT Password FROM Users WHERE email=:email";
+	$sql = "SELECT Password FROM Users WHERE EmailAddress=:email";
 
 	try {
 		$db = getConnection();
@@ -323,8 +323,12 @@ function login() {
 		$stmt->execute();
 		$hashedPassword = $stmt->fetchAll(PDO::FETCH_OBJ);
 		
-		if(password_verify($password, $hashedPassword)) {
+		if(password_verify($password, $hashedPassword) {
 			$_SESSION['loggedin'] = true;
+			$query = $db->prepare("SELECT UserId FROM Users WHERE EmailAddress=:email")->bindParam("email", $email);
+			$query->execute();
+			$_SESSION['userId'] = $query->fetchAll(PDO::FETCH_OBJ);
+			$_SESSION['email'] = $email;
 		}
 	} catch(PDOException $e) {
 		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
@@ -334,9 +338,10 @@ function login() {
 /**
 * A function to log the user out
 */
-
 function logout() {
 	$_SESSION['loggedin'] = false;
+	$_SESSION['userId' = NULL;
+	$_SESSION['email'] = NULL:
 }
 
 /**
