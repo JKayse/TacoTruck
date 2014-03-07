@@ -274,7 +274,7 @@ function addUser()
 	$givenName = Slim::getInstance()->request()->post('firstname');
 	$surname = Slim::getInstance()->request()->post('lastname');
 	$emailAddress = Slim::getInstance()->request()->post('email');
-	$password = password_hash(Slim::getInstance()->request()->post('password'), PASSWORD_DEFAULT);
+	$password = crypt(Slim::getInstance()->request()->post('password'), PASSWORD_DEFAULT);
 	$cc_provider = Slim::getInstance()->request()->post('ccprovider');
 	$cc_number = Slim::getInstance()->request()->post('ccnumber');
 	
