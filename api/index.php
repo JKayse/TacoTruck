@@ -325,6 +325,10 @@ function login() {
 			$query->execute();
 			$_SESSION['userId'] = $query->fetchAll(PDO::FETCH_OBJ);
 			$_SESSION['email'] = $email;
+		} else {
+			echo "<br>Your Password: " . $password;
+			echo "<br>Your Hashed Password: " . crypt($password);
+			echo "<br>Correct Hashed Password: " . $hashedPassword;
 		}
 	} catch(PDOException $e) {
 		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
