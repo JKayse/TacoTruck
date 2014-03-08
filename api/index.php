@@ -160,7 +160,7 @@ function addOrder()
 			$stmt = $db->query($sql);
 			$TacoFixinIdArray[] = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
 		}
-		$quantity = (string)$type['quantity'];
+		$quantity = implode($type['quantity']);
 		$sql = "INSERT INTO OrderItem (OrderId, Quantity) VALUES ('$OrderId', 			'$quantity')";
 		$stmt = $db->query($sql);
 		$sql2 = "SELECT OrderItemId FROM OrderItem WHERE OrderId = '$OrderId' AND 			Quantity = '$quantity'";
