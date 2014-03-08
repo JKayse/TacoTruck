@@ -146,7 +146,7 @@ function addOrder()
     	date_default_timezone_set('America/Chicago');
     	$date = date('Y-m-d h:i:s');
     	$price = $Order['price'];
-    	$userId = 11;
+    	$userId = $_SESSION['userId'];
 
     	$sql = "INSERT INTO ORDERS (UserId, Date, Total) VALUES ('$userId', '$date', 		'$price')";
     	$stmt = $db->query($sql);  
