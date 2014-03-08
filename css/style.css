@@ -100,12 +100,18 @@ header img {
     overflow-y:auto;
 }
 
+#orderPrevious {
+    display: none;
+}
+
 #orderButtons button {
     width: 98%;
     height: 30px;
     margin: 7px 2px 7px 3px;
     font-size: 20px;
 }
+
+
 
 /*Styling for added orders in the order section.*/
 .itemList {
