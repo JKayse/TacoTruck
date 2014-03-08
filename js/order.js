@@ -3,9 +3,8 @@
 
 
 $(document).ready(function() {
-    //Check if user is logged in or not. If they are are, add the order previous button and the new welcome bar with their name. 
 
-    
+    //ll the functions for when the page loads.    
     $("header").load("Header.html");
     $("#menuButtons button").eq(0).click(addOrder);
     $("#menuButtons button").eq(1).click(resetOrder);
@@ -33,6 +32,8 @@ $(document).ready(function() {
     $(document).on('click', "#addPrevTacos", addOrderPrevious);
     $(document).on('click', "#signOut", signout);
     
+
+    //Checks if logged in or not.
     $.ajax({url:"api/LoginStatus", success: function(json){
             if(json !== 'null'){
                 json = JSON.parse(json);
@@ -51,7 +52,7 @@ $(document).ready(function() {
             }
         }});   
 
-
+    //gets all the tortillas
     $.ajax({url:"api/Menu/Tortillas", success: function(json){
         json = JSON.parse(json);
         var tortilla = json.Tortillas;
@@ -64,6 +65,7 @@ $(document).ready(function() {
         $(".tortillaOption").eq(0).addClass("selectedImage");
     }});
 
+    //Gets all the fillings
     $.ajax({url:"api/Menu/type", success: function(json){
         json = JSON.parse(json);
         var filling = json.type;
@@ -76,7 +78,7 @@ $(document).ready(function() {
         $(".fillingOption").eq(0).addClass("selectedImage");
     }});
 
-
+    //Gets all the cheeses
     $.ajax({url:"api/Menu/Cheese", success: function(json){
         json = JSON.parse(json);
         var cheese = json.Cheese;
@@ -90,6 +92,7 @@ $(document).ready(function() {
         $("#cheese").append(noItem);
     }});
 
+    //Gets all the rice
     $.ajax({url:"api/Menu/Rice", success: function(json){
         json = JSON.parse(json);
         var rice = json.Rice;
@@ -103,6 +106,7 @@ $(document).ready(function() {
         $("#rice").append(noItem);
     }});
 
+    //Gets all the beans
     $.ajax({url:"api/Menu/Beans", success: function(json){
         json = JSON.parse(json);
         var beans = json.Beans;
@@ -116,6 +120,7 @@ $(document).ready(function() {
         $("#beans").append(noItem);
     }});
 
+    //Gets all the sauces
     $.ajax({url:"api/Menu/Sauces", success: function(json){
         json = JSON.parse(json);
         var sauce = json.Sauces;
@@ -133,6 +138,7 @@ $(document).ready(function() {
         $( "#sauce input" ).each(addheatImage);
     }});
 
+    //Gets all the vegetables
     $.ajax({url:"api/Menu/Vegetables", success: function(json){
         json = JSON.parse(json);
         var vegetables = json.Vegetables;
@@ -146,6 +152,7 @@ $(document).ready(function() {
         $("#vegetables").append(buttons);
     }});
 
+    //Gets all the extras
     $.ajax({url:"api/Menu/Extras", success: function(json){
         json = JSON.parse(json);
         var extras = json.Extras;
@@ -166,11 +173,12 @@ $(document).ready(function() {
 
 });
 
-
+//Adds the accordion
 $(function() {
     $( "#accordion" ).accordion({collapsible: true} );
 });
 
+//Sets the hover position for added items.
 function setHoverPosition()
 {
     var spans = $(".order");
@@ -184,20 +192,21 @@ function setHoverPosition()
     
 }
 
-
+//Adds the selector box to tortillas
 function addTortillaSelector(event){
     $(".tortillaOption").removeClass("selectedImage");
     $(this).addClass("selectedImage");
     addCurrentCostandTaco();
 }
 
+//Adds the selector box to fillings
 function addFillingSelector(event){
     $(".fillingOption").removeClass("selectedImage");
     $(this).addClass("selectedImage");
     addCurrentCostandTaco();
 }
 
-
+//Adds the heat image.
 function addheatImage(event){
     var element = $(this);
     var numImg = element.attr("heatrating");
@@ -207,6 +216,8 @@ function addheatImage(event){
     }
 }
 
+
+//Adds an order.
 function addOrder(event){
     var tacoName = $("#filling .selectedImage h4").text();
     var tacoTortilla = $("#tacoTortilla").attr("tortilla");
@@ -265,6 +276,7 @@ function addOrder(event){
     resetOrder();
 }
 
+//Updates the taco price.
 function updateEveryTacoPrice(){
     var tacos = $("#addedOrders .order");
     for(var i = 0; i < tacos.size(); i++){
@@ -282,6 +294,7 @@ function updateEveryTacoPrice(){
 
 }
 
+//Updates the total price.
 function updateTotalPrice(){
     var totalPrice = 0;
     var tacoPrice = 0;
@@ -300,7 +313,7 @@ function updateTotalPrice(){
 }
 
 
-
+//Gets the current cost and details of the taco.
 function addCurrentCostandTaco(){
 
     var tacoFilling = $("#filling .selectedImage h4").text();  
@@ -457,6 +470,8 @@ function addCurrentCostandTaco(){
 
 }
 
+
+//Resets the order.
 function resetOrder(){
     $(".tortillaOption").removeClass("selectedImage");
     $(".tortillaOption").eq(0).addClass("selectedImage")
@@ -473,30 +488,35 @@ function resetOrder(){
 }
 
 
+//Adds all the veggies.
 function addAllVeggies(){
     $(".veggieOption input").prop('checked', true);
     addCurrentCostandTaco();
     
 }
 
+//Adds all extras.
 function addAllExtras(){
     $(".extrasOption input").prop('checked', true);
     addCurrentCostandTaco();
     
 }
 
+//Deletes all veggies.
 function deleteAllVeggies(){
     $(".veggieOption input").prop('checked', false);
     addCurrentCostandTaco();
     
 }
 
+//Deteles all the extras.
 function deleteAllExtras(){
     $(".extrasOption input").prop('checked', false);
     addCurrentCostandTaco();
     
 }
 
+//Makes the pay option pop up.
 function payPopup(){
     if($(".order").size() !== 0){
         $("#blackScreenofDeath").css("display","block");
@@ -528,12 +548,16 @@ function payPopup(){
 
 }
 
+
+//Cancels the payment.
 function cancelPayment(){
     $("#blackScreenofDeath").css("display","none");
     $("#payment").css("display","none");
 }
 
 
+
+//Deletes an order.
 function deleteOrder(){
     tacoOrder = $(this).parent();
     tacoOrder.next().remove();
@@ -541,18 +565,24 @@ function deleteOrder(){
     updateTotalPrice();
 }
 
+
+//Goes to home page.
 function goToHomePage(){
     window.location = "index.html";
 }
 
+
+//Goes to order page again.
 function orderAgain(){
     window.location = "orderpage.html";
 }
 
+//Goes to the map.
 function goToMap(){
     window.location = "map.html";
 }
 
+//Finalizes the order.
 function finalizeOrder(event){
     event.preventDefault();
     $("#payInfo").css("display", "none");
@@ -568,7 +598,7 @@ function finalizeOrder(event){
     
 }
 
-
+//Disaplays the previous order.
 function showOrderPrevious(){
     if($(".prevTaco").length === 0){
         alert("You have no previous orders. Please add an order first. Thanks! :)");
@@ -582,6 +612,7 @@ function showOrderPrevious(){
     }
 }
 
+//Hides the previous order.
 function hideOrderPrevious(){
     $("#blackScreenofDeath").css("display","none");
     $("#payment").css("display","none");
@@ -590,6 +621,8 @@ function hideOrderPrevious(){
     $("#paySuccess").css("display", "none");
 }
 
+
+//Adds the previous order.
 function addOrderPrevious(){
     var prevOrderTotal = $("#totalPreviousPrice").attr("price");
     $("#addedOrders").append("<span class = 'order prevOrder' totValue ='" + prevOrderTotal + "'><button type='button' class = 'delete button'>X</button><button type='button' class='button'>Previous Order</button><input type='number' class ='quantity' name='quantity' value='1' min='1' step='1'><span class='tacoPrice' tacoValue ='" + prevOrderTotal + "'>$"+prevOrderTotal+"</span><div class='tacoDetails'>''</div></span><br>");
@@ -606,6 +639,8 @@ function addOrderPrevious(){
     $("#paySuccess").css("display", "none");
 }
 
+
+//Creates an order.
 function createOrder(){
     var prevOrders = $(".prevOrder")
     var prevTacoDetails = $(".tacoDetails .prevTaco");
@@ -746,11 +781,12 @@ function createOrder(){
     order.price = price;
     
     order = JSON.stringify(order);
-    console.log(order);
     return order;
 
 }
 
+
+//Signs in
 function signIn(){
     event.preventDefault();
     $.ajax({
@@ -761,7 +797,6 @@ function signIn(){
                 password: $("#signInPass").val()
             },
             success: function(json){
-                console.log(json);
                 if(json === null){
                     alert("The information entered was not correct. Try Again.");
                 }
@@ -783,6 +818,8 @@ function signIn(){
     });
 }
 
+
+//Signs out.
 function signout(){
     $.ajax({
             type: "POST",
@@ -794,9 +831,8 @@ function signout(){
 
 }
 
-
+//Calculates the previous order.
 function calculatePreviousOrder(){
-        //get userId from database.
 
 
         var orderId;
@@ -806,11 +842,9 @@ function calculatePreviousOrder(){
             if(json !== 'null'){
                 json = JSON.parse(json);
                 id = json.ID;
-                console.log(id);
                 $.ajax({url:"api/PreviousOrders/" + id, success: function(json){
 
             json = JSON.parse(json);
-            console.log(json);
             orderId = json.OrderId;
             orderId = orderId[0].OrderId;
             if(orderId === 'null'){
@@ -1002,6 +1036,5 @@ function calculatePreviousOrder(){
                 return;
             }
         }});
-        console.log(id);
         
 }

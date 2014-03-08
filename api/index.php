@@ -322,8 +322,11 @@ function login() {
 		$stmt->bindParam("email", $email);
 		$stmt->execute();
 		$hashedPassword = $stmt->fetchObject();
-		
-		if(md5($password) == $hashedPassword->Password) {
+		if(empty($hashedPassword->Password))
+        {
+            echo "null";
+        }
+		else if(md5($password) == $hashedPassword) {
 			$_SESSION['loggedin'] = true;
             $query = "SELECT UserId FROM Users WHERE EmailAddress=:email";
             $stmt2 = $db->prepare($query);
