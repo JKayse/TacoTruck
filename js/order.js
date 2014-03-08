@@ -797,7 +797,7 @@ function signIn(){
                 password: $("#signInPass").val()
             },
             success: function(json){
-                if(json === null){
+                if(json === "null"){
                     alert("The information entered was not correct. Try Again.");
                 }
                 else{

@@ -7,7 +7,7 @@ $(document).ready(function() {
     $(document).on('click', "#homepage", goToHomePage);
     $(document).on('click', "#guestOrder", goToOrderPage);
     $(document).on('click', "#locations", goToMap);
-    $(document).on('click', "#signUp", signUp);
+    $(document).on('submit', "#signUpform", signUp);
     $(document).on('submit', "#signInArea", signIn);
     $(document).on('click', "header #signedIn a", signout);
 
@@ -43,40 +43,52 @@ function goToMap(){
     window.location = "map.html";
 }
 
-function signUp(){
-    var password = document.getElementById("password").value;
-    var cpassword = document.getElementById("confirmPass").value;
+function signUp(event){
+    event.preventDefault();
+    var password = $("#password").val();
+    var cpassword = $("#confirmPassword").val();
 
     if(password !== cpassword){
         alert("Passwords do not match. Try again.");
+        return;
     }
     else{
         $.ajax({
             type: "POST",
-            url: "api/AddUser",
+            url: "api/Users",
             data: {
-                givenName: $("#givenName").val(),
-                surname: $("#surname").val(),
-                emailAddress: $("#email").val(),
+                firstname: $("#givenName").val(),
+                lastname: $("#surname").val(),
+                email: $("#email").val(),
                 password: $("#password").val(),
-                cc_provider: $("#ccProvider").val(),
-                cc_number: $("#ccNumber").val(),
+                ccprovider: $("#ccProvider").val(),
+                ccnumber: $("#ccNumber").val(),
             },
             success:function(json){
-            if(json === null){
-                alert("Please enter valid information. Try again.");
-            }
-            else{
-                json = JSON.parse(json);
+                $.ajax({
+                    type: "POST",
+                    url: "api/Login",
+                    data: {
+                        email: $("#email").val(),
+                        password: $("#password").val()
+                    },
+                    success: function(json){
+                       window.location = "orderpage.html";
+                        
+                    }
+            });
                 $("#email").val("");
                 $("#password").val("");
+                $("#surname").val("");
+                $("#givenName").val("");
+                $("#confirmPassword").val("");
+                $("#ccNumber").val("");
+                $("#ccProvider #Visa").prop("selected",true);
                 $("#signIn").css("display", "none");
                 $("#signedIn").css("display", "block");
-                addUser();
-            }
+                
         }});
     }
-    window.location = "orderpage.html";
 }
 
 function signIn(){
@@ -96,6 +108,7 @@ function signIn(){
                 else{
                     $("#email").val("");
                     $("#password").val("");
+
                     window.location = "orderpage.html";
 
                 }

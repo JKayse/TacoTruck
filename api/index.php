@@ -298,6 +298,7 @@ function addUser()
 
 		$stmt->execute();
 		$db = null;
+
 	}
 	catch(PDOException $e) 
 	{
