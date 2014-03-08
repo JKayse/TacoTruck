@@ -317,12 +317,14 @@ function login() {
 		$stmt->bindParam("email", $email);
 		$stmt->execute();
 		$hashedPassword = $stmt->fetchObject();
+		echo "<br>Test: " $hashedPassword;
 		
 		if(crypt($password) == $hashedPassword) {
 			$_SESSION['loggedin'] = true;
 			$query = $db->prepare("SELECT UserId FROM Users WHERE EmailAddress=:email")->bindParam("email", $email);
 			$query->execute();
-			$_SESSION['userId'] = $query->fetchAll(PDO::FETCH_OBJ);
+			//$_SESSION['userId'] = $query->fetchObject();
+			echo "<br>Test: " $query->fetchObject();
 			$_SESSION['email'] = $email;
 		} else {
 			echo "<br>Your Password: " . $password;
