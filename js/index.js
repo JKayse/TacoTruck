@@ -25,7 +25,14 @@ function goToMap(){
 }
 
 function signUp(){
-    $.ajax({
+    var password = document.getElementById("password").value;
+    var cpassword = document.getElementById("confirmPass").value;
+
+    if(password !== cpassword){
+        alert("Passwords do not match. Try again.");
+    }
+    else{
+        $.ajax({
             type: "POST",
             url: "api/AddUser",
             data: {
@@ -50,7 +57,8 @@ function signUp(){
                 $("#signedIn").css("display", "block");
                 addUser();
             }
-    });
+            }
+    }});
     
     window.location = "orderpage.html";
 }
