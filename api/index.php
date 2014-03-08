@@ -317,7 +317,7 @@ function login() {
 		$stmt = $db->prepare($sql);
 		$stmt->bindParam("email", $email);
 		$stmt->execute();
-		$hashedPassword = $stmt->fetchAll(PDO::FETCH_OBJ);
+		$hashedPassword = $stmt->fetchObject();
 		
 		if(crypt($password) == $hashedPassword) {
 			$_SESSION['loggedin'] = true;
