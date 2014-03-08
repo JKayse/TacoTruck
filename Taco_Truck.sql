@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 05, 2014 at 10:42 PM
+-- Generation Time: Mar 08, 2014 at 03:56 AM
 -- Server version: 5.5.35-0ubuntu0.13.10.2
 -- PHP Version: 5.5.3-1ubuntu2.2
 
@@ -292,7 +292,7 @@ CREATE TABLE IF NOT EXISTS `Orders` (
   `Date` datetime NOT NULL,
   `Total` varchar(50) NOT NULL,
   PRIMARY KEY (`OrderId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=30 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=32 ;
 
 --
 -- Dumping data for table `Orders`
@@ -327,7 +327,9 @@ INSERT INTO `Orders` (`OrderId`, `UserId`, `Date`, `Total`) VALUES
 (26, 6, '2013-05-22 00:51:56', '$13.30'),
 (27, 7, '2014-02-28 12:10:06', '$1.69 '),
 (28, 8, '2014-01-16 14:24:49', '$56.42'),
-(29, 9, '2013-03-21 09:28:10', '$15.94');
+(29, 9, '2013-03-21 09:28:10', '$15.94'),
+(30, 1, '2014-03-07 06:12:14', '$143.15'),
+(31, 1, '2014-03-07 06:12:29', '$143.15');
 
 -- --------------------------------------------------------
 
@@ -340,12 +342,13 @@ CREATE TABLE IF NOT EXISTS `Users` (
   `GivenName` varchar(50) NOT NULL,
   `Surname` varchar(50) NOT NULL,
   `EmailAddress` varchar(40) NOT NULL,
-  `Password` varchar(20) NOT NULL,
+  `Password` varchar(100) NOT NULL,
   `TelephoneNumber` varchar(12) NOT NULL,
   `CC_Provider` varchar(30) NOT NULL,
   `CC_Number` varchar(20) NOT NULL,
-  PRIMARY KEY (`UserId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+  PRIMARY KEY (`UserId`),
+  UNIQUE KEY `EmailAddress` (`EmailAddress`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
 
 --
 -- Dumping data for table `Users`
