@@ -15,7 +15,7 @@ $(document).ready(function() {
             if(json !== 'null'){
                 json = JSON.parse(json);
                 var email = json.Email;
-                $("#signedIn h2").html("Welcome, " + email);
+                $("#signedIn h2").html("Welcome!");
                 $("#signInEmail").val("");
                 $("#signInPass").val("");
                 $("#orderPrevious").css("display", "block");
