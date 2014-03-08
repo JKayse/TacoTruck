@@ -58,8 +58,6 @@ $(document).ready(function() {
     $(document).on('submit', "#signInArea", signIn);
     $.ajax({url:"api/LoginStatus", success: function(json){
             if(json !== 'null'){
-                json = JSON.parse(json);
-                var email = json.Email;
                 $("#signedIn h2").html("Welcome!");
                 $("#signInEmail").val("");
                 $("#signInPass").val("");
@@ -130,7 +128,6 @@ function signIn(){
                     $("#orderPrevious").css("display", "block");
                     $("#signIn").css("display", "none");
                     $("#signedIn").css("display", "block");
-                    var email = json.Email;
                     $("#signedIn h2").html("Welcome!");
 
                 }

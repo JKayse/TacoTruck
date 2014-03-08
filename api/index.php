@@ -327,7 +327,7 @@ function login() {
         {
             echo "null";
         }
-		else if(md5($password) == $hashedPassword) {
+		else if(md5($password) == $hashedPassword->Password) {
 			$_SESSION['loggedin'] = true;
             $query = "SELECT UserId FROM Users WHERE EmailAddress=:email";
             $stmt2 = $db->prepare($query);
