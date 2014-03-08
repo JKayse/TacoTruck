@@ -523,23 +523,36 @@ function payPopup(){
         $("#payment").css("display","block");
         $("#payInfo").css("display","block");
 
-        var total = $("#totalPrice").attr("price");
-        $("#paymentTotal").html("Your order comes out to: $" + total);
-        $.ajax({url:"api/Payment/1", success: function(json){
-        json = JSON.parse(json);
-        var userInfo = json.Payment;
-        var fName = userInfo[0].GivenName;
-        var lName = userInfo[0].SurName;
-        var providerName = userInfo[0].CC_Provider;
-        var number = userInfo[0].CC_Number;
-        var twoInputs = $("#giveMeMoney input");
+        $.ajax({url:"api/LoginStatus", success: function(json){
+            if(json !== 'null'){
+                json = JSON.parse(json);
+                var id = json.ID;
+                var total = $("#totalPrice").attr("price");
+                $("#paymentTotal").html("Your order comes out to: $" + total);
+                $.ajax({url:"api/Payment/" + id, success: function(json){
+                json = JSON.parse(json);
+                var userInfo = json.Payment;
+                var fName = userInfo[0].GivenName;
+                var lName = userInfo[0].SurName;
+                var providerName = userInfo[0].CC_Provider;
+                var number = userInfo[0].CC_Number;
+                var twoInputs = $("#giveMeMoney input");
 
-        $("#provider option[value='" + providerName + "']").prop('selected',true);
-        twoInputs.eq(0).val(userInfo[0].GivenName);
-        twoInputs.eq(1).val(userInfo[0].SurName);
-        $("#number").val(userInfo[0].CC_Number);
+                $("#provider option[value='" + providerName + "']").prop('selected',true);
+                twoInputs.eq(0).val(userInfo[0].GivenName);
+                twoInputs.eq(1).val(userInfo[0].SurName);
+                $("#number").val(userInfo[0].CC_Number);
 
-    }});
+            }});
+                
+            }
+            else{
+                return;
+            }
+        }});   
+
+
+        
 
     }
     else{
