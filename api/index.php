@@ -146,7 +146,7 @@ function addOrder()
     	date_default_timezone_set('America/Chicago');
     	$date = date('Y-m-d h:i:s');
         $price = $Order["price"];
-    	$userId = 12;
+    	$userId = 11;
 
     	$sql = "INSERT INTO ORDERS (UserId, Date, Total) VALUES ('$userId', '$date', 		'$price')";
     	$stmt = $db->query($sql);  
@@ -258,10 +258,11 @@ function getMenuItem($ItemType)
 
 /**
 * A function to check whether or not the user is logged in
+* @return JSON The email and id of the user logged in.
 */
 function getLoginStatus() {
 	if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
-		return true;
+		echo '{"Email": "' . $_SESSION['email'] . '", "ID": ' . $_SESSION['userId'] . '}';
 	} else {
 		return false;
 	}
@@ -277,7 +278,7 @@ function addUser()
 	$givenName = Slim::getInstance()->request()->post('firstname');
 	$surname = Slim::getInstance()->request()->post('lastname');
 	$emailAddress = Slim::getInstance()->request()->post('email');
-	$password = crypt(Slim::getInstance()->request()->post('password'));
+	$password = md5(Slim::getInstance()->request()->post('password'));
 	$cc_provider = Slim::getInstance()->request()->post('ccprovider');
 	$cc_number = Slim::getInstance()->request()->post('ccnumber');
 	
@@ -320,40 +321,19 @@ function login() {
 		$stmt->bindParam("email", $email);
 		$stmt->execute();
 		$hashedPassword = $stmt->fetchObject();
-        echo "<br>Test: " . $hashedPassword->Password;
 		
-		if(crypt($password) == $hashedPassword) {
+		if(md5($password) == $hashedPassword->Password) {
 			$_SESSION['loggedin'] = true;
-			$query = $db->prepare("SELECT UserId FROM Users WHERE EmailAddress=:email")->bindParam("email", $email);
-			$query->execute();
-			$_SESSION['userId'] = $query->fetchObject();
-			echo "<br>Test: " . $query->fetchObject();
+            $query = "SELECT UserId FROM Users WHERE EmailAddress=:email";
+            $stmt2 = $db->prepare($query);
+            $stmt2->bindParam("email", $email);
+			$stmt2->execute();
+			$_SESSION['userId'] = $stmt2->fetchObject()->UserId;
+			echo "<br>Test: " . $stmt2->fetchObject();
 			$_SESSION['email'] = $email;
-		} else {
-			echo "<br>Your Password: " . $password;
-			echo "<br>Your Hashed Password: " . crypt($password);
-			echo "<br>Correct Hashed Password: " . $hashedPassword->Password;
 		}
 	} catch(PDOException $e) {
 		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
-	}
-
-	if(isset($_SESSION['loggedin']) == true) {
-		echo "<br>User is logged in!";
-	} else {
-		echo "<br>User is NOT logged in!";
-	}
-	
-	if(isset($_SESSION['userId'])) {
-		echo "<br>UserId is set!";
-	} else {
-		echo "<br>UserId is NOT set!";
-	}
-	
-	if(isset($_SESSION['email'])) {
-		echo "<br>Email is set!";
-	} else {
-		echo "<br>Email is NOT set!";
 	}
 }
 
@@ -361,9 +341,7 @@ function login() {
 * A function to log the user out
 */
 function logout() {
-	$_SESSION['loggedin'] = false;
-	$_SESSION['userId'] = NULL;
-	$_SESSION['email'] = NULL;
+	session_destroy();
 }
 
 /**
@@ -372,7 +350,7 @@ function logout() {
 function getConnection() {
 	$dbhost="localhost";
 	$dbuser="root";
-	$dbpass="";
+	$dbpass="halomasterchief";
 	$dbname="Taco_Truck";
 	$dbh = new PDO("mysql:host=$dbhost;dbname=$dbname", $dbuser, $dbpass);	
 	$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
