@@ -781,7 +781,7 @@ function signout(){
 function calculatePreviousOrder(){
         //get userId from database.
 
-        $.ajax({url:"api/PreviousOrders/1", success: function(json){
+        $.ajax({url:"api/PreviousOrders/11", success: function(json){
         json = JSON.parse(json);
         var orderId = json.OrderId;
         var id = orderId[0].OrderId;
