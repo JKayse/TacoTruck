@@ -38,7 +38,6 @@ function signUp(){
             data: {
                 givenName: $("#givenName").val(),
                 surname: $("#surname").val(),
-                givenName: $("#givenName").val(),
                 emailAddress: $("#email").val(),
                 password: $("#password").val(),
                 cc_provider: $("#ccProvider").val(),
@@ -50,8 +49,8 @@ function signUp(){
             }
             else{
                 json = JSON.parse(json);
-                $("#signInEmail").val("");
-                $("#signInPass").val("");
+                $("#email").val("");
+                $("#password").val("");
                 $("#signIn").css("display", "none");
                 $("#signedIn").css("display", "block");
                 addUser();
