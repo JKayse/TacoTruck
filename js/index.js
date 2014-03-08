@@ -52,7 +52,6 @@ function signUp(){
                 json = JSON.parse(json);
                 $("#signInEmail").val("");
                 $("#signInPass").val("");
-                $("#orderPrevious").css("display", "block");
                 $("#signIn").css("display", "none");
                 $("#signedIn").css("display", "block");
                 addUser();
