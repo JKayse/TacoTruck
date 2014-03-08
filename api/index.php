@@ -316,7 +316,7 @@ function login() {
 		$stmt = $db->prepare($sql);
 		$stmt->bindParam("email", $email);
 		$stmt->execute();
-		$hashedPassword = $stmt->fetchObject();
+		$hashedPassword = implode($stmt->fetchObject());
 		echo "<br>Test: " $hashedPassword;
 		
 		if(crypt($password) == $hashedPassword) {
@@ -324,7 +324,7 @@ function login() {
 			$query = $db->prepare("SELECT UserId FROM Users WHERE EmailAddress=:email")->bindParam("email", $email);
 			$query->execute();
 			//$_SESSION['userId'] = $query->fetchObject();
-			echo "<br>Test: " $query->fetchObject();
+			echo "<br>Test: " . implode($query->fetchObject());
 			$_SESSION['email'] = $email;
 		} else {
 			echo "<br>Your Password: " . $password;
