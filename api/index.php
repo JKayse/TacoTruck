@@ -146,7 +146,7 @@ function addOrder()
 	date_default_timezone_set('America/Chicago');
 	$date = date('Y-m-d h:i:s');
 	$price = $Order['price'];
-	$userId = $_SESSION['userId'];
+	$userId = 11;
 
 	$sql = "INSERT INTO ORDERS (UserId, Date, Total) VALUES ('$userId', '$date', 		'$price')";
 	$stmt = $db->query($sql);  
@@ -160,7 +160,7 @@ function addOrder()
 			$stmt = $db->query($sql);
 			$TacoFixinIdArray[] = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
 		}
-		$quantity = implode($type['quantity']);
+		$quantity = $type['quantity'];
 		$sql = "INSERT INTO OrderItem (OrderId, Quantity) VALUES ('$OrderId', 			'$quantity')";
 		$stmt = $db->query($sql);
 		$sql2 = "SELECT OrderItemId FROM OrderItem WHERE OrderId = '$OrderId' AND 			Quantity = '$quantity'";
@@ -316,20 +316,20 @@ function login() {
 		$stmt = $db->prepare($sql);
 		$stmt->bindParam("email", $email);
 		$stmt->execute();
-		$hashedPassword = implode($stmt->fetchObject());
-		echo "<br>Test: " $hashedPassword;
+		$hashedPassword = $stmt->fetchObject();
+        echo "<br>Test: " . $hashedPassword->Password;
 		
 		if(crypt($password) == $hashedPassword) {
 			$_SESSION['loggedin'] = true;
 			$query = $db->prepare("SELECT UserId FROM Users WHERE EmailAddress=:email")->bindParam("email", $email);
 			$query->execute();
-			//$_SESSION['userId'] = $query->fetchObject();
-			echo "<br>Test: " . implode($query->fetchObject());
+			$_SESSION['userId'] = $query->fetchObject();
+			echo "<br>Test: " . $query->fetchObject();
 			$_SESSION['email'] = $email;
 		} else {
 			echo "<br>Your Password: " . $password;
 			echo "<br>Your Hashed Password: " . crypt($password);
-			echo "<br>Correct Hashed Password: " . $hashedPassword;
+			echo "<br>Correct Hashed Password: " . $hashedPassword->Password;
 		}
 	} catch(PDOException $e) {
 		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
