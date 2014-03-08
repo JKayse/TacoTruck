@@ -676,7 +676,7 @@ function createOrder(){
         var taco = {};
         var items = curTacoDetails.eq(i).children(".itemList");
         var quantity = curTacoDetails.eq(i).children(".quantity").val();
-        
+        quantity = parseFloat(quantity);
 
         tortilla = items.attr("tortilla");
         toppings.push(tortilla);

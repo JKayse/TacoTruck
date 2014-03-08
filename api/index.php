@@ -140,38 +140,41 @@ function getOrder($OrderId){
 function addOrder()
 {
 	try {
-	$request = Slim::getInstance()->request();
-	$Order = json_decode($request->getBody(), true);
-	$db = getConnection();
-	date_default_timezone_set('America/Chicago');
-	$date = date('Y-m-d h:i:s');
-	$price = $Order['price'];
-	$userId = 11;
+    	$request = Slim::getInstance()->request();
+    	$Order = json_decode($request->getBody(), true);
+    	$db = getConnection();
+    	date_default_timezone_set('America/Chicago');
+    	$date = date('Y-m-d h:i:s');
+    	$price = $Order['price'];
+    	$userId = 11;
 
-	$sql = "INSERT INTO ORDERS (UserId, Date, Total) VALUES ('$userId', '$date', 		'$price')";
-	$stmt = $db->query($sql);  
-	$sql2 = "SELECT OrderId FROM Orders WHERE UserId = '$userId'AND Date = '$date' AND 			Total = '$price'";
-	$stmt = $db->query($sql2);
-	$OrderId = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
-	foreach($Order['tacos'] as $type) {
-		$TacoFixinIdArray = null;
-		foreach($type['toppings'] as $topping) {
-			$sql = "SELECT TacoFixinId FROM MENU WHERE Name = '$topping'";
-			$stmt = $db->query($sql);
-			$TacoFixinIdArray[] = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
-		}
-		$quantity = $type['quantity'];
-		$sql = "INSERT INTO OrderItem (OrderId, Quantity) VALUES ('$OrderId', 			'$quantity')";
-		$stmt = $db->query($sql);
-		$sql2 = "SELECT OrderItemId FROM OrderItem WHERE OrderId = '$OrderId' AND 			Quantity = '$quantity'";
-		$stmt = $db->query($sql2);
-		$OrderItemId = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);	
-		foreach($TacoFixinIdArray as $val){
-			$sql = "INSERT INTO OrderItemDetails (OrderItemId, TacoFixinId) VALUES
-				('$OrderItemId','$val')";
-			$stmt = $db->query($sql);
-		}	
-	}
+    	$sql = "INSERT INTO ORDERS (UserId, Date, Total) VALUES ('$userId', '$date', 		'$price')";
+    	$stmt = $db->query($sql);  
+    	$sql2 = "SELECT OrderId FROM Orders WHERE UserId = '$userId'AND Date = '$date' AND 			Total = '$price'";
+    	$stmt = $db->query($sql2);
+    	$OrderId = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
+    	foreach($Order['tacos'] as $type) {
+    		$TacoFixinIdArray = null;
+    		foreach($type['toppings'] as $topping) {
+    			$sql = "SELECT TacoFixinId FROM MENU WHERE Name = '$topping'";
+    			$stmt = $db->query($sql);
+    			$TacoFixinIdArray[] = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
+    		}
+    		$quantity = $type['quantity'];
+            $OrderIdNew =  $OrderId[0];
+            $stmt3 = $db->query("SHOW TABLE STATUS LIKE 'OrderItem'");
+            $orderitemstatus = $stmt3->fetchAll(PDO::FETCH_COLUMN, 10);
+            $orderItemID = $orderitemstatus[0];
+    	    $sql = "INSERT INTO OrderItem (OrderId, Quantity) VALUES ('$OrderIdNew', 			'$quantity')";
+    		$stmt = $db->query($sql);
+    		foreach($TacoFixinIdArray as $val){
+                $valNew = $val[0];
+    			$sql = "INSERT INTO OrderItemDetails (OrderItemId, TacoFixinId) VALUES
+    				('$orderItemID','$valNew')";
+    			$stmt = $db->query($sql);
+                
+    		}	
+    	}
 	} catch(PDOException $e) {
 		echo '{"error":{"text":'. $e->getMessage() . '}}';
 	}
