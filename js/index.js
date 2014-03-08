@@ -55,9 +55,8 @@ function signUp(){
                 $("#signedIn").css("display", "block");
                 addUser();
             }
-            }
-    }});
-    
+        }});
+    }
     window.location = "orderpage.html";
 }
 
