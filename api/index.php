@@ -141,19 +141,19 @@ function addOrder()
 {
 	try {
     	$request = Slim::getInstance()->request();
-    	$Order = json_decode($request->getBody(), true);
+    	$Order = json_decode($request->post('order'), true);
     	$db = getConnection();
     	date_default_timezone_set('America/Chicago');
     	$date = date('Y-m-d h:i:s');
-    	$price = $Order['price'];
-    	$userId = $_SESSION['userId'];
+        $price = $Order["price"];
+    	$userId = 12;
 
     	$sql = "INSERT INTO ORDERS (UserId, Date, Total) VALUES ('$userId', '$date', 		'$price')";
     	$stmt = $db->query($sql);  
     	$sql2 = "SELECT OrderId FROM Orders WHERE UserId = '$userId'AND Date = '$date' AND 			Total = '$price'";
     	$stmt = $db->query($sql2);
     	$OrderId = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
-    	foreach($Order['tacos'] as $type) {
+    	foreach($Order["tacos"] as $type) {
     		$TacoFixinIdArray = null;
     		foreach($type['toppings'] as $topping) {
     			$sql = "SELECT TacoFixinId FROM MENU WHERE Name = '$topping'";
@@ -372,7 +372,7 @@ function logout() {
 function getConnection() {
 	$dbhost="localhost";
 	$dbuser="root";
-	$dbpass="halomasterchief";
+	$dbpass="";
 	$dbname="Taco_Truck";
 	$dbh = new PDO("mysql:host=$dbhost;dbname=$dbname", $dbuser, $dbpass);	
 	$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

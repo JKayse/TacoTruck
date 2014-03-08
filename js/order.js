@@ -548,7 +548,6 @@ function finalizeOrder(event){
             type: "POST",
             url: "api/Orders",
             data: {
-
                 order: createOrder()
             }
     });
@@ -733,6 +732,7 @@ function createOrder(){
     order.price = price;
     
     order = JSON.stringify(order);
+    console.log(order);
     return order;
 
 }
