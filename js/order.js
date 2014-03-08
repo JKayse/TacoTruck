@@ -35,6 +35,9 @@ $(document).ready(function() {
     
     $.ajax({url:"api/LoginStatus", success: function(json){
             if(json !== 'null'){
+                json = JSON.parse(json);
+                var email = json.Email;
+                $("#signedIn h2").html("Welcome, " + email);
                 $("#signInEmail").val("");
                 $("#signInPass").val("");
                 $("#orderPrevious").css("display", "block");
@@ -765,11 +768,13 @@ function signIn(){
                 else{
                     
                     json = JSON.parse(json);
+                    var email = json.Email;
                     $("#signInEmail").val("");
                     $("#signInPass").val("");
                     $("#orderPrevious").css("display", "block");
                     $("#signIn").css("display", "none");
                     $("#signedIn").css("display", "block");
+                    $("#signedIn h2").html("Welcome, " + email);
                     calculatePreviousOrder();
 
                 }

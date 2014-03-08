@@ -8,8 +8,27 @@ $(document).ready(function() {
     $(document).on('click', "#guestOrder", goToOrderPage);
     $(document).on('click', "#locations", goToMap);
     $(document).on('click', "#signUp", signUp);
-    $(document).on('click', "header #signIn button", signIn);
-    $(document).on('click', "header #signedIn a", signOut);
+    $(document).on('submit', "#signInArea", signIn);
+    $(document).on('click', "header #signedIn a", signout);
+
+    $.ajax({url:"api/LoginStatus", success: function(json){
+            if(json !== 'null'){
+                json = JSON.parse(json);
+                var email = json.Email;
+                $("#signedIn h2").html("Welcome, " + email);
+                $("#signInEmail").val("");
+                $("#signInPass").val("");
+                $("#orderPrevious").css("display", "block");
+                $("#signIn").css("display", "none");
+                $("#signedIn").css("display", "block");
+                calculatePreviousOrder();
+                
+            }
+            else{
+                return;
+            }
+        }});   
+
 });
 
 function goToHomePage(){
@@ -62,7 +81,7 @@ function signUp(){
 
 function signIn(){
     event.preventDefault();
-    /*$.ajax({
+    $.ajax({
             type: "POST",
             url: "api/Login",
             data: {
@@ -70,18 +89,22 @@ function signIn(){
                 password: $("#signInPass").val()
             },
             success: function(json){
+                console.log(json);
                 if(json === null){
                     alert("The information entered was not correct. Try Again.");
                 }
                 else{
+                    $("#email").val("");
+                    $("#password").val("");
                     window.location = "orderpage.html";
 
                 }
 
             }
     });
-    */
 }
+
+
 
 function signout(){
     $.ajax({

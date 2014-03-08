@@ -54,6 +54,23 @@ $(document).ready(function() {
     $("header").load("Header.html");
     $(document).on('click', "header img", goToHomePage);
     $(document).on('click', "header h1", goToHomePage);
+    $(document).on('click', "#signOut", signout);
+    $(document).on('submit', "#signInArea", signIn);
+    $.ajax({url:"api/LoginStatus", success: function(json){
+            if(json !== 'null'){
+                json = JSON.parse(json);
+                var email = json.Email;
+                $("#signedIn h2").html("Welcome, " + email);
+                $("#signInEmail").val("");
+                $("#signInPass").val("");
+                $("#orderPrevious").css("display", "block");
+                $("#signIn").css("display", "none");
+                $("#signedIn").css("display", "block");                
+            }
+            else{
+                return;
+            }
+        }});  
   
 
 
@@ -78,4 +95,46 @@ $(document).ready(function() {
 
 function goToHomePage(){
     window.location = "index.html";
+}
+
+function signout(){
+    $.ajax({
+            type: "POST",
+            url: "api/Logout",
+            success: function(){
+                $("#signIn").css("display", "block");
+                $("#signedIn").css("display", "none");
+            }});
+
+}
+
+function signIn(){
+    event.preventDefault();
+    $.ajax({
+            type: "POST",
+            url: "api/Login",
+            data: {
+                email: $("#signInEmail").val(),
+                password: $("#signInPass").val()
+            },
+            success: function(json){
+                console.log(json);
+                if(json === null){
+                    alert("The information entered was not correct. Try Again.");
+                }
+                else{
+                    
+                    json = JSON.parse(json);
+                    $("#signInEmail").val("");
+                    $("#signInPass").val("");
+                    $("#orderPrevious").css("display", "block");
+                    $("#signIn").css("display", "none");
+                    $("#signedIn").css("display", "block");
+                    var email = json.Email;
+                    $("#signedIn h2").html("Welcome, " + email);
+
+                }
+
+            }
+    });
 }
