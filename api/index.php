@@ -308,6 +308,7 @@ function addUser()
 /**
 * A function to check if the user entered the correct email and password.
 * If so, a cookie is created containing their username
+* @return JSON The userid and email.
 */
 function login() {
 	$email = Slim::getInstance()->request()->post('email');
